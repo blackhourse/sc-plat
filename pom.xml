@@ -20,8 +20,15 @@
         <swagger.mg.ui.version>1.0.6</swagger.mg.ui.version>
         <swagger.butler.version>2.0.1</swagger.butler.version>
         <knife4j.version>2.0.4</knife4j.version>
-
+        <hutool.version>5.1.4</hutool.version>
+        <userAgent.version>1.21</userAgent.version>
     </properties>
+    <modules>
+        <module>commons</module>
+        <module>sc-config</module>
+        <module>sc-gateway</module>
+        <module>sc-business</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -31,6 +38,11 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>${commons-beanutils.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -98,9 +110,18 @@
                 <artifactId>knife4j-micro-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
+            <!-- hutool java工具类库  -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${userAgent.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-    <modules>
-        <module>commons</module>
-    </modules>
+
 </project>

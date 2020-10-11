@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: sc-user-order
+server:
+  port: 6001
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
