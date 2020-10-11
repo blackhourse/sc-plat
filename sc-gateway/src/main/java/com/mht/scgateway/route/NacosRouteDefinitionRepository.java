@@ -12,7 +12,6 @@ import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.context.ApplicationEventPublisher;
-import reactor.core.CorePublisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -22,10 +21,9 @@ import java.util.concurrent.Executor;
 
 /**
  * nacos路由数据源
- *
  */
 @Slf4j
-public  class NacosRouteDefinitionRepository implements RouteDefinitionRepository {
+public class NacosRouteDefinitionRepository implements RouteDefinitionRepository {
     private static final String SCG_DATA_ID = "scg-routes";
     private static final String SCG_GROUP_ID = "SCG_GATEWAY";
 
@@ -42,7 +40,8 @@ public  class NacosRouteDefinitionRepository implements RouteDefinitionRepositor
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
         try {
-            String content = nacosConfigProperties.configServiceInstance().getConfig(SCG_DATA_ID, SCG_GROUP_ID,5000);
+            NacosConfigManager nacosConfigManager = new NacosConfigManager(nacosConfigProperties);
+            String content = nacosConfigManager.getConfigService().getConfig(SCG_DATA_ID, SCG_GROUP_ID, 5000);
             List<RouteDefinition> routeDefinitions = getListByStr(content);
             return Flux.fromIterable(routeDefinitions);
         } catch (NacosException e) {
