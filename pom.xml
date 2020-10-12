@@ -22,12 +22,18 @@
         <knife4j.version>2.0.4</knife4j.version>
         <hutool.version>5.1.4</hutool.version>
         <userAgent.version>1.21</userAgent.version>
+        <security-oauth2.version>2.3.8.RELEASE</security-oauth2.version>
+        <security-jwt.version>1.1.0.RELEASE</security-jwt.version>
+        <spring-social-security.version>1.1.6.RELEASE</spring-social-security.version>
+        <druid-starter>1.1.22</druid-starter>
+        <mybatis-plus-boot-starter.version>3.3.1</mybatis-plus-boot-starter.version>
     </properties>
     <modules>
         <module>commons</module>
         <module>sc-config</module>
         <module>sc-gateway</module>
         <module>sc-business</module>
+        <module>sc-uaa</module>
     </modules>
     <dependencies>
         <dependency>
@@ -120,6 +126,44 @@
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${userAgent.version}</version>
+            </dependency>
+            <!-- 加入spring security spring security oauth2的处理 -->
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${security-oauth2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-jwt</artifactId>
+                <version>${security-jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-security</artifactId>
+                <version>${spring-social-security.version}</version>
+            </dependency>
+            <!-- druid 官方 starter -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-starter}</version>
+            </dependency>
+            <!-- mybatis-plus start -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
