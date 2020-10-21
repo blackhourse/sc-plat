@@ -4,10 +4,3 @@ server:
 spring:
   application:
     name: uaa-server
-mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
-  #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.mht.common.model
-  global-config:
-    db-config:
-      id-type: auto

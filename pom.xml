@@ -14,6 +14,7 @@
         <spring-boot-dependencies.version>2.2.9.RELEASE</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>Hoxton.SR7</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2.2.1.RELEASE</spring-cloud-alibaba-dependencies.version>
+        <fastjson.version>1.2.70</fastjson.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger.ui.version>1.8.7</swagger.ui.version>
@@ -22,11 +23,6 @@
         <knife4j.version>2.0.4</knife4j.version>
         <hutool.version>5.1.4</hutool.version>
         <userAgent.version>1.21</userAgent.version>
-        <security-oauth2.version>2.3.8.RELEASE</security-oauth2.version>
-        <security-jwt.version>1.1.0.RELEASE</security-jwt.version>
-        <spring-social-security.version>1.1.6.RELEASE</spring-social-security.version>
-        <druid-starter>1.1.22</druid-starter>
-        <mybatis-plus-boot-starter.version>3.3.1</mybatis-plus-boot-starter.version>
     </properties>
     <modules>
         <module>commons</module>
@@ -34,11 +30,17 @@
         <module>sc-gateway</module>
         <module>sc-business</module>
         <module>sc-uaa</module>
+        <module>demo</module>
     </modules>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
@@ -126,44 +128,6 @@
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${userAgent.version}</version>
-            </dependency>
-            <!-- 加入spring security spring security oauth2的处理 -->
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>${security-oauth2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-jwt</artifactId>
-                <version>${security-jwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.social</groupId>
-                <artifactId>spring-social-security</artifactId>
-                <version>${spring-social-security.version}</version>
-            </dependency>
-            <!-- druid 官方 starter -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid-starter}</version>
-            </dependency>
-            <!-- mybatis-plus start -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-extension</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
