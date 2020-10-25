@@ -1,10 +1,11 @@
 package com.mht.rocketmq.controller;
 
+import com.mht.rocketmq.listener.TransactionListenerImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
-import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.client.producer.TransactionMQProducer;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class MQProducerController {
     public static final Logger LOGGER = LoggerFactory.getLogger(MQProducerController.class);
 
     @Autowired
-    DefaultMQProducer defaultMQProducer;
+    TransactionMQProducer defaultMQProducer;
 
     /**
      * 发送简单的MQ消息
@@ -39,6 +40,7 @@ public class MQProducerController {
         if (StringUtils.isEmpty(msg)) {
             return "success";
         }
+
         LOGGER.info("发送MQ消息内容：" + msg);
         Message sendMsg = new Message("TestTopic", "MyTag", msg.getBytes());
         // 默认3秒超时
