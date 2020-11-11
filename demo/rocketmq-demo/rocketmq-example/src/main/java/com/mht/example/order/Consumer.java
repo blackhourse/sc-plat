@@ -1,8 +1,12 @@
 package com.mht.example.order;
 
+import org.apache.rocketmq.client.ClientConfig;
+import org.apache.rocketmq.client.consumer.DefaultMQPullConsumer;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.*;
 import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.impl.consumer.RebalanceService;
+import org.apache.rocketmq.client.impl.factory.MQClientInstance;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 
@@ -28,9 +32,11 @@ public class Consumer {
      */
     private static void noOrder() throws MQClientException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("testMqConsumer");
-
+        DefaultMQPullConsumer defaultMQPullConsumer = new DefaultMQPullConsumer("");
         consumer.setNamesrvAddr("127.0.0.1:9876");
-
+        MQClientInstance mqClientInstance = new MQClientInstance(new ClientConfig(), 0, "");
+        RebalanceService rebalanceService = new RebalanceService(mqClientInstance);
+        rebalanceService.wakeup();
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
         consumer.subscribe("TopicTestOrder", "*");
@@ -87,5 +93,9 @@ public class Consumer {
         System.out.printf("Consumer Started.%n");
     }
 
+
+    private static void order2() {
+
+    }
 
 }

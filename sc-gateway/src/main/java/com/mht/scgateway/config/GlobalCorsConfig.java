@@ -1,0 +1,41 @@
+package com.mht.scgateway.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.util.pattern.PathPatternParser;
+
+/**
+ * @program: sc-plat
+ * 全局跨域配置
+ * 注意：前端从网关进行调用时需要配置
+ * @author: maht
+ * @create: 2020-11-03 14:14
+ **/
+@Configuration
+public class GlobalCorsConfig {
+    private static final String ALL = "*";
+
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Bean
+    public CorsWebFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        // cookie跨域
+        config.setAllowCredentials(Boolean.TRUE);
+        config.addAllowedMethod(ALL);
+        config.addAllowedOrigin(ALL);
+        config.addAllowedHeader(ALL);
+        // 配置前端js允许访问的自定义响应头
+        config.addExposedHeader("setToken");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsWebFilter(source);
+    }
+
+}

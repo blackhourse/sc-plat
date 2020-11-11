@@ -12,7 +12,6 @@
     <artifactId>commons</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>swagger-spring-boot-starter</module>
         <module>common-core</module>
     </modules>
 
