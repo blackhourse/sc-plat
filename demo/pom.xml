@@ -14,7 +14,7 @@
     <modules>
         <module>rocketmq-demo</module>
         <module>elasticsearch-demo</module>
-        <module>base-demo</module>
+        <module>st-demo</module>
     </modules>
 
 

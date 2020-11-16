@@ -31,7 +31,6 @@
     <modules>
         <module>commons</module>
         <module>sc-config</module>
-        <module>sc-gateway</module>
         <module>sc-business</module>
         <module>demo</module>
     </modules>
