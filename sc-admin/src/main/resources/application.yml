@@ -1,0 +1,19 @@
+server:
+  port: 9002
+spring:
+  profiles:
+    active: dev
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/sc-plat?serverTimezone=GMT%2B8&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&zeroDateTimeBehavior=CONVERT_TO_NULL
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+  configuration:
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true #开启下划线转驼峰
+    call-setters-on-nulls: true #map类型的取值能把null值也set进去
