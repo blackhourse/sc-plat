@@ -3,8 +3,11 @@ package com.mht.sc.scadmin.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mht.sc.scadmin.constant.CommonConstant;
+import com.mht.sc.scadmin.convert.SysUserConvert;
+import com.mht.sc.scadmin.dto.SysUserDto;
 import com.mht.sc.scadmin.entity.SysUser;
 import com.mht.sc.scadmin.enums.UserType;
+import com.mht.sc.scadmin.mapper.SysRoleUserMapper;
 import com.mht.sc.scadmin.mapper.SysUserMapper;
 import com.mht.sc.scadmin.service.SysUserService;
 import com.mht.sc.scadmin.util.Result;
@@ -28,9 +31,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private SysRoleUserMapper sysRoleUserMapper;
+
+
     @Transactional
     @Override
-    public Long saveOrUpdateUser(SysUser sysUser) {
+    public Long saveOrUpdateUser(SysUserDto sysUserDto) {
+        SysUser sysUser = SysUserConvert.MAPPER.convert(sysUserDto);
         if (sysUser.getId() == null) {
             if (StringUtils.isBlank(sysUser.getType())) {
                 sysUser.setType(UserType.BACKEND.name());
@@ -44,8 +52,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public Boolean delUser(Long id) {
+        sysRoleUserMapper.deleteUserRole(id, null);
         SysUser sysUser = new SysUser().setId(id).setIsDel(1);
-        return this.updateById(sysUser);
+
+//        LambdaUpdateWrapper<SysUser> updateWrapper = new LambdaUpdateWrapper<>();
+//        updateWrapper.eq(SysUser::getId, id).set(SysUser::getIsDel, 1);
+        baseMapper.updateById(sysUser);
+//        return this.update(updateWrapper);
+        return true;
     }
 
     @Transactional

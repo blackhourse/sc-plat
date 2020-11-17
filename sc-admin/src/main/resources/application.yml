@@ -14,6 +14,6 @@ spring:
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*Mapper.xml
   configuration:
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true #开启下划线转驼峰
     call-setters-on-nulls: true #map类型的取值能把null值也set进去

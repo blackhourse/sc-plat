@@ -49,7 +49,7 @@ public class SysMenuController {
     public static List<SysMenu> treeBuilder(List<SysMenu> sysMenus) {
         List<SysMenu> menus = new ArrayList<>();
         for (SysMenu sysMenu : sysMenus) {
-            if (ObjectUtils.equals(-1L, sysMenu.getParentId())) {
+            if (Objects.equals(-1L, sysMenu.getParentId())) {
                 menus.add(sysMenu);
             }
             for (SysMenu menu : sysMenus) {

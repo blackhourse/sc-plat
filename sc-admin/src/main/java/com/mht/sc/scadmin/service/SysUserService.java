@@ -1,6 +1,7 @@
 package com.mht.sc.scadmin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.mht.sc.scadmin.dto.SysUserDto;
 import com.mht.sc.scadmin.entity.SysUser;
 import com.mht.sc.scadmin.util.Result;
 
@@ -19,7 +20,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param sysUser
      * @return
      */
-    Long saveOrUpdateUser(SysUser sysUser);
+    Long saveOrUpdateUser(SysUserDto sysUser);
 
     /**
      * 删除

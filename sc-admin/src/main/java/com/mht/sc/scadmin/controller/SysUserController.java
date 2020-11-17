@@ -1,7 +1,9 @@
 package com.mht.sc.scadmin.controller;
 
 
-import com.mht.sc.scadmin.entity.SysUser;
+import com.mht.sc.scadmin.dto.SysUserDto;
+import com.mht.sc.scadmin.dto.SysUserEnableDto;
+import com.mht.sc.scadmin.dto.SysUserPwdDto;
 import com.mht.sc.scadmin.service.SysUserService;
 import com.mht.sc.scadmin.util.Result;
 import io.swagger.annotations.Api;
@@ -32,8 +34,8 @@ public class SysUserController {
 
     @PostMapping("/users/saveOrUpdate")
     @ApiOperation(value = "新增/修改用户")
-    public Result<Long> saveOrUpdate(@RequestBody SysUser sysUser) {
-        return Result.succeed(sysUserService.saveOrUpdateUser(sysUser));
+    public Result<Long> saveOrUpdate(@RequestBody SysUserDto sysUserDto) {
+        return Result.succeed(sysUserService.saveOrUpdateUser(sysUserDto));
     }
 
     /**
@@ -71,23 +73,22 @@ public class SysUserController {
      * 用户自己修改密码
      */
     @PostMapping(value = "/users/password")
-    public Result updatePassword(@RequestBody SysUser sysUser) {
-        if (checkAdmin(sysUser.getId())) {
+    public Result updatePassword(@RequestBody SysUserPwdDto sysUserPwdDto) {
+        if (checkAdmin(sysUserPwdDto.getId())) {
             return Result.failed(ADMIN_CHANGE_MSG);
         }
-        sysUserService.updatePassword(sysUser.getId(), sysUser.getOldPassword(), sysUser.getNewPassword());
-        return Result.succeed("修改成功");
+        return sysUserService.updatePassword(sysUserPwdDto.getId(), sysUserPwdDto.getOldPassword(), sysUserPwdDto.getNewPassword());
     }
 
     /**
      * 修改用户状态
      */
     @PostMapping(value = "/users/enable")
-    public Result updateEnable(@RequestBody SysUser sysUser) {
-        if (checkAdmin(sysUser.getId())) {
+    public Result updateEnable(@RequestBody SysUserEnableDto sysUserEnableDto) {
+        if (checkAdmin(sysUserEnableDto.getId())) {
             return Result.failed(ADMIN_CHANGE_MSG);
         }
-        sysUserService.updateEnable(sysUser.getId(), sysUser.getEnabled());
+        sysUserService.updateEnable(sysUserEnableDto.getId(), sysUserEnableDto.getEnabled());
         return Result.succeed("修改成功");
     }
 
