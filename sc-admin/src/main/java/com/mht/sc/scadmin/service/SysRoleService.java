@@ -1,9 +1,10 @@
 package com.mht.sc.scadmin.service;
 
+import com.mht.sc.scadmin.dto.SysRoleAddOrUpdateDto;
 import com.mht.sc.scadmin.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mht.sc.scadmin.util.PageResult;
-import com.mht.sc.scadmin.util.Result;
+import com.mht.sc.scadmin.util.CommonResult;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public interface SysRoleService extends IService<SysRole> {
     void saveRole(SysRole sysRole);
 
 
-    Result saveOrUpdateRole(SysRole sysRole);
+    CommonResult saveOrUpdateRole(SysRoleAddOrUpdateDto sysRole);
 
 
     /**

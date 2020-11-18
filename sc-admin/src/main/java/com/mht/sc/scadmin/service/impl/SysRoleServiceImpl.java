@@ -4,20 +4,25 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mht.sc.scadmin.convert.SysRoleConvert;
+import com.mht.sc.scadmin.dto.SysRoleAddOrUpdateDto;
 import com.mht.sc.scadmin.entity.SysRole;
 import com.mht.sc.scadmin.exception.BusinessException;
 import com.mht.sc.scadmin.mapper.SysRoleMapper;
 import com.mht.sc.scadmin.mapper.SysRoleMenuMapper;
 import com.mht.sc.scadmin.mapper.SysRoleUserMapper;
 import com.mht.sc.scadmin.service.SysRoleService;
+import com.mht.sc.scadmin.util.CommonResult;
 import com.mht.sc.scadmin.util.PageResult;
-import com.mht.sc.scadmin.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -65,13 +70,17 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     @Override
-    public Result saveOrUpdateRole(SysRole sysRole) {
+    public CommonResult saveOrUpdateRole(SysRoleAddOrUpdateDto sysRoleAddOrUpdateDto) {
+
+        SysRole sysRole = SysRoleConvert.MAPPER.convert(sysRoleAddOrUpdateDto);
+        Date date = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
         if (sysRole.getId() == null) {
+            sysRole.setCreateTime(date);
             this.saveRole(sysRole);
         } else {
             baseMapper.updateById(sysRole);
         }
-        return Result.succeed("操作成功");
+        return CommonResult.success("操作成功");
 
     }
 

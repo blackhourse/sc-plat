@@ -1,15 +1,17 @@
 package com.mht.sc.scadmin.controller;
 
 
-import com.mht.sc.scadmin.dto.SysUserDto;
-import com.mht.sc.scadmin.dto.SysUserEnableDto;
-import com.mht.sc.scadmin.dto.SysUserPwdDto;
+import com.mht.sc.scadmin.dto.*;
 import com.mht.sc.scadmin.service.SysUserService;
-import com.mht.sc.scadmin.util.Result;
+import com.mht.sc.scadmin.util.CommonPage;
+import com.mht.sc.scadmin.util.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 /**
  * <p>
@@ -31,11 +33,40 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
+    @ApiOperation("用户列表")
+    @PostMapping(value = "/SysUserList")
+    @ResponseBody
+    public CommonPage SysUserList(@Validated @RequestBody SysUserListDto sysUserListDto) {
+        return CommonPage.restPage(sysUserService.sysUserList(sysUserListDto));
+    }
+
+
+    @ApiOperation("获取验证码")
+    @GetMapping(value = "/getAuthCode")
+    @ResponseBody
+    public CommonResult<String> getAuthCode(@RequestParam String telephone) {
+        return CommonResult.success(sysUserService.generateAuthCode(telephone));
+    }
+
+    @ApiOperation("用户名-密码登录")
+    @PostMapping(value = "/login")
+    @ResponseBody
+    public CommonResult<String> login(@Validated @RequestBody SysUserLoginPwdDto sysUserLoginPwdDto) {
+        return CommonResult.success(sysUserService.login(sysUserLoginPwdDto));
+    }
+
+    @ApiOperation("手机号-验证码登录")
+    @PostMapping(value = "/loginPhone")
+    @ResponseBody
+    public CommonResult<String> loginPhone(@Validated @RequestBody SysUserLoginPhoneDto sysUserLoginPwdDto) {
+        return CommonResult.success(sysUserService.loginPhone(sysUserLoginPwdDto));
+    }
+
 
     @PostMapping("/users/saveOrUpdate")
     @ApiOperation(value = "新增/修改用户")
-    public Result<Long> saveOrUpdate(@RequestBody SysUserDto sysUserDto) {
-        return Result.succeed(sysUserService.saveOrUpdateUser(sysUserDto));
+    public CommonResult<Long> saveOrUpdate(@RequestBody SysUserDto sysUserDto) {
+        return CommonResult.success(sysUserService.saveOrUpdateUser(sysUserDto));
     }
 
     /**
@@ -45,12 +76,12 @@ public class SysUserController {
      */
     @GetMapping(value = "/users/{id}")
     @ApiOperation(value = "删除用户")
-    public Result delete(@PathVariable Long id) {
+    public CommonResult delete(@PathVariable Long id) {
         if (checkAdmin(id)) {
-            return Result.failed(ADMIN_CHANGE_MSG);
+            return CommonResult.failed(ADMIN_CHANGE_MSG);
         }
         sysUserService.delUser(id);
-        return Result.succeed("删除成功");
+        return CommonResult.success("删除成功");
     }
 
     /**
@@ -61,21 +92,21 @@ public class SysUserController {
      */
     @GetMapping(value = "/users/{id}/password")
     @ApiOperation(value = "重置密码")
-    public Result resetPassword(@PathVariable Long id) {
+    public CommonResult resetPassword(@PathVariable Long id) {
         if (checkAdmin(id)) {
-            return Result.failed(ADMIN_CHANGE_MSG);
+            return CommonResult.failed(ADMIN_CHANGE_MSG);
         }
         sysUserService.updatePassword(id, null, null);
-        return Result.succeed("修改成功");
+        return CommonResult.success("修改成功");
     }
 
     /**
      * 用户自己修改密码
      */
     @PostMapping(value = "/users/password")
-    public Result updatePassword(@RequestBody SysUserPwdDto sysUserPwdDto) {
+    public CommonResult updatePassword(@RequestBody SysUserPwdDto sysUserPwdDto) {
         if (checkAdmin(sysUserPwdDto.getId())) {
-            return Result.failed(ADMIN_CHANGE_MSG);
+            return CommonResult.failed(ADMIN_CHANGE_MSG);
         }
         return sysUserService.updatePassword(sysUserPwdDto.getId(), sysUserPwdDto.getOldPassword(), sysUserPwdDto.getNewPassword());
     }
@@ -84,12 +115,12 @@ public class SysUserController {
      * 修改用户状态
      */
     @PostMapping(value = "/users/enable")
-    public Result updateEnable(@RequestBody SysUserEnableDto sysUserEnableDto) {
+    public CommonResult updateEnable(@RequestBody SysUserEnableDto sysUserEnableDto) {
         if (checkAdmin(sysUserEnableDto.getId())) {
-            return Result.failed(ADMIN_CHANGE_MSG);
+            return CommonResult.failed(ADMIN_CHANGE_MSG);
         }
         sysUserService.updateEnable(sysUserEnableDto.getId(), sysUserEnableDto.getEnabled());
-        return Result.succeed("修改成功");
+        return CommonResult.success("修改成功");
     }
 
 
@@ -99,5 +130,18 @@ public class SysUserController {
     private boolean checkAdmin(long id) {
         return id == 1L;
     }
+
+
+    /**
+     * 管理后台给用户分配角色
+     *
+     * @param id
+     * @param roleIds
+     */
+    @PostMapping("/users/{id}/roles")
+    public void setRoleToUser(@PathVariable Long id, @RequestBody Set<Long> roleIds) {
+        sysUserService.setRoleToUser(id, roleIds);
+    }
+
 }
 

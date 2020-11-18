@@ -1,6 +1,6 @@
 package com.mht.sc.scadmin.exception;
 
-import com.mht.sc.scadmin.util.Result;
+import com.mht.sc.scadmin.util.CommonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,13 +21,13 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public Result handleException(Exception e) {
+    public CommonResult handleException(Exception e) {
         return defHandler("未知异常", e);
     }
 
-    private Result defHandler(String msg, Exception e) {
+    private CommonResult defHandler(String msg, Exception e) {
         log.error(msg, e);
-        return Result.failed(msg);
+        return CommonResult.failed(msg);
     }
 
 }

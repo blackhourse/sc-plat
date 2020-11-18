@@ -1,7 +1,10 @@
 package com.mht.sc.scadmin.service;
 
+import com.mht.sc.scadmin.dto.SysGrantedMenuRoleDto;
+import com.mht.sc.scadmin.dto.SysMenuAddOrUpdateDto;
 import com.mht.sc.scadmin.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.mht.sc.scadmin.entity.SysRole;
 
 import java.util.List;
 import java.util.Set;
@@ -16,6 +19,14 @@ import java.util.Set;
  */
 public interface SysMenuService extends IService<SysMenu> {
 
+
+    /**
+     * 添加/修改菜单
+     * @param sysMenuAddOrUpdateDto
+     * @return
+     */
+    SysMenu addOrUpdate(SysMenuAddOrUpdateDto sysMenuAddOrUpdateDto);
+
     /**
      * 查询所有菜单
      */
@@ -28,10 +39,9 @@ public interface SysMenuService extends IService<SysMenu> {
 
     /**
      * 角色分配菜单
-     * @param roleId
-     * @param menuIds
+     * @param sysGrantedMenuRoleDto
      */
-    void setMenuToRole(Long roleId, Set<Long> menuIds);
+    void setMenuToRole(SysGrantedMenuRoleDto sysGrantedMenuRoleDto);
 
     /**
      * 角色菜单列表
@@ -47,6 +57,13 @@ public interface SysMenuService extends IService<SysMenu> {
      * @return
      */
     List<SysMenu> findByRoles(Set<Long> roleIds, Integer type);
+
+    /**
+     * 获取用户的角色
+     * @param userId
+     * @return
+     */
+    List<SysRole> findUserRoles(Long userId);
 
     /**
      * 角色菜单列表

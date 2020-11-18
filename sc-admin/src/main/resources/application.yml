@@ -9,6 +9,12 @@ spring:
       username: root
       password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password:  # Redis服务器连接密码（默认为空）
+    timeout: 3000ms # 连接超时时间（毫秒）
 
 
 mybatis-plus:
@@ -17,3 +23,14 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true #开启下划线转驼峰
     call-setters-on-nulls: true #map类型的取值能把null值也set进去
+
+
+redis:
+  database: sc-admin
+  key:
+    phoneCode: 'sys-user:phone-code'
+    orderId: 'oms:orderId'
+    member: 'ums:member'
+  expire:
+    phoneCode: 90 # 验证码超期时间
+    common: 86400 # 24小时

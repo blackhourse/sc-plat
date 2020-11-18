@@ -66,17 +66,11 @@ public class SysUser extends Model<SysUser> {
     private String openId;
 
     @TableField("is_del")
-    @TableLogic
     private Integer isDel;
 
     @TableField(exist = false)
     private List<SysRole> roles;
-    @TableField(exist = false)
-    private String roleId;
-    @TableField(exist = false)
-    private String oldPassword;
-    @TableField(exist = false)
-    private String newPassword;
+
     @Override
     protected Serializable pkVal() {
         return this.id;

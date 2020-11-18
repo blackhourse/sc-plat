@@ -1,20 +1,30 @@
 package com.mht.sc.scadmin.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mht.sc.scadmin.convert.SysMenuConvert;
+import com.mht.sc.scadmin.dto.SysGrantedMenuRoleDto;
+import com.mht.sc.scadmin.dto.SysMenuAddOrUpdateDto;
 import com.mht.sc.scadmin.entity.SysMenu;
+import com.mht.sc.scadmin.entity.SysRole;
 import com.mht.sc.scadmin.entity.SysRoleMenu;
+import com.mht.sc.scadmin.entity.SysRoleUser;
 import com.mht.sc.scadmin.mapper.SysMenuMapper;
 import com.mht.sc.scadmin.service.SysMenuService;
 import com.mht.sc.scadmin.service.SysRoleMenuService;
+import com.mht.sc.scadmin.service.SysRoleService;
+import com.mht.sc.scadmin.service.SysRoleUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -30,14 +40,21 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Autowired
     private SysRoleMenuService roleMenuService;
 
+    @Autowired
+    private SysRoleUserService roleUserService;
+
+    @Autowired
+    private SysRoleService sysRoleService;
+
+
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void setMenuToRole(Long roleId, Set<Long> menuIds) {
-        roleMenuService.delete(roleId, null);
+    public void setMenuToRole(SysGrantedMenuRoleDto sysGrantedMenuRoleDto) {
+        roleMenuService.delete(sysGrantedMenuRoleDto.getRoleId(), null);
 
-        if (!CollectionUtils.isEmpty(menuIds)) {
-            List<SysRoleMenu> roleMenus = new ArrayList<>(menuIds.size());
-            menuIds.forEach(menuId -> roleMenus.add(new SysRoleMenu(roleId, menuId)));
+        if (!CollectionUtils.isEmpty(sysGrantedMenuRoleDto.getMenuIds())) {
+            List<SysRoleMenu> roleMenus = new ArrayList<>(sysGrantedMenuRoleDto.getMenuIds().size());
+            sysGrantedMenuRoleDto.getMenuIds().forEach(menuId -> roleMenus.add(new SysRoleMenu(sysGrantedMenuRoleDto.getRoleId(), menuId)));
             roleMenuService.saveBatch(roleMenus);
         }
     }
@@ -66,8 +83,33 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     @Override
+    public List<SysRole> findUserRoles(Long userId) {
+        List<SysRole> sysRoles = null;
+
+        LambdaQueryWrapper<SysRoleUser> queryWrapper = new LambdaQueryWrapper<SysRoleUser>().eq(SysRoleUser::getUserId, userId);
+        List<SysRoleUser> list = roleUserService.list(queryWrapper);
+        if (CollectionUtil.isNotEmpty(list)) {
+            List<Long> roleIds = list.stream().map(SysRoleUser::getRoleId).collect(Collectors.toList());
+            sysRoles = sysRoleService.listByIds(roleIds);
+        }
+        return sysRoles;
+    }
+
+    @Override
     public List<SysMenu> findByRoleCodes(Set<String> roleCodes, Integer type) {
         return roleMenuService.findMenusByRoleCodes(roleCodes, type);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public SysMenu addOrUpdate(SysMenuAddOrUpdateDto sysMenuAddOrUpdateDto) {
+        Date date = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        SysMenu sysMenu = SysMenuConvert.MAPPER.convert(sysMenuAddOrUpdateDto);
+        if (Objects.isNull(sysMenuAddOrUpdateDto.getId())) {
+            sysMenu.setCreateTime(date);
+        }
+        this.saveOrUpdate(sysMenu);
+        return sysMenu;
     }
 
     /**
