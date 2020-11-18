@@ -34,3 +34,10 @@ redis:
   expire:
     phoneCode: 90 # 验证码超期时间
     common: 86400 # 24小时
+management:
+  endpoint:
+    health:
+      enabled: true
+ribbon:
+  ConnectTimeout: 3000 #服务请求连接超时时间（毫秒）
+  ReadTimeout: 3000 #服务请求处理超时时间（毫秒）
