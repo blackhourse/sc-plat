@@ -1,13 +1,12 @@
 package com.mht.sc.scadmin.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.mht.common.api.CommonResult;
 import com.mht.sc.scadmin.dto.SysUserDto;
 import com.mht.sc.scadmin.dto.SysUserListDto;
 import com.mht.sc.scadmin.dto.SysUserLoginPhoneDto;
 import com.mht.sc.scadmin.dto.SysUserLoginPwdDto;
 import com.mht.sc.scadmin.entity.SysUser;
-import com.mht.sc.scadmin.util.CommonResult;
 
 import java.util.List;
 import java.util.Set;
@@ -44,6 +43,7 @@ public interface SysUserService extends IService<SysUser> {
 
     /**
      * 手机号-验证码登录
+     *
      * @param sysUserLoginPhoneDto
      * @return
      */
@@ -86,6 +86,7 @@ public interface SysUserService extends IService<SysUser> {
 
     /**
      * 给用户分配角色
+     *
      * @param id
      * @param roleIds
      */

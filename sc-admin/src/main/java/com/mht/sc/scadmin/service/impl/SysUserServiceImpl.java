@@ -2,10 +2,15 @@ package com.mht.sc.scadmin.service.impl;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
-import com.mht.sc.scadmin.constant.CommonConstant;
+import com.mht.common.api.Asserts;
+import com.mht.common.api.CommonResult;
+import com.mht.common.constant.CommonConstant;
+import com.mht.common.enums.UserType;
+import com.mht.common.utils.JwtTokenUtil;
 import com.mht.sc.scadmin.convert.SysUserConvert;
 import com.mht.sc.scadmin.dto.SysUserDto;
 import com.mht.sc.scadmin.dto.SysUserListDto;
@@ -13,13 +18,10 @@ import com.mht.sc.scadmin.dto.SysUserLoginPhoneDto;
 import com.mht.sc.scadmin.dto.SysUserLoginPwdDto;
 import com.mht.sc.scadmin.entity.SysRoleUser;
 import com.mht.sc.scadmin.entity.SysUser;
-import com.mht.sc.scadmin.enums.UserType;
 import com.mht.sc.scadmin.mapper.SysUserMapper;
 import com.mht.sc.scadmin.service.SysRoleUserService;
 import com.mht.sc.scadmin.service.SysUserCacheService;
 import com.mht.sc.scadmin.service.SysUserService;
-import com.mht.sc.scadmin.util.Asserts;
-import com.mht.sc.scadmin.util.CommonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Autowired
     private SysUserCacheService sysUserCacheService;
+
 
     @Override
     public List<SysUser> sysUserList(SysUserListDto sysUserListDto) {
@@ -85,8 +88,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Asserts.isNull(sysUser, "用户不存在");
         boolean matches = passwordEncoder.matches(sysUserLoginPwdDto.getPwd(), sysUser.getPassword());
         Assert.isTrue(matches, "密码错误");
-        //todo 生成token 并返回
-        return "token";
+        String token = JwtTokenUtil.createToken(String.valueOf(sysUser.getId()));
+        sysUserCacheService.setSysUserToken(JSONObject.toJSONString(sysUser), String.valueOf(sysUser.getId()));
+        return token;
     }
 
     @Override
@@ -99,8 +103,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         String authCode = sysUserCacheService.getAuthCode(sysUserLoginPhoneDto.getPhone());
         Assert.notNull(authCode, "验证码已过期");
         Assert.isTrue(authCode.equals(sysUserLoginPhoneDto.getSmsCode()), "验证码已过期");
-        //todo 生成token 并返回
-        return "token";
+        String token = JwtTokenUtil.createToken(String.valueOf(sysUser.getId()));
+        sysUserCacheService.setSysUserToken(JSONObject.toJSONString(sysUser), String.valueOf(sysUser.getId()));
+        return token;
     }
 
     @Transactional

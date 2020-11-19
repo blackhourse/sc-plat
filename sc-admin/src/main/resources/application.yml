@@ -1,6 +1,8 @@
 server:
   port: 9002
 spring:
+  application:
+    name: sc-admin
   profiles:
     active: dev
   datasource:
@@ -17,6 +19,7 @@ spring:
     timeout: 3000ms # 连接超时时间（毫秒）
 
 
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*Mapper.xml
   configuration:
@@ -31,8 +34,10 @@ redis:
     phoneCode: 'sys-user:phone-code'
     orderId: 'oms:orderId'
     member: 'ums:member'
+    sysUserToken: 'sys-user:token'
   expire:
     phoneCode: 90 # 验证码超期时间
+    sysUserToken: 604800 # token有效时间
     common: 86400 # 24小时
 management:
   endpoint:

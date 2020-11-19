@@ -3,14 +3,15 @@ package com.mht.sc.scadmin.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.convert.Convert;
-import com.mht.sc.scadmin.constant.CommonConstant;
+import com.mht.common.api.CommonResult;
+import com.mht.common.api.PageResult;
+import com.mht.common.constant.CommonConstant;
 import com.mht.sc.scadmin.dto.SysGrantedMenuRoleDto;
 import com.mht.sc.scadmin.dto.SysMenuAddOrUpdateDto;
 import com.mht.sc.scadmin.entity.SysMenu;
 import com.mht.sc.scadmin.entity.SysRole;
 import com.mht.sc.scadmin.service.SysMenuService;
-import com.mht.sc.scadmin.util.CommonResult;
-import com.mht.sc.scadmin.util.PageResult;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

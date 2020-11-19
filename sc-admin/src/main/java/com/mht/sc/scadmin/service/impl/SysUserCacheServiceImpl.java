@@ -1,6 +1,6 @@
 package com.mht.sc.scadmin.service.impl;
 
-import com.mht.sc.scadmin.service.RedisService;
+import com.mht.common.redis.RedisService;
 import com.mht.sc.scadmin.service.SysUserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +24,12 @@ public class SysUserCacheServiceImpl implements SysUserCacheService {
     private String REDIS_KEY_AUTH_CODE;
 
 
+    @Value("${redis.expire.sysUserToken}")
+    private Long REDIS_EXPIRE_SYS_USER_TOKEN;
+    @Value("${redis.key.sysUserToken}")
+    private String REDIS_KEY_SYS_USER_TOKEN;
+
+
     @Override
     public void setAuthCode(String telephone, String authCode) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_AUTH_CODE + ":" + telephone;
@@ -34,5 +40,11 @@ public class SysUserCacheServiceImpl implements SysUserCacheService {
     public String getAuthCode(String telephone) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_AUTH_CODE + ":" + telephone;
         return (String) redisService.get(key);
+    }
+
+    @Override
+    public void setSysUserToken(String token, String id) {
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_SYS_USER_TOKEN + ":" + id;
+        redisService.set(key, token, REDIS_EXPIRE_SYS_USER_TOKEN);
     }
 }

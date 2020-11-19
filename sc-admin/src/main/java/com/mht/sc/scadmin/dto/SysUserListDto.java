@@ -1,7 +1,6 @@
 package com.mht.sc.scadmin.dto;
 
-import com.mht.sc.scadmin.util.PageEntity;
-import lombok.AllArgsConstructor;
+import com.mht.common.api.PageEntity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

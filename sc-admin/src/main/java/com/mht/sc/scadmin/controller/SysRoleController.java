@@ -1,11 +1,12 @@
 package com.mht.sc.scadmin.controller;
 
 
+import com.mht.common.api.CommonResult;
+import com.mht.common.api.PageResult;
 import com.mht.sc.scadmin.dto.SysRoleAddOrUpdateDto;
 import com.mht.sc.scadmin.entity.SysRole;
 import com.mht.sc.scadmin.service.SysRoleService;
-import com.mht.sc.scadmin.util.PageResult;
-import com.mht.sc.scadmin.util.CommonResult;
+
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

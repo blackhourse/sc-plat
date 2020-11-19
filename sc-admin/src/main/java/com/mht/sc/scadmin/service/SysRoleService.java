@@ -1,10 +1,11 @@
 package com.mht.sc.scadmin.service;
 
+import com.mht.common.api.CommonResult;
+import com.mht.common.api.PageResult;
 import com.mht.sc.scadmin.dto.SysRoleAddOrUpdateDto;
 import com.mht.sc.scadmin.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mht.sc.scadmin.util.PageResult;
-import com.mht.sc.scadmin.util.CommonResult;
+
 
 import java.util.List;
 import java.util.Map;

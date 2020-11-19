@@ -12,4 +12,11 @@ public interface SysUserCacheService {
      */
     String getAuthCode(String telephone);
 
+    /**
+     * 设置token 有效时间
+     *
+     * @param key
+     */
+    void setSysUserToken(String key, String id);
+
 }

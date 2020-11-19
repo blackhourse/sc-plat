@@ -1,4 +1,4 @@
-package com.mht.sc.scadmin;
+package com.mht.sc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,11 +6,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class ScAdminApplication {
-
+public class ScGatewayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ScAdminApplication.class, args);
+        SpringApplication.run(ScGatewayApplication.class);
     }
-
 
 }

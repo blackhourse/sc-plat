@@ -1,10 +1,10 @@
 package com.mht.sc.scadmin.controller;
 
 
+import com.mht.common.api.CommonPage;
+import com.mht.common.api.CommonResult;
 import com.mht.sc.scadmin.dto.*;
 import com.mht.sc.scadmin.service.SysUserService;
-import com.mht.sc.scadmin.util.CommonPage;
-import com.mht.sc.scadmin.util.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

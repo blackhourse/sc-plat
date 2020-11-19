@@ -28,12 +28,14 @@
         <mybatis-spring-boot-starter.version>2.0.0</mybatis-spring-boot-starter.version>
         <druid-spring-boot-starter.version>1.1.16</druid-spring-boot-starter.version>
         <commons-pool2.version>2.6.1</commons-pool2.version>
+        <java-jwt.version>3.4.0</java-jwt.version>
     </properties>
     <modules>
-        <module>commons</module>
         <module>sc-business</module>
         <module>demo</module>
         <module>sc-admin</module>
+        <module>sc-gateway</module>
+        <module>sc-common</module>
     </modules>
     <dependencies>
         <dependency>
@@ -173,7 +175,12 @@
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
-
+            <!-- jwt支持 -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java-jwt.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
