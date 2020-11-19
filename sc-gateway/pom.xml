@@ -12,6 +12,11 @@
     <artifactId>sc-gateway</artifactId>
     <dependencies>
         <dependency>
+            <groupId>com.mht</groupId>
+            <artifactId>sc-common</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
