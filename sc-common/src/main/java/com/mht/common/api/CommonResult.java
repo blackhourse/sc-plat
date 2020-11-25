@@ -12,12 +12,23 @@ public class CommonResult<T> implements Serializable {
     private T data;
 
     protected CommonResult() {
+        return;
     }
+
+    protected CommonResult(long code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
 
     protected CommonResult(long code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
+    }
+
+    public static <T> CommonResult<T> success() {
+        return new CommonResult<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
     }
 
     /**

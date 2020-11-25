@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mht.sc.scadmin.mapper.SysRoleMapper">
+<mapper namespace="com.mht.sc.mapper.SysRoleMapper">
     <sql id="Column_List">
 			id,
 			code,
@@ -22,7 +22,7 @@
         </where>
     </sql>
 
-    <select id="findList" resultType="com.mht.sc.scadmin.entity.SysRole">
+    <select id="findList" resultType="com.mht.sc.entity.SysRole">
         select
         <include refid="Column_List"/>
         from sys_role t
@@ -30,7 +30,7 @@
         order by t.create_time desc
     </select>
 
-    <select id="findAll" resultType="com.mht.sc.scadmin.entity.SysRole">
+    <select id="findAll" resultType="com.mht.sc.entity.SysRole">
         select
         <include refid="Column_List"/>
         from sys_role

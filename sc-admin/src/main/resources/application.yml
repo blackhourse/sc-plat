@@ -19,7 +19,6 @@ spring:
     timeout: 3000ms # 连接超时时间（毫秒）
 
 
-
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*Mapper.xml
   configuration:
