@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: example
-server:
-  port: 8001
-
