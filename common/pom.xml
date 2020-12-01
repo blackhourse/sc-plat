@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>plat-spring-boot-starter-swagger</module>
+        <module>common-framework</module>
+        <module>plat-spring-boot-starter-mybatis</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -20,6 +22,8 @@
                 <groupId>cn.boot.st</groupId>
                 <artifactId>plat-dependencies</artifactId>
                 <version>1.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
