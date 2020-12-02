@@ -27,7 +27,12 @@
             <artifactId>swagger-annotations</artifactId>
             <optional>true</optional>
         </dependency>
-
+        <!-- 日志相关 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- 工具相关 -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -39,7 +44,10 @@
             <artifactId>fastjson</artifactId>
             <optional>true</optional>
         </dependency>
-
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
 
     </dependencies>
 

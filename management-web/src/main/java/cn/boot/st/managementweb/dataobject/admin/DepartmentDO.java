@@ -1,4 +1,4 @@
-package cn.boot.st.managementweb.mysql.dataobject.admin;
+package cn.boot.st.managementweb.dataobject.admin;
 
 import cn.boot.st.mybatis.core.dataobject.DeletableDO;
 import com.baomidou.mybatisplus.annotation.TableName;
