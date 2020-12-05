@@ -14,5 +14,10 @@ public interface AdminMapper extends BaseMapper<AdminDO> {
                 .eq("username", username)
         );
     }
+    default Integer selectCountByDepartmentId(Integer departmentId) {
+        return selectCount(new QueryWrapper<AdminDO>()
+                .eq("department_id", departmentId)
+        );
+    }
 
 }

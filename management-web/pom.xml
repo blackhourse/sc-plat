@@ -35,6 +35,10 @@
         </dependency>
         <dependency>
             <groupId>cn.boot.st</groupId>
+            <artifactId>plat-spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.boot.st</groupId>
             <artifactId>common-framework</artifactId>
         </dependency>
         <!-- DB 相关 -->

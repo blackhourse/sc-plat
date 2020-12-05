@@ -1,5 +1,7 @@
 package cn.boot.st.managementweb.dataobject.dto;
 
+import cn.boot.common.framework.enums.CommonStatusEnum;
+import cn.boot.common.framework.validator.InEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,6 +26,13 @@ public class AdminUpdateInfoDTO {
     @Length(min = 5, max = 16, message = "账号长度为 5-16 位")
     @Pattern(regexp = "^[A-Za-z0-9]+$", message = "账号格式为数字以及字母")
     private String username;
+
+    /**
+     * 状态
+     */
+    @InEnum(value = CommonStatusEnum.class, message = "修改状态必须是 {value}")
+    private Integer status;
+
 
     @ApiModelProperty(value = "密码", required = true, example = "buzhidao")
     @NotEmpty(message = "密码不能为空")

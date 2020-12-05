@@ -35,12 +35,14 @@ public class AdminController {
     @PostMapping("/update")
     @ApiOperation(value = "更新管理员")
     public CommonResult<Boolean> updateAdmin(AdminUpdateInfoDTO updateInfoDTO) {
+        adminService.updateAdmin(updateInfoDTO);
         return success(true);
     }
 
     @PostMapping("/update-status")
     @ApiOperation(value = "更新管理员状态")
     public CommonResult<Boolean> updateAdminStatus(@Valid AdminUpdateStatusDTO updateStatusDTO) {
+        adminService.updateAdminStatus(updateStatusDTO);
         return success(true);
     }
 
