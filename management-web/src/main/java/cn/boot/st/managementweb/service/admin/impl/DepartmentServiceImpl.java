@@ -3,7 +3,7 @@ package cn.boot.st.managementweb.service.admin.impl;
 import cn.boot.common.framework.exception.util.ServiceException;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.st.managementweb.convert.admin.DepartmentConvert;
-import cn.boot.st.managementweb.dataobject.admin.DepartmentDO;
+import cn.boot.st.managementweb.dataobject.domain.DepartmentDO;
 import cn.boot.st.managementweb.dataobject.dto.DepartmentCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.DepartmentUpdateDTO;
 import cn.boot.st.managementweb.dataobject.vo.DepartmentTreeNodeVO;

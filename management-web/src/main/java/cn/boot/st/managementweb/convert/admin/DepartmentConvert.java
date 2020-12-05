@@ -1,6 +1,6 @@
 package cn.boot.st.managementweb.convert.admin;
 
-import cn.boot.st.managementweb.dataobject.admin.DepartmentDO;
+import cn.boot.st.managementweb.dataobject.domain.DepartmentDO;
 import cn.boot.st.managementweb.dataobject.dto.DepartmentCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.DepartmentUpdateDTO;
 import cn.boot.st.managementweb.dataobject.vo.DepartmentTreeNodeVO;

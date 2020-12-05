@@ -1,6 +1,6 @@
 package cn.boot.st.managementweb.convert.admin;
 
-import cn.boot.st.managementweb.dataobject.admin.AdminDO;
+import cn.boot.st.managementweb.dataobject.domain.AdminDO;
 import cn.boot.st.managementweb.dataobject.dto.AdminCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.AdminUpdateInfoDTO;
 import cn.boot.st.managementweb.dataobject.dto.AdminUpdateStatusDTO;

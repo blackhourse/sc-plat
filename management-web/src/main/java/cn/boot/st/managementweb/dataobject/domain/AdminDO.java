@@ -1,4 +1,4 @@
-package cn.boot.st.managementweb.dataobject.admin;
+package cn.boot.st.managementweb.dataobject.domain;
 
 
 import cn.boot.st.managementweb.enums.admin.AdminStatusEnum;

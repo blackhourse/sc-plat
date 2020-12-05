@@ -4,7 +4,7 @@ import cn.boot.common.framework.enums.CommonStatusEnum;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.util.DigestUtils;
 import cn.boot.st.managementweb.convert.admin.AdminConvert;
-import cn.boot.st.managementweb.dataobject.admin.AdminDO;
+import cn.boot.st.managementweb.dataobject.domain.AdminDO;
 import cn.boot.st.managementweb.dataobject.dto.AdminCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.AdminUpdateInfoDTO;
 import cn.boot.st.managementweb.dataobject.dto.AdminUpdateStatusDTO;
