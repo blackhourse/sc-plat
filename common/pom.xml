@@ -16,6 +16,7 @@
         <module>common-framework</module>
         <module>plat-spring-boot-starter-mybatis</module>
         <module>plat-spring-boot-starter-web</module>
+        <module>plat-spring-boot-starter-security</module>
     </modules>
     <dependencyManagement>
         <dependencies>

@@ -1,4 +1,4 @@
-package cn.boot.st.managementweb.context;
+package cn.boot.st.security.core.context;
 
 /**
  * {@link AdminSecurityContext} Holder

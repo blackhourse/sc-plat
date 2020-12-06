@@ -1,11 +1,25 @@
 server:
   port: 10001
+  servlet:
+    context-path: /management-web/
+
+spring:
+  # Application 的配置项
+  application:
+    name: management-web
+  # Profile 的配置项
+  profiles:
+    active: local
+  # SpringMVC 配置项
+  mvc:
+    throw-exception-if-no-handler-found: true # 匹配不到路径时，抛出 NoHandlerFoundException 异常
+    static-path-pattern: /doc.html # 静态资源的路径
 
 # MyBatis Plus 配置项
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #输出详细sql
   global-config:
     db-config:
       id-type: auto
@@ -20,8 +34,8 @@ swagger:
   description: 提供管理员管理的所有功能
   version: 1.0.0
   base-package: cn.boot.st.managementweb.controller
-spring:
-  application:
-    name: mamagement-web
-  profiles:
-    active: local
+
+# Actuator 监控配置项
+management:
+  server.port: 38087 # 独立端口，避免被暴露出去
+  endpoints.web.exposure.include: '*' # 暴露所有监控端点

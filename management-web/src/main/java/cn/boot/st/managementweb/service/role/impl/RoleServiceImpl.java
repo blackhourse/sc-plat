@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
 import javax.validation.Valid;
 import java.util.List;
 
-import static cn.boot.st.managementweb.enums.SystemErrorCodeConstants.*;
+import static cn.boot.common.framework.enums.SystemErrorCodeConstants.*;
 
 /**
  * @Classname RoleServiceImpl

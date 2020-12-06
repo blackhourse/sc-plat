@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import static cn.boot.st.managementweb.enums.SystemErrorCodeConstants.*;
+import static cn.boot.common.framework.enums.SystemErrorCodeConstants.*;
 
 @Service
 public class AdminServiceImpl implements AdminService {

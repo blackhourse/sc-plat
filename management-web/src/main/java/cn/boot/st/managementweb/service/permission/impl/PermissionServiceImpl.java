@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static cn.boot.st.managementweb.enums.SystemErrorCodeConstants.*;
+import static cn.boot.common.framework.enums.SystemErrorCodeConstants.*;
 
 /**
  * @Classname PermissionServiceImpl
