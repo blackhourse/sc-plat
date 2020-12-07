@@ -7,9 +7,9 @@ import cn.boot.st.managementweb.dataobject.dto.ResourceCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.ResourceUpdateDTO;
 import cn.boot.st.managementweb.dataobject.vo.ResourceTreeNodeVO;
 import cn.boot.st.managementweb.dataobject.vo.ResourceVO;
-import cn.boot.common.framework.enums.SystemErrorCodeConstants;
-import cn.boot.st.managementweb.enums.role.ResourceIdEnum;
-import cn.boot.st.managementweb.enums.role.ResourceTypeEnum;
+import cn.boot.common.framework.constant.SystemErrorCodeConstants;
+import cn.boot.common.framework.enums.role.ResourceIdEnum;
+import cn.boot.common.framework.enums.role.ResourceTypeEnum;
 import cn.boot.st.managementweb.mapper.role.ResourceMapper;
 import cn.boot.st.managementweb.mapper.role.RoleResourceMapper;
 import cn.boot.st.managementweb.service.resource.ResourceService;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static cn.boot.common.framework.enums.SystemErrorCodeConstants.*;
+import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
 
 /**
  * @Classname ResourceServiceImpl

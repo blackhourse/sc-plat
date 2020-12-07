@@ -1,4 +1,4 @@
-package cn.boot.st.managementweb.enums.role;
+package cn.boot.common.framework.enums.role;
 
 
 import cn.boot.common.framework.core.IntArrayValuable;
@@ -13,7 +13,11 @@ public enum ResourceTypeEnum implements IntArrayValuable {
     MENU(1, "菜单"),
     BUTTON(2, "按钮");
 
-    public static final int[] ARRAYS = Arrays.stream(values()).mapToInt(ResourceTypeEnum::getType).toArray();
+    public static final int[] ARRAYS;
+
+    static {
+        ARRAYS = Arrays.stream(values()).mapToInt(ResourceTypeEnum::getType).toArray();
+    }
 
     /**
      * 资源类型

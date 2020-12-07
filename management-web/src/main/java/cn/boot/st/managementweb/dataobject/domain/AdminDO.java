@@ -1,7 +1,7 @@
 package cn.boot.st.managementweb.dataobject.domain;
 
 
-import cn.boot.st.managementweb.enums.admin.AdminStatusEnum;
+import cn.boot.common.framework.enums.admin.AdminStatusEnum;
 import cn.boot.st.mybatis.core.dataobject.BaseDO;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

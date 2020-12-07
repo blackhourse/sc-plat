@@ -8,7 +8,7 @@ import cn.boot.st.managementweb.dataobject.dto.RoleCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.RolePageDTO;
 import cn.boot.st.managementweb.dataobject.dto.RoleUpdateDTO;
 import cn.boot.st.managementweb.dataobject.vo.RoleVO;
-import cn.boot.st.managementweb.enums.role.RoleTypeEnum;
+import cn.boot.common.framework.enums.role.RoleTypeEnum;
 import cn.boot.st.managementweb.mapper.role.AdminRoleMapper;
 import cn.boot.st.managementweb.mapper.role.RoleMapper;
 import cn.boot.st.managementweb.mapper.role.RoleResourceMapper;
@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
 import javax.validation.Valid;
 import java.util.List;
 
-import static cn.boot.common.framework.enums.SystemErrorCodeConstants.*;
+import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
 
 /**
  * @Classname RoleServiceImpl

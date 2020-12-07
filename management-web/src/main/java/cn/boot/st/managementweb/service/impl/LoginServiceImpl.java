@@ -5,13 +5,13 @@ import cn.boot.common.framework.util.DigestUtils;
 import cn.boot.st.managementweb.dataobject.domain.AdminDO;
 import cn.boot.st.managementweb.dataobject.dto.PassportLoginDTO;
 import cn.boot.st.managementweb.dataobject.vo.PassportAccessTokenVO;
-import cn.boot.st.managementweb.enums.admin.AdminStatusEnum;
+import cn.boot.common.framework.enums.admin.AdminStatusEnum;
 import cn.boot.st.managementweb.mapper.admin.AdminMapper;
 import cn.boot.st.managementweb.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static cn.boot.common.framework.enums.SystemErrorCodeConstants.*;
+import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
 
 /**
  * @Classname LoginServiceImpl

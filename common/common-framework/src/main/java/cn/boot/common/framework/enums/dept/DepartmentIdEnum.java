@@ -1,9 +1,9 @@
-package cn.boot.st.managementweb.enums.role;
+package cn.boot.common.framework.enums.dept;
 
 /**
- * Resource 编号枚举
+ * 部门的编号枚举
  */
-public enum ResourceIdEnum {
+public enum DepartmentIdEnum {
 
     /**
      * 根节点
@@ -12,7 +12,7 @@ public enum ResourceIdEnum {
 
     private final Integer id;
 
-    ResourceIdEnum(Integer id) {
+    DepartmentIdEnum(Integer id) {
         this.id = id;
     }
 

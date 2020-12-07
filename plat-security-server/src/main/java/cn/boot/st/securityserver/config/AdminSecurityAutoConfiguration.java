@@ -1,6 +1,7 @@
-package cn.boot.st.security.config;
+package cn.boot.st.securityserver.config;
 
-import cn.boot.st.security.core.interceptor.AdminDemoInterceptor;
+import cn.boot.st.security.config.AdminSecurityProperties;
+import cn.boot.st.securityserver.interceptor.AdminSecurityInterceptor;
 import cn.boot.st.web.config.CommonWebAutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,26 +28,22 @@ public class AdminSecurityAutoConfiguration implements WebMvcConfigurer {
         return new AdminSecurityProperties();
     }
 
-    // ========== 拦截器相关 ==========
     @Bean
-    public AdminDemoInterceptor adminDemoInterceptor() {
-        return new AdminDemoInterceptor();
+    public AdminSecurityInterceptor adminSecurityInterceptor() {
+        return new AdminSecurityInterceptor();
     }
+
+
+    // ========== 拦截器相关 ==========
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         AdminSecurityProperties properties = this.adminSecurityProperties();
         // AdminSecurityInterceptor 拦截器
-       /* registry.addInterceptor(this.adminSecurityInterceptor())
+        registry.addInterceptor(this.adminSecurityInterceptor())
                 .excludePathPatterns(properties.getIgnorePaths())
                 .excludePathPatterns(properties.getDefaultIgnorePaths());
-        logger.info("[addInterceptors][加载 AdminSecurityInterceptor 拦截器完成]");*/
-        // AdminDemoInterceptor 拦截器
-        if (Boolean.TRUE.equals(properties.getDemo())) {
-            registry.addInterceptor(this.adminDemoInterceptor())
-                    .excludePathPatterns(properties.getIgnorePaths())
-                    .excludePathPatterns(properties.getDefaultIgnorePaths());
-            logger.info("[addInterceptors][加载 AdminDemoInterceptor 拦截器完成]");
-        }
+        logger.info("[addInterceptors][加载 AdminSecurityInterceptor 拦截器完成]");
+
     }
 }

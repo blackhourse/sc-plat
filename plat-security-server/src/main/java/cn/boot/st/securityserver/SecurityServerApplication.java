@@ -1,14 +1,12 @@
-package cn.boot.st.managementweb;
+package cn.boot.st.securityserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ManagementWebApplication {
+public class SecurityServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ManagementWebApplication.class, args);
+        SpringApplication.run(SecurityServerApplication.class, args);
     }
-
-
 }

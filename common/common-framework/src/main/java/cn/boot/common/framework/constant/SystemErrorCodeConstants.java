@@ -1,9 +1,16 @@
-package cn.boot.common.framework.enums;
+package cn.boot.common.framework.constant;
 
 import cn.boot.common.framework.exception.util.ErrorCode;
 
 public interface SystemErrorCodeConstants {
 
+    // ========== OAUTH2 模块 ==========
+    ErrorCode OAUTH2_UNKNOWN = new ErrorCode(1001001000, "未知错误"); // 预留
+    // 预留 1001001001 ~ 1001001099 错误码，方便前端
+    ErrorCode OAUTH2_ACCESS_TOKEN_NOT_FOUND = new ErrorCode(1001001001, "访问令牌不存在");
+    ErrorCode OAUTH2_ACCESS_TOKEN_TOKEN_EXPIRED = new ErrorCode(1001001002, "访问令牌已过期");
+    // 其它 1001001100 开始
+    ErrorCode  OAUTH_USER_TYPE_ERROR = new ErrorCode(1001001101, "用户类型并不正确");
 
     // ========== 管理员模块 1002002000 ==========
     ErrorCode ADMIN_NOT_FOUND = new ErrorCode(1002002000, "管理员不存在");

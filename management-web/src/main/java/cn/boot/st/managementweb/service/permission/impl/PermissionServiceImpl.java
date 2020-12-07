@@ -1,12 +1,12 @@
 package cn.boot.st.managementweb.service.permission.impl;
 
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
+import cn.boot.common.framework.enums.role.RoleCodeEnum;
 import cn.boot.st.managementweb.convert.resource.ResourceConvert;
 import cn.boot.st.managementweb.dataobject.domain.*;
 import cn.boot.st.managementweb.dataobject.dto.PermissionAssignAdminRoleDTO;
 import cn.boot.st.managementweb.dataobject.dto.PermissionAssignRoleResourceDTO;
 import cn.boot.st.managementweb.dataobject.vo.ResourceVO;
-import cn.boot.st.managementweb.enums.role.RoleCodeEnum;
 import cn.boot.st.managementweb.mapper.admin.AdminMapper;
 import cn.boot.st.managementweb.mapper.role.AdminRoleMapper;
 import cn.boot.st.managementweb.mapper.role.ResourceMapper;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static cn.boot.common.framework.enums.SystemErrorCodeConstants.*;
+import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
 
 /**
  * @Classname PermissionServiceImpl

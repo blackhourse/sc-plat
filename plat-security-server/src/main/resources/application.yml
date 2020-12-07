@@ -1,0 +1,36 @@
+server:
+  port: 10002
+  servlet:
+    context-path: /security-server
+spring:
+  # Application 的配置项
+  application:
+    name: security-server
+  # Profile 的配置项
+  profiles:
+    active: local
+
+# MyBatis Plus 配置项
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #输出详细sql
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: cn.boot.st.securityserver.dataobject.dataobject.oauth
+
+
+swagger:
+  title: 认证服务
+  description: 认证服务的所有功能
+  version: 1.0.0
+  base-package: cn.boot.st.securityserver.controller
+
+# 业务配置
+biz:
+  access-token-expire-time-millis: 2880000
+  refresh-token-expire-time-millis: 43200000

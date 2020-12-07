@@ -8,8 +8,8 @@ import cn.boot.st.managementweb.dataobject.domain.AdminDO;
 import cn.boot.st.managementweb.dataobject.dto.AdminCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.AdminUpdateInfoDTO;
 import cn.boot.st.managementweb.dataobject.dto.AdminUpdateStatusDTO;
-import cn.boot.st.managementweb.enums.admin.AdminStatusEnum;
-import cn.boot.st.managementweb.enums.admin.AdminUsernameEnum;
+import cn.boot.common.framework.enums.admin.AdminStatusEnum;
+import cn.boot.common.framework.enums.admin.AdminUsernameEnum;
 import cn.boot.st.managementweb.mapper.admin.AdminMapper;
 import cn.boot.st.managementweb.mapper.admin.DepartmentMapper;
 import cn.boot.st.managementweb.service.admin.AdminService;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import static cn.boot.common.framework.enums.SystemErrorCodeConstants.*;
+import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
 
 @Service
 public class AdminServiceImpl implements AdminService {

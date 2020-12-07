@@ -17,6 +17,7 @@
         <module>common</module>
         <module>plat-dependencies</module>
         <module>management-web</module>
+        <module>plat-security-server</module>
     </modules>
 
 

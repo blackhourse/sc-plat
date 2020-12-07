@@ -1,7 +1,7 @@
 package cn.boot.st.managementweb.dataobject.dto;
 
 import cn.boot.common.framework.validator.InEnum;
-import cn.boot.st.managementweb.enums.role.ResourceTypeEnum;
+import cn.boot.common.framework.enums.role.ResourceTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

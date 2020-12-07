@@ -1,4 +1,4 @@
-package cn.boot.st.managementweb.enums.admin;
+package cn.boot.common.framework.enums.admin;
 
 
 import cn.boot.common.framework.core.IntArrayValuable;

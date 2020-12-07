@@ -1,7 +1,7 @@
 server:
   port: 10001
   servlet:
-    context-path: /management-web/
+    context-path: /management-web
 
 spring:
   # Application 的配置项
@@ -11,9 +11,9 @@ spring:
   profiles:
     active: local
   # SpringMVC 配置项
-  mvc:
-    throw-exception-if-no-handler-found: true # 匹配不到路径时，抛出 NoHandlerFoundException 异常
-    static-path-pattern: /doc.html # 静态资源的路径
+#  mvc:
+#    throw-exception-if-no-handler-found: true # 匹配不到路径时，抛出 NoHandlerFoundException 异常
+#    static-path-pattern: /doc.html # 静态资源的路径
 
 # MyBatis Plus 配置项
 mybatis-plus:
@@ -26,7 +26,7 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: cn.boot.st.managementweb.mysql.dataobject.admin.dataobject
+  type-aliases-package: cn.boot.st.managementweb.dataobject.dataobject.domain
 
 # Swagger 配置项
 swagger:

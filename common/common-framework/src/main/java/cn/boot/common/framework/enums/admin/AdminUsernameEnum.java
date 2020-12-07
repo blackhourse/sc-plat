@@ -1,4 +1,4 @@
-package cn.boot.st.managementweb.enums.admin;
+package cn.boot.common.framework.enums.admin;
 
 /**
  * 管理员的账号枚举，一般枚举特殊的账号

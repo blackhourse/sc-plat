@@ -8,7 +8,7 @@ import cn.boot.st.managementweb.dataobject.dto.DepartmentCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.DepartmentUpdateDTO;
 import cn.boot.st.managementweb.dataobject.vo.DepartmentTreeNodeVO;
 import cn.boot.st.managementweb.dataobject.vo.DepartmentVO;
-import cn.boot.st.managementweb.enums.dept.DepartmentIdEnum;
+import cn.boot.common.framework.enums.dept.DepartmentIdEnum;
 import cn.boot.st.managementweb.mapper.admin.AdminMapper;
 import cn.boot.st.managementweb.mapper.admin.DepartmentMapper;
 import cn.boot.st.managementweb.service.admin.DepartmentService;
@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static cn.boot.common.framework.enums.SystemErrorCodeConstants.*;
+import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
 
 /**
  * @Classname DepartmentServiceImpl

@@ -1,4 +1,4 @@
-package cn.boot.st.managementweb.enums.role;
+package cn.boot.common.framework.enums.role;
 
 public enum RoleTypeEnum {
 
