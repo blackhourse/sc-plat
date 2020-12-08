@@ -2,6 +2,9 @@ package cn.boot.st.swagger;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * @author Administrator
+ */
 @ConfigurationProperties("swagger")
 public class SwaggerProperties {
     private String title;
@@ -13,35 +16,31 @@ public class SwaggerProperties {
         return title;
     }
 
-    public SwaggerProperties setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
-        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public SwaggerProperties setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
     public String getVersion() {
         return version;
     }
 
-    public SwaggerProperties setVersion(String version) {
+    public void setVersion(String version) {
         this.version = version;
-        return this;
     }
 
     public String getBasePackage() {
         return basePackage;
     }
 
-    public SwaggerProperties setBasePackage(String basePackage) {
+    public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
-        return this;
     }
 }

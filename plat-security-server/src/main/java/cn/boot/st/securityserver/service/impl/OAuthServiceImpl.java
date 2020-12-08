@@ -1,12 +1,14 @@
 package cn.boot.st.securityserver.service.impl;
 
+import cn.boot.common.framework.dataobject.dto.OAuth2AccessTokenRespDTO;
+import cn.boot.common.framework.dataobject.dto.OAuth2CreateAccessTokenReqDTO;
+import cn.boot.common.framework.dataobject.vo.PassportAccessTokenVO;
+import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.util.StringUtils;
-import cn.boot.st.security.dto.OAuth2AccessTokenRespDTO;
-import cn.boot.st.security.dto.OAuth2CreateAccessTokenReqDTO;
 import cn.boot.st.securityserver.config.SystemBizProperties;
 import cn.boot.st.securityserver.convert.OAuth2Convert;
-import cn.boot.st.securityserver.dataobject.oauth.OAuth2AccessTokenDO;
-import cn.boot.st.securityserver.dataobject.oauth.OAuth2RefreshTokenDO;
+import cn.boot.st.securityserver.dataobject.domain.OAuth2AccessTokenDO;
+import cn.boot.st.securityserver.dataobject.domain.OAuth2RefreshTokenDO;
 import cn.boot.st.securityserver.mapper.OAuth2AccessTokenMapper;
 import cn.boot.st.securityserver.mapper.OAuth2RefreshTokenMapper;
 import cn.boot.st.securityserver.service.OAuthService;
@@ -14,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+
+import static cn.boot.common.framework.constant.SystemErrorCodeConstants.OAUTH2_REFRESH_TOKEN_NOT_FOUND;
+import static cn.boot.common.framework.constant.SystemErrorCodeConstants.OAUTH_REFRESH_TOKEN_EXPIRED;
 
 /**
  * @Classname OAuthServiceImpl
@@ -42,6 +47,27 @@ public class OAuthServiceImpl implements OAuthService {
         OAuth2AccessTokenDO oAuth2AccessToken = createOAuth2AccessToken(refreshTokenDO, auth2CreateAccessTokenReqDTO.getCreateIp());
         // 返回访问令牌
         return OAuth2Convert.INSTANCE.convert(oAuth2AccessToken);
+    }
+
+    @Override
+    public PassportAccessTokenVO refreshToken(String refreshToken, String ip) {
+        OAuth2RefreshTokenDO refreshTokenDO = oauth2RefreshTokenMapper.selectById(refreshToken);
+        // 校验刷新令牌是否合法
+        // 不存在
+        if (refreshTokenDO == null) {
+            throw ServiceExceptionUtil.exception(OAUTH2_REFRESH_TOKEN_NOT_FOUND);
+        }
+        // 已过期
+        if (refreshTokenDO.getExpiresTime().getTime() < System.currentTimeMillis()) {
+            throw ServiceExceptionUtil.exception(OAUTH_REFRESH_TOKEN_EXPIRED);
+        }
+        // 标记 refreshToken 对应的 accessToken 都不合法
+        // 这块的实现，参考了 Spring Security OAuth2 的代码
+        oauth2AccessTokenMapper.deleteByRefreshToken(refreshToken);
+        // 创建访问令牌
+        OAuth2AccessTokenDO oauth2AccessTokenDO = createOAuth2AccessToken(refreshTokenDO, ip);
+        // 返回访问令牌
+        return OAuth2Convert.INSTANCE.convertPassToken(oauth2AccessTokenDO);
     }
 
 

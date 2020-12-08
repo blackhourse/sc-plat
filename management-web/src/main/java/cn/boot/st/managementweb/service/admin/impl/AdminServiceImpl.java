@@ -1,21 +1,27 @@
 package cn.boot.st.managementweb.service.admin.impl;
 
 import cn.boot.common.framework.enums.CommonStatusEnum;
+import cn.boot.common.framework.enums.admin.AdminStatusEnum;
+import cn.boot.common.framework.enums.admin.AdminUsernameEnum;
+import cn.boot.common.framework.enums.role.RoleCodeEnum;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.util.DigestUtils;
 import cn.boot.st.managementweb.convert.admin.AdminConvert;
 import cn.boot.st.managementweb.dataobject.domain.AdminDO;
+import cn.boot.st.managementweb.dataobject.domain.RoleDO;
 import cn.boot.st.managementweb.dataobject.dto.AdminCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.AdminUpdateInfoDTO;
 import cn.boot.st.managementweb.dataobject.dto.AdminUpdateStatusDTO;
-import cn.boot.common.framework.enums.admin.AdminStatusEnum;
-import cn.boot.common.framework.enums.admin.AdminUsernameEnum;
 import cn.boot.st.managementweb.mapper.admin.AdminMapper;
 import cn.boot.st.managementweb.mapper.admin.DepartmentMapper;
+import cn.boot.st.managementweb.mapper.role.RoleMapper;
 import cn.boot.st.managementweb.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.Collection;
+import java.util.List;
 
 import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
 
@@ -24,9 +30,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
-
     @Autowired
     private DepartmentMapper departmentMapper;
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public AdminDO getById(Integer id) {
@@ -98,6 +105,18 @@ public class AdminServiceImpl implements AdminService {
     public void updateAdminStatus(AdminUpdateStatusDTO adminUpdateStatusDTO) {
         AdminUpdateInfoDTO adminUpdateInfoDTO = AdminConvert.INSTANCE.convert(adminUpdateStatusDTO);
         this.updateAdmin(adminUpdateInfoDTO);
+    }
+
+    @Override
+    public Boolean hasSuperAdmin(Collection<Integer> roleIds) {
+
+        List<RoleDO> roleDOs = roleMapper.selectBatchIds(roleIds);
+        for (RoleDO roleDO : roleDOs) {
+            if (RoleCodeEnum.SUPER_ADMIN.getCode().equals(roleDO.getCode())) {
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
     }
 
     private String genPasswordSalt() {

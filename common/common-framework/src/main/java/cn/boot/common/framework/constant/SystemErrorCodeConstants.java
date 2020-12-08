@@ -9,6 +9,8 @@ public interface SystemErrorCodeConstants {
     // 预留 1001001001 ~ 1001001099 错误码，方便前端
     ErrorCode OAUTH2_ACCESS_TOKEN_NOT_FOUND = new ErrorCode(1001001001, "访问令牌不存在");
     ErrorCode OAUTH2_ACCESS_TOKEN_TOKEN_EXPIRED = new ErrorCode(1001001002, "访问令牌已过期");
+    ErrorCode OAUTH2_REFRESH_TOKEN_NOT_FOUND = new ErrorCode(1001001005, "刷新令牌不存在");
+    ErrorCode OAUTH_REFRESH_TOKEN_EXPIRED = new ErrorCode(1001001006, "访问令牌已过期");
     // 其它 1001001100 开始
     ErrorCode  OAUTH_USER_TYPE_ERROR = new ErrorCode(1001001101, "用户类型并不正确");
 

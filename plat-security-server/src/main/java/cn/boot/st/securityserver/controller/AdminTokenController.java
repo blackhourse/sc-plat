@@ -1,16 +1,16 @@
 package cn.boot.st.securityserver.controller;
 
+import cn.boot.common.framework.dataobject.dto.OAuth2CreateAccessTokenReqDTO;
+import cn.boot.common.framework.dataobject.vo.PassportAccessTokenVO;
 import cn.boot.common.framework.util.HttpUtil;
 import cn.boot.common.framework.vo.CommonResult;
-import cn.boot.st.security.dto.OAuth2CreateAccessTokenReqDTO;
+import cn.boot.st.security.annotations.RequiresPermissions;
+import cn.boot.st.security.core.context.AdminSecurityContextHolder;
 import cn.boot.st.securityserver.service.OAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,11 +38,21 @@ public class AdminTokenController {
         return success(oAuthService.createAccessToken(auth2CreateAccessTokenReqDTO));
     }
 
-    @GetMapping("/test")
-    @ApiOperation("test")
-    public CommonResult test(String name) {
-        System.out.println(name);
+    @GetMapping("/info")
+    @ApiOperation(value = "获得当前管理员信息")
+    @RequiresPermissions("promotion:banner:update")
+    public CommonResult getInfo() {
+        Integer adminId = AdminSecurityContextHolder.getAdminId();
         return success("");
+    }
+
+
+    @PostMapping("/refresh-token")
+    @ApiOperation("刷新令牌")
+    @RequiresPermissions
+    public CommonResult<PassportAccessTokenVO> refreshToken(@RequestParam("refreshToken") String refreshToken,
+                                                            HttpServletRequest request) {
+        return success(oAuthService.refreshToken(refreshToken, HttpUtil.getIp(request)));
     }
 
 

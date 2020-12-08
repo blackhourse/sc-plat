@@ -1,4 +1,4 @@
-package cn.boot.st.managementweb.dataobject.vo;
+package cn.boot.common.framework.dataobject.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

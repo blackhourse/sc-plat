@@ -1,11 +1,13 @@
 package cn.boot.st.managementweb.service.impl;
 
+import cn.boot.common.framework.enums.admin.AdminStatusEnum;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.util.DigestUtils;
+import cn.boot.st.managementweb.convert.admin.AdminConvert;
 import cn.boot.st.managementweb.dataobject.domain.AdminDO;
 import cn.boot.st.managementweb.dataobject.dto.PassportLoginDTO;
-import cn.boot.st.managementweb.dataobject.vo.PassportAccessTokenVO;
-import cn.boot.common.framework.enums.admin.AdminStatusEnum;
+import cn.boot.common.framework.dataobject.vo.PassportAccessTokenVO;
+import cn.boot.st.managementweb.dataobject.vo.PassportAdminVO;
 import cn.boot.st.managementweb.mapper.admin.AdminMapper;
 import cn.boot.st.managementweb.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,12 @@ public class LoginServiceImpl implements LoginService {
         return null;
     }
 
+    @Override
+    public PassportAdminVO getAdminInfo(Integer adminId) {
+        AdminDO adminDO = adminMapper.selectById(adminId);
+        return AdminConvert.INSTANCE.convert(adminDO);
+    }
+
 
     /**
      * 校验登陆的账号密码是否正确
@@ -48,7 +56,7 @@ public class LoginServiceImpl implements LoginService {
         // 校验密码是否正确
         String encodedPassword = DigestUtils.bcrypt(password, adminDO.getPasswordSalt());
         if (!encodedPassword.equals(adminDO.getPassword())) {
-            // TODO 需要补充密码错误上限
+            // TODO 密码错误超过5次，当天锁定账户
             throw ServiceExceptionUtil.exception(ADMIN_PASSWORD_ERROR);
         }
         // 账号被禁用

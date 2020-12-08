@@ -5,12 +5,22 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
-  #    Spring Cloud 配置项
-#  cloud:
-#    nacos:
-#      # Spring Cloud Nacos Discovery 配置项
-#      discovery:
-#        server-addr: 127.0.0.1:8848 # Nacos 服务器地址
-#        namespace: dev # Nacos 命名空间
-# Mall 认证安全配置
-#mall.security.admin.demo: true # 是否开启演示模式
+  #  #    Spring Cloud 配置项
+  cloud:
+    nacos:
+      # Spring Cloud Nacos Discovery 配置项
+      discovery:
+        server-addr: 127.0.0.1:8848 # Nacos 服务器地址
+##        namespace: dev # Nacos 命名空间
+# 业务配置
+biz:
+  access-token-expire-time-millis: 2880000  # ms
+  refresh-token-expire-time-millis: 43200000 # ms
+
+
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/doc.html"
+      - "/swagger-resources/**"
+      - "/auth/crateToken"

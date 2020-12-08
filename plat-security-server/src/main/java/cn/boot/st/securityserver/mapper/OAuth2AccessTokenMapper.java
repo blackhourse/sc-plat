@@ -1,6 +1,6 @@
 package cn.boot.st.securityserver.mapper;
 
-import cn.boot.st.securityserver.dataobject.oauth.OAuth2AccessTokenDO;
+import cn.boot.st.securityserver.dataobject.domain.OAuth2AccessTokenDO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;

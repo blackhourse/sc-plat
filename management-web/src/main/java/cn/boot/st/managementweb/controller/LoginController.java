@@ -3,11 +3,14 @@ package cn.boot.st.managementweb.controller;
 import cn.boot.common.framework.util.HttpUtil;
 import cn.boot.common.framework.vo.CommonResult;
 import cn.boot.st.managementweb.dataobject.dto.PassportLoginDTO;
-import cn.boot.st.managementweb.dataobject.vo.PassportAccessTokenVO;
+import cn.boot.common.framework.dataobject.vo.PassportAccessTokenVO;
+import cn.boot.st.managementweb.dataobject.vo.PassportAdminVO;
 import cn.boot.st.managementweb.service.LoginService;
+import cn.boot.st.security.core.context.AdminSecurityContextHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,18 +30,20 @@ import static cn.boot.common.framework.vo.CommonResult.success;
 @RequestMapping("/login")
 public class LoginController {
 
-
-
     @Autowired
     private LoginService loginService;
 
     @PostMapping("/login")
     @ApiOperation("账号密码登陆")
-    public CommonResult<PassportAccessTokenVO> login(PassportLoginDTO loginDTO,
-                                                     HttpServletRequest request) {
+    public CommonResult<PassportAccessTokenVO> login(PassportLoginDTO loginDTO, HttpServletRequest request) {
         return success(loginService.login(loginDTO, HttpUtil.getIp(request)));
     }
 
+    @GetMapping("/info")
+    @ApiOperation(value = "获得当前管理员信息")
+    public CommonResult<PassportAdminVO> getInfo() {
+        return success(loginService.getAdminInfo(AdminSecurityContextHolder.getAdminId()));
+    }
 
 
 }

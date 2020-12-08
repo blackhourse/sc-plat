@@ -1,4 +1,4 @@
-package cn.boot.st.security.dto;
+package cn.boot.common.framework.dataobject.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

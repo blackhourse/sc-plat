@@ -1,4 +1,4 @@
-package cn.boot.st.security.dto;
+package cn.boot.common.framework.dataobject.dto;
 
 
 import cn.boot.common.framework.enums.UserTypeEnum;
