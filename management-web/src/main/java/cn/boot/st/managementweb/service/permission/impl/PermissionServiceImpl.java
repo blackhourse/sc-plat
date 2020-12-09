@@ -1,12 +1,13 @@
 package cn.boot.st.managementweb.service.permission.impl;
 
-import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.enums.role.RoleCodeEnum;
+import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.st.managementweb.convert.resource.ResourceConvert;
 import cn.boot.st.managementweb.dataobject.domain.*;
 import cn.boot.st.managementweb.dataobject.dto.PermissionAssignAdminRoleDTO;
 import cn.boot.st.managementweb.dataobject.dto.PermissionAssignRoleResourceDTO;
 import cn.boot.st.managementweb.dataobject.vo.ResourceVO;
+import cn.boot.st.managementweb.dataobject.vo.RoleResourceVo;
 import cn.boot.st.managementweb.mapper.admin.AdminMapper;
 import cn.boot.st.managementweb.mapper.role.AdminRoleMapper;
 import cn.boot.st.managementweb.mapper.role.ResourceMapper;
@@ -118,6 +119,20 @@ public class PermissionServiceImpl implements PermissionService {
                     .map(roleId -> new AdminRoleDO().setAdminId(permissionAssignAdminRoleDTO.getAdminId()).setRoleId(roleId)).collect(Collectors.toList());
             adminRoleMapper.insertList(adminRoleDOs);
         }
+    }
+
+    @Override
+    public Set<Integer> selectListByPermissions(Collection<String> permissions) {
+        List<ResourceDO> resourceDOS = resourceMapper.selectListByPermissions(permissions);
+        Set<Integer> integerSet = resourceDOS.stream().map(ResourceDO::getId).collect(Collectors.toSet());
+        return integerSet;
+    }
+
+    @Override
+    public List<RoleResourceVo> selectListByResourceIds(Collection<Integer> resourceIds) {
+        List<RoleResourceDO> roleResourceDOS = roleResourceMapper.selectListByResourceIds(resourceIds);
+        List<RoleResourceVo> roleResourceVos = ResourceConvert.INSTANCE.convertRoleResourceVoList(roleResourceDOS);
+        return roleResourceVos;
     }
 
 

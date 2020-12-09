@@ -14,6 +14,7 @@ import cn.boot.st.security.core.context.AdminSecurityContext;
 import cn.boot.st.security.core.context.AdminSecurityContextHolder;
 import cn.boot.st.securityserver.config.SystemBizProperties;
 import cn.boot.st.securityserver.convert.OAuth2Convert;
+import cn.boot.st.securityserver.dataobject.bo.RoleResourceVo;
 import cn.boot.st.securityserver.dataobject.domain.OAuth2AccessTokenDO;
 import cn.boot.st.securityserver.dataobject.dto.PermissionCheckDTO;
 import cn.boot.st.securityserver.feign.PermissionFeignService;
@@ -21,6 +22,7 @@ import cn.boot.st.securityserver.mapper.OAuth2AccessTokenMapper;
 import cn.boot.st.securityserver.mapper.OAuth2RefreshTokenMapper;
 import cn.boot.st.web.util.CommonWebUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.method.HandlerMethod;
@@ -28,13 +30,14 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
 import static cn.boot.common.framework.exception.enums.GlobalErrorCodeConstants.FORBIDDEN;
 import static cn.boot.common.framework.exception.enums.GlobalErrorCodeConstants.UNAUTHORIZED;
 
+@Slf4j
 public class AdminSecurityInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
@@ -100,8 +103,6 @@ public class AdminSecurityInterceptor extends HandlerInterceptorAdapter {
         }
         // 权限验证
         checkPermission(new PermissionCheckDTO().setAdminId(adminId).setPermissions(Arrays.asList(permissions)));
-//        permissionRpc.checkPermission(new PermissionCheckDTO().setAdminId(adminId).setPermissions(Arrays.asList(permissions)))
-//                .checkError();
     }
 
 
@@ -114,7 +115,6 @@ public class AdminSecurityInterceptor extends HandlerInterceptorAdapter {
      */
     public void checkPermission(PermissionCheckDTO checkDTO) {
         // 查询管理员拥有的角色关联数据
-
         CommonResult<Set<Integer>> setCommonResult = permissionFeignService.listAdminRoles(checkDTO.getAdminId());
         Set<Integer> roleIds = setCommonResult.getData();
         // 如果没有角色，默认无法访问
@@ -127,7 +127,33 @@ public class AdminSecurityInterceptor extends HandlerInterceptorAdapter {
             return;
         }
         // 校验权限
-//        checkPermission(roleIds, checkDTO.getPermissions());
+        checkPermission(roleIds, checkDTO.getPermissions());
+    }
+
+
+    public void checkPermission(Collection<Integer> roleIds, Collection<String> permissions) {
+        // 查询权限对应资源
+        Set<Integer> permissionIds = permissionFeignService.selectListByPermissions(permissions);
+        // 无对应资源，则认为无需权限验证
+        if (CollectionUtil.isEmpty(permissionIds)) {
+            log.warn("[checkPermission][permission({}) 未配置对应资源]", permissions);
+            return;
+        }
+        // 权限验证
+        List<RoleResourceVo> roleResourceDOs = permissionFeignService.selectListByResourceIds(permissionIds);
+        // 资源未授予任何角色，必然权限验证不通过
+        if (CollectionUtil.isEmpty(roleResourceDOs)) {
+            log.warn("[checkPermission][permissionIds({}) 资源未授予任何角色]", permissionIds);
+            throw new GlobalException(FORBIDDEN);
+        }
+        Map<Integer, List<Integer>> resourceRoleMap = roleResourceDOs.stream().collect(Collectors.groupingBy(RoleResourceVo::getResourceId,
+                Collectors.mapping(RoleResourceVo::getRoleId, Collectors.toList())));
+        for (Map.Entry<Integer, List<Integer>> entry : resourceRoleMap.entrySet()) {
+            // 所以有任一不满足，就验证失败，抛出异常
+            if (!CollectionUtil.containsAny(roleIds, entry.getValue())) {
+                throw new GlobalException(FORBIDDEN);
+            }
+        }
     }
 
     @Transactional

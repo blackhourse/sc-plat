@@ -10,6 +10,7 @@ package cn.boot.st.managementweb.controller.permission;
 import cn.boot.common.framework.vo.CommonResult;
 import cn.boot.st.managementweb.dataobject.dto.PermissionAssignAdminRoleDTO;
 import cn.boot.st.managementweb.dataobject.dto.PermissionAssignRoleResourceDTO;
+import cn.boot.st.managementweb.dataobject.vo.RoleResourceVo;
 import cn.boot.st.managementweb.service.permission.PermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -18,11 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 import static cn.boot.common.framework.vo.CommonResult.success;
@@ -70,6 +69,20 @@ public class PermissionController {
     public CommonResult<Boolean> assignAdminRole(PermissionAssignAdminRoleDTO assignAdminRoleDTO) {
         permissionService.assignAdminRole(assignAdminRoleDTO);
         return success(true);
+    }
+
+    @GetMapping("/list-permissions")
+    @ApiOperation("查询权限对应资源")
+    @ApiImplicitParam(name = "permissions", value = "资源编号列表", required = true)
+    public Set<Integer> selectListByPermissions(@RequestParam("permissions") List<String> permissions) {
+        return permissionService.selectListByPermissions(permissions);
+    }
+
+    @GetMapping("/list-resources")
+    @ApiOperation("根据资源id获取角色资源信息")
+    @ApiImplicitParam(name = "permissions", value = "资源编号列表", required = true)
+    public List<RoleResourceVo> selectListByResourceIds(@RequestParam("permissions") List<Integer> permissions) {
+        return permissionService.selectListByResourceIds(permissions);
     }
 
 

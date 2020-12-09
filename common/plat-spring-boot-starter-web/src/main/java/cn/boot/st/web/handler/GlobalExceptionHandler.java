@@ -1,5 +1,6 @@
 package cn.boot.st.web.handler;
 
+import cn.boot.common.framework.exception.util.GlobalException;
 import cn.boot.common.framework.exception.util.ServiceException;
 import cn.boot.common.framework.vo.CommonResult;
 import cn.hutool.core.exceptions.ExceptionUtil;
@@ -78,6 +79,23 @@ public class GlobalExceptionHandler {
         logger.warn("[constraintViolationExceptionHandler]", ex);
         return CommonResult.error(BAD_REQUEST.getCode(), "请求参数不正确")
                 .setDetailMessage(ExceptionUtil.getRootCauseMessage(ex));
+    }
+
+    /**
+     * 处理全局异常 ServiceException  状态为401 402 403 等
+     * <p>
+     */
+    @ExceptionHandler(value = GlobalException.class)
+    public CommonResult globalExceptionHandler(HttpServletRequest req, GlobalException ex) {
+        // 系统异常时，才打印异常日志
+        if (INTERNAL_SERVER_ERROR.getCode().equals(ex.getCode())) {
+            // todo 插入异常日志
+            // 普通全局异常，打印 info 日志即可
+        } else {
+            logger.info("[globalExceptionHandler]", ex);
+        }
+        // 返回 ERROR CommonResult
+        return CommonResult.error(ex);
     }
 
     /**

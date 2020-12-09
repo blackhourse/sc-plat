@@ -40,7 +40,7 @@ public class AdminTokenController {
 
     @GetMapping("/info")
     @ApiOperation(value = "获得当前管理员信息")
-    @RequiresPermissions("promotion:banner:update")
+    @RequiresPermissions("system:admin:page")
     public CommonResult getInfo() {
         Integer adminId = AdminSecurityContextHolder.getAdminId();
         return success("");

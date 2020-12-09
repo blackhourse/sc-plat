@@ -1,10 +1,12 @@
 package cn.boot.st.managementweb.convert.resource;
 
 import cn.boot.st.managementweb.dataobject.domain.ResourceDO;
+import cn.boot.st.managementweb.dataobject.domain.RoleResourceDO;
 import cn.boot.st.managementweb.dataobject.dto.ResourceCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.ResourceUpdateDTO;
 import cn.boot.st.managementweb.dataobject.vo.ResourceTreeNodeVO;
 import cn.boot.st.managementweb.dataobject.vo.ResourceVO;
+import cn.boot.st.managementweb.dataobject.vo.RoleResourceVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -30,5 +32,7 @@ public interface ResourceConvert {
     List<ResourceVO> convertList(List<ResourceDO> bean);
 
     ResourceTreeNodeVO convertTreeNode(ResourceVO bean);
+
+    List<RoleResourceVo> convertRoleResourceVoList(List<RoleResourceDO> bean);
 
 }

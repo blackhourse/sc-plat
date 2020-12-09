@@ -1,12 +1,14 @@
 package cn.boot.st.securityserver.feign;
 
 import cn.boot.common.framework.vo.CommonResult;
+import cn.boot.st.securityserver.dataobject.bo.RoleResourceVo;
 import cn.boot.st.securityserver.feign.factory.PermissionFeignServiceFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -42,4 +44,24 @@ public interface PermissionFeignService {
      */
     @GetMapping("/admin/roleIds")
     CommonResult<Boolean> hasSuperAdmin(@RequestParam("roleIds") Collection<Integer> roleIds);
+
+    /**
+     * 查询权限对应资源
+     *
+     * @param permissions
+     * @return
+     */
+    @GetMapping("/permission/list-permissions")
+    Set<Integer> selectListByPermissions(@RequestParam("permissions") Collection<String> permissions);
+
+    /**
+     * 根据资源id获取角色资源信息
+     * @param permissions
+     * @return
+     */
+    @GetMapping("/permission/list-resources")
+    List<RoleResourceVo> selectListByResourceIds(@RequestParam("permissions") Collection<Integer> permissions);
+
+
+
 }

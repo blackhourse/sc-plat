@@ -1,11 +1,15 @@
 package cn.boot.st.managementweb.service.resource;
 
+import cn.boot.st.managementweb.dataobject.domain.RoleResourceDO;
 import cn.boot.st.managementweb.dataobject.dto.ResourceCreateDTO;
 import cn.boot.st.managementweb.dataobject.dto.ResourceUpdateDTO;
 import cn.boot.st.managementweb.dataobject.vo.ResourceTreeNodeVO;
 import cn.boot.st.managementweb.dataobject.vo.ResourceVO;
+import cn.boot.st.managementweb.dataobject.vo.RoleResourceVo;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Classname ResourcrService
@@ -57,8 +61,11 @@ public interface ResourceService {
 
     /**
      * 资源树
+     *
      * @return
      */
     List<ResourceTreeNodeVO> treeResource();
+
+
 
 }

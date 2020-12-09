@@ -2,7 +2,10 @@ package cn.boot.st.managementweb.service.permission;
 
 import cn.boot.st.managementweb.dataobject.dto.PermissionAssignAdminRoleDTO;
 import cn.boot.st.managementweb.dataobject.dto.PermissionAssignRoleResourceDTO;
+import cn.boot.st.managementweb.dataobject.vo.RoleResourceVo;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,6 +33,22 @@ public interface PermissionService {
      */
     Set<Integer> listAdminRoles(Integer adminId);
 
+    /**
+     * 赋予用户角色
+     *
+     * @param permissionAssignAdminRoleDTO
+     */
     void assignAdminRole(PermissionAssignAdminRoleDTO permissionAssignAdminRoleDTO);
+
+    /**
+     * 查询权限对应资源
+     *
+     * @param permissions
+     * @return
+     */
+    Set<Integer> selectListByPermissions(Collection<String> permissions);
+
+    List<RoleResourceVo> selectListByResourceIds(Collection<Integer> resourceIds);
+
 
 }

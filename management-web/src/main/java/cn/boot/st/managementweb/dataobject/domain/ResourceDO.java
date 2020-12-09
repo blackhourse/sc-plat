@@ -1,6 +1,7 @@
 package cn.boot.st.managementweb.dataobject.domain;
 
 
+import cn.boot.common.framework.enums.role.ResourceTypeEnum;
 import cn.boot.st.mybatis.core.dataobject.DeletableDO;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -48,7 +49,7 @@ public class ResourceDO extends DeletableDO {
     /**
      * 父级资源编号
      *
-     * 关联：{@link cn.iocoder.mall.systemservice.dal.mysql.dataobject.permission.ResourceDO#getId()}
+     * 关联：{@link ResourceDO#getId()}
      */
     private Integer pid;
     /**
