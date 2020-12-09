@@ -12,7 +12,7 @@ public interface SystemErrorCodeConstants {
     ErrorCode OAUTH2_REFRESH_TOKEN_NOT_FOUND = new ErrorCode(1001001005, "刷新令牌不存在");
     ErrorCode OAUTH_REFRESH_TOKEN_EXPIRED = new ErrorCode(1001001006, "访问令牌已过期");
     // 其它 1001001100 开始
-    ErrorCode  OAUTH_USER_TYPE_ERROR = new ErrorCode(1001001101, "用户类型并不正确");
+    ErrorCode OAUTH_USER_TYPE_ERROR = new ErrorCode(1001001101, "用户类型并不正确");
 
     // ========== 管理员模块 1002002000 ==========
     ErrorCode ADMIN_NOT_FOUND = new ErrorCode(1002002000, "管理员不存在");
@@ -52,6 +52,9 @@ public interface SystemErrorCodeConstants {
     // ========== 权限模块 1002008000 ==========
     ErrorCode PERMISSION_DEMO_PERMISSION_DENY = new ErrorCode(1002008002, "演示账号，暂不允许写操作");
     ErrorCode PERMISSION_ROLE_ASSIGN_RESOURCE_NOT_EXISTS = new ErrorCode(1002008004, "分配角色资源时，有资源不存在");
+
+    // ==============服务降级 1003001000==================
+    ErrorCode SERVICE_DEGRADATION = new ErrorCode(1002008002, "服务降级，请稍后重试");
 
 
 }

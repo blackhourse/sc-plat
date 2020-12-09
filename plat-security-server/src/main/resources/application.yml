@@ -19,7 +19,7 @@ spring:
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #输出详细sql
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #输出详细sql
   global-config:
     db-config:
       id-type: auto
@@ -35,9 +35,25 @@ swagger:
   version: 1.0.0
   base-package: cn.boot.st.securityserver.controller
 
+logging:
+  level:
+    cn.boot.st.securityserver.feign: DEBUG
+
 #启用 httpclient
 feign:
+  # Feign 客户端配置，对应 FeignClientProperties 配置属性类
+  client:
+    # config 配置项是 Map 类型。key 为 Feign 客户端的名字，value 为 FeignClientConfiguration 对象
+    config:
+      # 全局级别配置
+      default:
+        logger-level: BASIC
+      # 客户端级别配置
+      demo-provider:
+        logger-level: FULL
   httpclient:
+    enabled: true
+  hystrix:
     enabled: true
 # Actuator 监控配置项
 management:

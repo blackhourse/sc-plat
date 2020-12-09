@@ -127,7 +127,7 @@ public class AdminSecurityInterceptor extends HandlerInterceptorAdapter {
             return;
         }
         // 校验权限
-//        permissionService.checkPermission(roleIds, checkDTO.getPermissions());
+//        checkPermission(roleIds, checkDTO.getPermissions());
     }
 
     @Transactional

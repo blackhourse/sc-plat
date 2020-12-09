@@ -14,6 +14,8 @@ import cn.boot.st.managementweb.service.permission.PermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +36,8 @@ import static cn.boot.common.framework.vo.CommonResult.success;
 @Validated
 public class PermissionController {
 
+    private Logger logger = LoggerFactory.getLogger(PermissionController.class);
+
     @Autowired
     private PermissionService permissionService;
 
@@ -41,6 +45,7 @@ public class PermissionController {
     @ApiOperation("获得角色拥有的资源编号")
     @ApiImplicitParam(name = "roleId", value = "角色编号", required = true)
     public CommonResult<Set<Integer>> listRoleResources(Integer roleId) {
+        logger.info("[echo][被调用啦 roleId({})]", roleId);
         return success(permissionService.listRoleResources(roleId));
     }
 
@@ -56,6 +61,7 @@ public class PermissionController {
     @ApiOperation("获得管理员拥有的角色编号列表")
     @ApiImplicitParam(name = "adminId", value = "管理员编号", required = true)
     public CommonResult<Set<Integer>> listAdminRoles(Integer adminId) {
+        logger.info("[echo][被调用啦 adminId({})]", adminId);
         return success(permissionService.listAdminRoles(adminId));
     }
 

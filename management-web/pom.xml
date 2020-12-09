@@ -94,13 +94,17 @@
         <!--feign 相关-->
         <!-- 使用Apache HttpClient替换Feign原生httpURLConnection -->
         <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+        </dependency>
+<!--        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-httpclient</artifactId>
-        </dependency>
+        </dependency>-->
     </dependencies>
     <build>
         <!-- 设置构建的 jar 包名 -->
