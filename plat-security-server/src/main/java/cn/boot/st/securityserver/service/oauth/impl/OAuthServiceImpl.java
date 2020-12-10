@@ -1,4 +1,4 @@
-package cn.boot.st.securityserver.service.impl;
+package cn.boot.st.securityserver.service.oauth.impl;
 
 import cn.boot.common.framework.dataobject.dto.OAuth2AccessTokenRespDTO;
 import cn.boot.common.framework.dataobject.dto.OAuth2CreateAccessTokenReqDTO;
@@ -11,7 +11,7 @@ import cn.boot.st.securityserver.dataobject.domain.OAuth2AccessTokenDO;
 import cn.boot.st.securityserver.dataobject.domain.OAuth2RefreshTokenDO;
 import cn.boot.st.securityserver.mapper.OAuth2AccessTokenMapper;
 import cn.boot.st.securityserver.mapper.OAuth2RefreshTokenMapper;
-import cn.boot.st.securityserver.service.OAuthService;
+import cn.boot.st.securityserver.service.oauth.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

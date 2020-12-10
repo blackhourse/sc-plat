@@ -1,4 +1,4 @@
-package cn.boot.st.securityserver.service;
+package cn.boot.st.securityserver.service.oauth;
 
 import cn.boot.common.framework.dataobject.dto.OAuth2AccessTokenRespDTO;
 import cn.boot.common.framework.dataobject.dto.OAuth2CreateAccessTokenReqDTO;

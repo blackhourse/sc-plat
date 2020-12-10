@@ -1,0 +1,41 @@
+server:
+  port: 10003
+
+spring:
+  # Application 的配置项
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          #          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: management-web
+          uri: lb://management-web
+          predicates:
+            - Path=/management-web/**
+          filters:
+            - StripPrefix=1
+        - id: security-server
+          uri: lb://security-server
+          predicates:
+            - Path=/auth/**
+          filters:
+#            - SwaggerHeaderFilter
+            - StripPrefix=1
+  # Profile 的配置项
+  profiles:
+    active: local
+secure:
+  ignore:
+    urls: #配置白名单路径
+#      - "/doc.html"
+#      - "/swagger-resources/**"
+      - "/auth/crateToken"
+      - "/management-web/login/info"
+
+logging:
+  level:
+    org.springframework:cloud.gateway: debug

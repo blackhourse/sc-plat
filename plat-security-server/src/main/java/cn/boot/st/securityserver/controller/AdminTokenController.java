@@ -1,12 +1,13 @@
 package cn.boot.st.securityserver.controller;
 
+import cn.boot.common.framework.dataobject.dto.OAuth2AccessTokenRespDTO;
 import cn.boot.common.framework.dataobject.dto.OAuth2CreateAccessTokenReqDTO;
 import cn.boot.common.framework.dataobject.vo.PassportAccessTokenVO;
 import cn.boot.common.framework.util.HttpUtil;
 import cn.boot.common.framework.vo.CommonResult;
 import cn.boot.st.security.annotations.RequiresPermissions;
 import cn.boot.st.security.core.context.AdminSecurityContextHolder;
-import cn.boot.st.securityserver.service.OAuthService;
+import cn.boot.st.securityserver.service.oauth.OAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class AdminTokenController {
 
     @PostMapping("/crateToken")
     @ApiOperation("获取Token")
-    public CommonResult createAccessToken(OAuth2CreateAccessTokenReqDTO auth2CreateAccessTokenReqDTO, HttpServletRequest request) {
+    public CommonResult<OAuth2AccessTokenRespDTO> createAccessToken(OAuth2CreateAccessTokenReqDTO auth2CreateAccessTokenReqDTO, HttpServletRequest request) {
         String ip = HttpUtil.getIp(request);
         auth2CreateAccessTokenReqDTO.setCreateIp(ip);
         return success(oAuthService.createAccessToken(auth2CreateAccessTokenReqDTO));
@@ -41,9 +42,9 @@ public class AdminTokenController {
     @GetMapping("/info")
     @ApiOperation(value = "获得当前管理员信息")
     @RequiresPermissions("system:admin:page")
-    public CommonResult getInfo() {
+    public CommonResult<Integer> getInfo() {
         Integer adminId = AdminSecurityContextHolder.getAdminId();
-        return success("");
+        return success(adminId);
     }
 
 
