@@ -9,7 +9,6 @@ spring:
     gateway:
       discovery:
         locator:
-          #          enabled: true
           lowerCaseServiceId: true
       routes:
         - id: management-web
@@ -23,7 +22,12 @@ spring:
           predicates:
             - Path=/auth/**
           filters:
-#            - SwaggerHeaderFilter
+            - StripPrefix=1
+        - id: plat-product
+          uri: lb://plat-product
+          predicates:
+            - Path=/plat-product/**
+          filters:
             - StripPrefix=1
   # Profile 的配置项
   profiles:
@@ -31,11 +35,12 @@ spring:
 secure:
   ignore:
     urls: #配置白名单路径
-#      - "/doc.html"
-#      - "/swagger-resources/**"
+      - "/doc.html"
+      - "/swagger-resources/**"
+      - "/swagger/**"
+      - "/**/v2/api-docs"
+      - "/management-web/**"
       - "/auth/crateToken"
-      - "/management-web/login/info"
-
 logging:
   level:
     org.springframework:cloud.gateway: debug

@@ -1,6 +1,7 @@
 package cn.boot.st.managementweb.dataobject.domain;
 
 
+import cn.boot.common.framework.enums.role.RoleTypeEnum;
 import cn.boot.st.mybatis.core.dataobject.DeletableDO;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

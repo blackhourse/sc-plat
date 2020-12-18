@@ -1,8 +1,8 @@
 package cn.boot.st.managementweb.service.permission;
 
-import cn.boot.st.managementweb.dataobject.dto.PermissionAssignAdminRoleDTO;
-import cn.boot.st.managementweb.dataobject.dto.PermissionAssignRoleResourceDTO;
-import cn.boot.st.managementweb.dataobject.vo.RoleResourceVo;
+import cn.boot.st.managementweb.controller.permission.dto.PermissionAssignAdminRoleDTO;
+import cn.boot.st.managementweb.controller.permission.dto.PermissionAssignRoleResourceDTO;
+import cn.boot.st.managementweb.controller.permission.vo.RoleResourceVo;
 
 import java.util.Collection;
 import java.util.List;

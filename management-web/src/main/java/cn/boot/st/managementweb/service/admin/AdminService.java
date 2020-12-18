@@ -1,10 +1,9 @@
 package cn.boot.st.managementweb.service.admin;
 
 import cn.boot.st.managementweb.dataobject.domain.AdminDO;
-import cn.boot.st.managementweb.dataobject.dto.AdminCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.AdminUpdateInfoDTO;
-import cn.boot.st.managementweb.dataobject.dto.AdminUpdateStatusDTO;
-import org.springframework.web.bind.annotation.RequestParam;
+import cn.boot.st.managementweb.controller.admin.dto.AdminCreateDTO;
+import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateInfoDTO;
+import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateStatusDTO;
 
 import java.util.Collection;
 

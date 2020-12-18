@@ -2,9 +2,9 @@ package cn.boot.st.managementweb.convert.role;
 
 import cn.boot.common.framework.vo.PageResult;
 import cn.boot.st.managementweb.dataobject.domain.RoleDO;
-import cn.boot.st.managementweb.dataobject.dto.RoleCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.RoleUpdateDTO;
-import cn.boot.st.managementweb.dataobject.vo.RoleVO;
+import cn.boot.st.managementweb.controller.role.dto.RoleCreateDTO;
+import cn.boot.st.managementweb.controller.role.dto.RoleUpdateDTO;
+import cn.boot.st.managementweb.controller.role.vo.RoleVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

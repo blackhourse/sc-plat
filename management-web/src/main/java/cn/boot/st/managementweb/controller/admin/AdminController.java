@@ -1,9 +1,9 @@
 package cn.boot.st.managementweb.controller.admin;
 
 import cn.boot.common.framework.vo.CommonResult;
-import cn.boot.st.managementweb.dataobject.dto.AdminCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.AdminUpdateInfoDTO;
-import cn.boot.st.managementweb.dataobject.dto.AdminUpdateStatusDTO;
+import cn.boot.st.managementweb.controller.admin.dto.AdminCreateDTO;
+import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateInfoDTO;
+import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateStatusDTO;
 import cn.boot.st.managementweb.service.admin.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

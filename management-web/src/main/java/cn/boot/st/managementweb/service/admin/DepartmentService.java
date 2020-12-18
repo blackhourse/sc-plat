@@ -1,9 +1,9 @@
 package cn.boot.st.managementweb.service.admin;
 
-import cn.boot.st.managementweb.dataobject.dto.DepartmentCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.DepartmentUpdateDTO;
-import cn.boot.st.managementweb.dataobject.vo.DepartmentTreeNodeVO;
-import cn.boot.st.managementweb.dataobject.vo.DepartmentVO;
+import cn.boot.st.managementweb.controller.admin.dto.DepartmentCreateDTO;
+import cn.boot.st.managementweb.controller.admin.dto.DepartmentUpdateDTO;
+import cn.boot.st.managementweb.controller.admin.vo.DepartmentTreeNodeVO;
+import cn.boot.st.managementweb.controller.admin.vo.DepartmentVO;
 
 import java.util.List;
 

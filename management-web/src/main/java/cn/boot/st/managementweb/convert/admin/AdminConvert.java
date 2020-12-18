@@ -1,10 +1,10 @@
 package cn.boot.st.managementweb.convert.admin;
 
 import cn.boot.st.managementweb.dataobject.domain.AdminDO;
-import cn.boot.st.managementweb.dataobject.dto.AdminCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.AdminUpdateInfoDTO;
-import cn.boot.st.managementweb.dataobject.dto.AdminUpdateStatusDTO;
-import cn.boot.st.managementweb.dataobject.vo.PassportAdminVO;
+import cn.boot.st.managementweb.controller.admin.dto.AdminCreateDTO;
+import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateInfoDTO;
+import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateStatusDTO;
+import cn.boot.st.managementweb.controller.login.vo.PassportAdminVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

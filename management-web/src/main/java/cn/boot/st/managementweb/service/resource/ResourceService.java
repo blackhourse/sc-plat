@@ -1,15 +1,11 @@
 package cn.boot.st.managementweb.service.resource;
 
-import cn.boot.st.managementweb.dataobject.domain.RoleResourceDO;
-import cn.boot.st.managementweb.dataobject.dto.ResourceCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.ResourceUpdateDTO;
-import cn.boot.st.managementweb.dataobject.vo.ResourceTreeNodeVO;
-import cn.boot.st.managementweb.dataobject.vo.ResourceVO;
-import cn.boot.st.managementweb.dataobject.vo.RoleResourceVo;
+import cn.boot.st.managementweb.controller.resource.dto.ResourceCreateDTO;
+import cn.boot.st.managementweb.controller.resource.dto.ResourceUpdateDTO;
+import cn.boot.st.managementweb.controller.resource.vo.ResourceTreeNodeVO;
+import cn.boot.st.managementweb.controller.resource.vo.ResourceVO;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @Classname ResourcrService

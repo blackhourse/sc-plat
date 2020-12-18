@@ -1,12 +1,10 @@
 package cn.boot.st.managementweb.service.role;
 
 import cn.boot.common.framework.vo.PageResult;
-import cn.boot.st.managementweb.dataobject.domain.RoleDO;
-import cn.boot.st.managementweb.dataobject.dto.RoleCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.RolePageDTO;
-import cn.boot.st.managementweb.dataobject.dto.RoleUpdateDTO;
-import cn.boot.st.managementweb.dataobject.vo.RoleVO;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import cn.boot.st.managementweb.controller.role.dto.RoleCreateDTO;
+import cn.boot.st.managementweb.controller.role.dto.RolePageDTO;
+import cn.boot.st.managementweb.controller.role.dto.RoleUpdateDTO;
+import cn.boot.st.managementweb.controller.role.vo.RoleVO;
 
 import javax.validation.Valid;
 import java.util.List;

@@ -2,11 +2,11 @@ package cn.boot.st.managementweb.convert.resource;
 
 import cn.boot.st.managementweb.dataobject.domain.ResourceDO;
 import cn.boot.st.managementweb.dataobject.domain.RoleResourceDO;
-import cn.boot.st.managementweb.dataobject.dto.ResourceCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.ResourceUpdateDTO;
-import cn.boot.st.managementweb.dataobject.vo.ResourceTreeNodeVO;
-import cn.boot.st.managementweb.dataobject.vo.ResourceVO;
-import cn.boot.st.managementweb.dataobject.vo.RoleResourceVo;
+import cn.boot.st.managementweb.controller.resource.dto.ResourceCreateDTO;
+import cn.boot.st.managementweb.controller.resource.dto.ResourceUpdateDTO;
+import cn.boot.st.managementweb.controller.resource.vo.ResourceTreeNodeVO;
+import cn.boot.st.managementweb.controller.resource.vo.ResourceVO;
+import cn.boot.st.managementweb.controller.permission.vo.RoleResourceVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

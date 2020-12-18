@@ -8,9 +8,9 @@ package cn.boot.st.managementweb.controller.permission;
  */
 
 import cn.boot.common.framework.vo.CommonResult;
-import cn.boot.st.managementweb.dataobject.dto.PermissionAssignAdminRoleDTO;
-import cn.boot.st.managementweb.dataobject.dto.PermissionAssignRoleResourceDTO;
-import cn.boot.st.managementweb.dataobject.vo.RoleResourceVo;
+import cn.boot.st.managementweb.controller.permission.dto.PermissionAssignAdminRoleDTO;
+import cn.boot.st.managementweb.controller.permission.dto.PermissionAssignRoleResourceDTO;
+import cn.boot.st.managementweb.controller.permission.vo.RoleResourceVo;
 import cn.boot.st.managementweb.service.permission.PermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

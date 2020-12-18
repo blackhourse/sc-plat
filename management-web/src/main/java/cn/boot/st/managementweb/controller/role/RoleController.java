@@ -2,10 +2,10 @@ package cn.boot.st.managementweb.controller.role;
 
 import cn.boot.common.framework.vo.CommonResult;
 import cn.boot.common.framework.vo.PageResult;
-import cn.boot.st.managementweb.dataobject.dto.RoleCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.RolePageDTO;
-import cn.boot.st.managementweb.dataobject.dto.RoleUpdateDTO;
-import cn.boot.st.managementweb.dataobject.vo.RoleVO;
+import cn.boot.st.managementweb.controller.role.dto.RoleCreateDTO;
+import cn.boot.st.managementweb.controller.role.dto.RolePageDTO;
+import cn.boot.st.managementweb.controller.role.dto.RoleUpdateDTO;
+import cn.boot.st.managementweb.controller.role.vo.RoleVO;
 import cn.boot.st.managementweb.service.role.RoleService;
 import cn.boot.st.security.core.context.AdminSecurityContextHolder;
 import io.swagger.annotations.Api;

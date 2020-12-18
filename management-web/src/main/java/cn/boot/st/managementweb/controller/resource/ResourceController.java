@@ -1,10 +1,10 @@
 package cn.boot.st.managementweb.controller.resource;
 
 import cn.boot.common.framework.vo.CommonResult;
-import cn.boot.st.managementweb.dataobject.dto.ResourceCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.ResourceUpdateDTO;
-import cn.boot.st.managementweb.dataobject.vo.ResourceTreeNodeVO;
-import cn.boot.st.managementweb.dataobject.vo.ResourceVO;
+import cn.boot.st.managementweb.controller.resource.dto.ResourceCreateDTO;
+import cn.boot.st.managementweb.controller.resource.dto.ResourceUpdateDTO;
+import cn.boot.st.managementweb.controller.resource.vo.ResourceTreeNodeVO;
+import cn.boot.st.managementweb.controller.resource.vo.ResourceVO;
 import cn.boot.st.managementweb.service.resource.ResourceService;
 import cn.boot.st.security.core.context.AdminSecurityContextHolder;
 import io.swagger.annotations.Api;

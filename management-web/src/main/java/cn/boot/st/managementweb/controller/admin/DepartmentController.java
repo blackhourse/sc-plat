@@ -1,11 +1,12 @@
 package cn.boot.st.managementweb.controller.admin;
 
 import cn.boot.common.framework.vo.CommonResult;
-import cn.boot.st.managementweb.dataobject.dto.DepartmentCreateDTO;
-import cn.boot.st.managementweb.dataobject.dto.DepartmentUpdateDTO;
-import cn.boot.st.managementweb.dataobject.vo.DepartmentTreeNodeVO;
-import cn.boot.st.managementweb.dataobject.vo.DepartmentVO;
+import cn.boot.st.managementweb.controller.admin.dto.DepartmentCreateDTO;
+import cn.boot.st.managementweb.controller.admin.dto.DepartmentUpdateDTO;
+import cn.boot.st.managementweb.controller.admin.vo.DepartmentTreeNodeVO;
+import cn.boot.st.managementweb.controller.admin.vo.DepartmentVO;
 import cn.boot.st.managementweb.service.admin.DepartmentService;
+import cn.boot.st.security.annotations.RequiresPermissions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -35,18 +36,21 @@ public class DepartmentController {
 
     @PostMapping("/create")
     @ApiOperation("创建部门")
+    @RequiresPermissions("system:dept:create")
     public CommonResult<Integer> createDepartment(@Valid DepartmentCreateDTO createDTO) {
         return success(departmentService.createDepartment(createDTO));
     }
 
     @PostMapping("/update")
     @ApiOperation("更新部门")
+    @RequiresPermissions("system:dept:update")
     public CommonResult<Boolean> updateDepartment(@Valid DepartmentUpdateDTO updateDTO) {
         return success(departmentService.updateDepartment(updateDTO));
     }
 
     @PostMapping("/delete")
     @ApiOperation("删除部门")
+    @RequiresPermissions("system:dept:delete")
     @ApiImplicitParam(name = "departmentId", value = "部门编号", required = true)
     public CommonResult<Boolean> deleteDepartment(@RequestParam("departmentId") Integer departmentId) {
         departmentService.deleteDepartment(departmentId);

@@ -17,6 +17,7 @@
         <module>plat-spring-boot-starter-mybatis</module>
         <module>plat-spring-boot-starter-web</module>
         <module>plat-spring-boot-starter-security</module>
+        <module>plat-spring-boot-starter-redis</module>
     </modules>
     <dependencyManagement>
         <dependencies>

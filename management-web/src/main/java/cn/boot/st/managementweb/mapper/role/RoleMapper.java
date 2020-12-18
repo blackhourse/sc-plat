@@ -2,7 +2,7 @@ package cn.boot.st.managementweb.mapper.role;
 
 
 import cn.boot.st.managementweb.dataobject.domain.RoleDO;
-import cn.boot.st.managementweb.dataobject.dto.RolePageDTO;
+import cn.boot.st.managementweb.controller.role.dto.RolePageDTO;
 import cn.boot.st.mybatis.core.query.QueryWrapperX;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

@@ -11,8 +11,7 @@ import java.util.Arrays;
 public enum AdminStatusEnum implements IntArrayValuable {
 
     ACTIVE(1, "在职"),
-    INACTIVE(2, "离职"),
-    TEST(3, "test");
+    INACTIVE(2, "离职");
 
     public static final int[] ARRAYS = Arrays.stream(values()).mapToInt(AdminStatusEnum::getStatus).toArray();
 

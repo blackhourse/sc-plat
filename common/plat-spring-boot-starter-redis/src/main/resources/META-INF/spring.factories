@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    cn.boot.st.redis.RedisTemplateConfig,\
+    cn.boot.st.redis.RedisUUID
