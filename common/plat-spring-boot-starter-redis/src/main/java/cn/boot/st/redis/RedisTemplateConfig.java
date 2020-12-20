@@ -22,30 +22,9 @@ import java.time.Duration;
  * @create: 2020-12-18
  **/
 
-/*@EnableCaching
-@Configuration
-@ConditionalOnBean(RedisConnectionFactory.class)
-@AllArgsConstructor*/
 @Configuration
 @EnableCaching
 public class RedisTemplateConfig {
-/*    private final RedisConnectionFactory redisConnectionFactory;
-
-    @Bean
-    @ConditionalOnMissingBean(RedisTemplate.class)
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        // key序列化
-        redisTemplate.setKeySerializer(STRING_SERIALIZER);
-// value序列化
-        redisTemplate.setValueSerializer(JACKSON__SERIALIZER);
-// Hash key序列化
-        redisTemplate.setHashKeySerializer(STRING_SERIALIZER);
-// Hash value序列化
-        redisTemplate.setHashValueSerializer(JACKSON__SERIALIZER);
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        return redisTemplate;
-    }*/
 
     private static final StringRedisSerializer STRING_SERIALIZER = new StringRedisSerializer();
     private static final GenericJackson2JsonRedisSerializer JACKSON__SERIALIZER = new GenericJackson2JsonRedisSerializer();
@@ -53,7 +32,7 @@ public class RedisTemplateConfig {
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         //设置缓存过期时间
-        RedisCacheConfiguration redisCacheCfg= RedisCacheConfiguration.defaultCacheConfig()
+        RedisCacheConfiguration redisCacheCfg = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofHours(1))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(STRING_SERIALIZER))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(JACKSON__SERIALIZER));
@@ -64,7 +43,7 @@ public class RedisTemplateConfig {
 
     @Bean
     @ConditionalOnMissingBean(name = "redisTemplate")
-    public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory factory){
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         // 配置redisTemplate
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);

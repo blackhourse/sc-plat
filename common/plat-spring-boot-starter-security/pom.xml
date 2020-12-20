@@ -35,6 +35,7 @@
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>

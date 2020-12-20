@@ -32,13 +32,12 @@ public interface ProductErrorCodeConstants {
     /**
      * 规格
      */
-    ErrorCode PRODUCT_ATTR_NAME_EXIST = new ErrorCode(1003003001, "规格名称已存在");
-    ErrorCode PRODUCT_ATTR_NAME_NOR_EXIST = new ErrorCode(1003003002, "规格名称不存在");
-
-    ErrorCode PRODUCT_ATTR_VALUE_EXIST = new ErrorCode(1003003003, "商品属性值已经存在");
-    ErrorCode PRODUCT__ATTR_VALUE_NOT_EXIST = new ErrorCode(1003003004, "商品属性值不存在");
-    ErrorCode PRODUCT_ATTR_KEY_NOT_EXIST = new ErrorCode(1003003005, "商品规格键不存在");
-    ErrorCode PRODUCT_ATTR_KEY_EXISTS = new ErrorCode(1003003006, "商品规格键已经存在");
+    // ========== PRODUCT ATTR + ATTR_VALUE 模块 ==========
+    ErrorCode PRODUCT_ATTR_VALUE_NOT_EXIST = new ErrorCode(1003003000, "商品属性值不存在");
+    ErrorCode PRODUCT_ATTR_KEY_NOT_EXIST = new ErrorCode(1003003001, "商品属性键不存在");
+    ErrorCode PRODUCT_ATTR_KEY_EXISTS = new ErrorCode(1003003002, "商品规格键已经存在");
+    ErrorCode PRODUCT_ATTR_VALUE_EXISTS = new ErrorCode(1003003004, "商品规格值已经存在");
+    ErrorCode PRODUCT_SKU_ATTR_CANT_NOT_DUPLICATE = new ErrorCode(1003003005, "一个 SKU 下，不能有重复的规格");
 
     /**
      * spu

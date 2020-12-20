@@ -4,7 +4,7 @@ import cn.boot.common.framework.vo.PageResult;
 import cn.boot.st.product.controller.attr.dto.*;
 import cn.boot.st.product.controller.attr.vo.ProductAttrKeyVO;
 import cn.boot.st.product.controller.attr.vo.ProductAttrValueRespVO;
-import cn.boot.st.product.dataobject.domain.ProductAttrValue;
+import cn.boot.st.product.dataobject.bo.ProductAttrKeyValueBO;
 
 import java.util.List;
 import java.util.Set;
@@ -79,5 +79,5 @@ public interface ProductAttrService {
     List<ProductAttrValueRespVO> listProductAttrValues(ProductAttrValueListQueryReqDTO queryReqDTO);
 
 
-    List<ProductAttrValue> validProductAttr(Set<Integer> productAttrValueIds, boolean validStatus);
+    List<ProductAttrKeyValueBO> validProductAttr(Set<Integer> productAttrValueIds, boolean validStatus);
 }

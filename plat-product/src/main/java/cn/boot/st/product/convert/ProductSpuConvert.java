@@ -3,6 +3,7 @@ package cn.boot.st.product.convert;
 import cn.boot.st.product.controller.spu.dto.ProductSpuCreateDTO;
 import cn.boot.st.product.dataobject.bo.ProductSkuCreateOrUpdateBO;
 import cn.boot.st.product.dataobject.domain.ProductSku;
+import cn.boot.st.product.dataobject.domain.ProductSpu;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -17,5 +18,8 @@ public interface ProductSpuConvert {
     ProductSpuConvert INSTANCE = Mappers.getMapper(ProductSpuConvert.class);
 
     List<ProductSkuCreateOrUpdateBO> convert(List<ProductSpuCreateDTO.Sku> skus);
+
+    ProductSpu convert(ProductSpuCreateDTO bean);
+
 
 }
