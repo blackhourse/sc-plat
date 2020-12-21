@@ -6,7 +6,7 @@ spring:
     name: plat-product
   # Profile 的配置项
   profiles:
-    active: local
+    active: dev
   # SpringMVC 配置项
 #  mvc:
 #    throw-exception-if-no-handler-found: true # 匹配不到路径时，抛出 NoHandlerFoundException 异常

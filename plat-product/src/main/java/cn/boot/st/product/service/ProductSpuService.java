@@ -1,6 +1,6 @@
 package cn.boot.st.product.service;
 
-import cn.boot.st.product.controller.spu.dto.ProductSpuCreateDTO;
+import cn.boot.st.product.dataobject.domain.ProductSpu;
 
 /**
  * @program: sc-plat
@@ -11,9 +11,10 @@ public interface ProductSpuService {
 
     /**
      * 创建上皮内-添加spu
-     * @param productSpuCreateDTO
+     *
+     * @param productSpu
      * @return
      */
-    Integer createProductSpu(ProductSpuCreateDTO productSpuCreateDTO);
+    Integer createProductSpu(ProductSpu productSpu);
 
 }

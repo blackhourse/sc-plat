@@ -9,4 +9,16 @@
         id,spu_id,status,pic_url,attrs,price,quantity,create_time,update_time,deleted
     </sql>
 
+    <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO product_sku (
+        spu_id, status, pic_url, attrs, price,
+        quantity
+        ) VALUES
+        <foreach collection="productSkuList" item="productSku" separator=",">
+            (#{productSku.spuId}, #{productSku.status}, #{productSku.picUrl}, #{productSku.attrs}, #{productSku.price},
+            #{productSku.quantity}
+            )
+        </foreach>
+    </insert>
+
 </mapper>

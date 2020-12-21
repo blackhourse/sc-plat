@@ -1,9 +1,8 @@
 package cn.boot.st.product.service.impl;
 
-import cn.boot.st.product.controller.spu.dto.ProductSpuCreateDTO;
-import cn.boot.st.product.manager.ProductSpuManager;
+import cn.boot.st.product.dataobject.domain.ProductSpu;
+import cn.boot.st.product.mapper.ProductSpuMapper;
 import cn.boot.st.product.service.ProductSpuService;
-import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +16,13 @@ import org.springframework.stereotype.Service;
 public class ProductSpuServiceImpl implements ProductSpuService {
 
     @Autowired
-    private ProductSpuManager productSpuManager;
-
+    private ProductSpuMapper productSpuMapper;
 
 
     @Override
-    public Integer createProductSpu(ProductSpuCreateDTO productSpuCreateDTO) {
-        return productSpuManager.createProductSpu(productSpuCreateDTO);
+    public Integer createProductSpu(ProductSpu productSpu) {
+        productSpuMapper.insert(productSpu);
+        return productSpu.getId();
     }
 
 

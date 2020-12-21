@@ -10,6 +10,7 @@ import cn.boot.st.product.dataobject.domain.ProductSpu;
 import cn.boot.st.product.enums.ProductCategoryIdEnum;
 import cn.boot.st.product.service.ProductAttrService;
 import cn.boot.st.product.service.ProductCategoryService;
+import cn.boot.st.product.service.ProductSkuService;
 import cn.boot.st.product.service.ProductSpuService;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ public class ProductSpuManager {
 
     @Autowired
     private ProductSpuService productSpuService;
-
+    @Autowired
+    private ProductSkuService productSkuService;
     @Autowired
     private ProductCategoryService productCategoryService;
 
@@ -45,24 +47,24 @@ public class ProductSpuManager {
 
 
     public Integer createProductSpu(ProductSpuCreateDTO productSpuCreateDTO) {
-        Integer productSpuId = self().createProductSpu1(productSpuCreateDTO);
-        return productSpuId;
+        return self().createProductSpu1(productSpuCreateDTO);
     }
 
     @Transactional
     public Integer createProductSpu1(ProductSpuCreateDTO productSpuCreateDTO) {
         // 校验商品分类是否合法
-        ProductCategoryRespVO productCategoryRespVO = this.checkProductCategory(productSpuCreateDTO.getCid());
-
-        List<ProductSkuCreateOrUpdateBO> productSkuCreateOrUpdateBOS = ProductSpuConvert.INSTANCE.convert(productSpuCreateDTO.getSkus());
-        // todo
-        checkProductAttr(productSkuCreateOrUpdateBOS);
+        this.checkProductCategory(productSpuCreateDTO.getCid());
+        List<ProductSkuCreateOrUpdateBO> productSkuCreateOrUpdateBos = ProductSpuConvert.INSTANCE.convert(productSpuCreateDTO.getSkus());
+        // 校验规格
+        checkProductAttr(productSkuCreateOrUpdateBos);
         // 保存spu
         ProductSpu productSpu = ProductSpuConvert.INSTANCE.convert(productSpuCreateDTO);
-        productSpu.setPrice(productSkuCreateOrUpdateBOS.stream().min(Comparator.comparing(ProductSkuCreateOrUpdateBO::getPrice)).get().getPrice());
-        productSpu.setQuantity(productSkuCreateOrUpdateBOS.stream().mapToInt(ProductSkuCreateOrUpdateBO::getQuantity).sum());
-        // todo 保存sku
-        return null;
+        productSpu.setPrice(productSkuCreateOrUpdateBos.stream().min(Comparator.comparing(ProductSkuCreateOrUpdateBO::getPrice)).get().getPrice());
+        productSpu.setQuantity(productSkuCreateOrUpdateBos.stream().mapToInt(ProductSkuCreateOrUpdateBO::getQuantity).sum());
+        Integer spuId = productSpuService.createProductSpu(productSpu);
+        // 保存sku
+        productSkuService.createProductSkus(spuId, productSkuCreateOrUpdateBos);
+        return spuId;
     }
 
     private ProductCategoryRespVO checkProductCategory(Integer cid) {
@@ -78,7 +80,7 @@ public class ProductSpuManager {
 
         // 第一步，校验 SKU 使用到的规格是否存在
         HashSet<Integer> attrValueIds = new HashSet<>();
-        skuBOs.stream().forEach(skuCreateOrUpdateBO -> attrValueIds.addAll(skuCreateOrUpdateBO.getAttrValueIds()));
+        skuBOs.forEach(skuCreateOrUpdateBO -> attrValueIds.addAll(skuCreateOrUpdateBO.getAttrValueIds()));
         List<ProductAttrKeyValueBO> attrKeyValueBOS = productAttrService.validProductAttr(attrValueIds, true);
         // 第二步，校验 SKU 设置的规格是否合法，例如说数量是否一致，是否重复等等
         // 创建 ProductAttrDetailBO 的映射。其中，KEY 为 ProductAttrDetailBO.attrValueId ，即规格值的编号
@@ -86,12 +88,13 @@ public class ProductSpuManager {
         Map<Integer, ProductAttrKeyValueBO> attrValueMap = attrKeyValueBOS.stream().collect(Collectors.toMap(ProductAttrKeyValueBO::getAttrValueId, a -> a));
         // 校验，一个 Sku 下，没有重复的规格。校验方式是，遍历每个 Sku ，看看是否有重复的规格 attrId
 
-        skuBOs.forEach(productSkuCreateOrUpdateBO -> {
-            Set<Integer> attrIds = productSkuCreateOrUpdateBO.getAttrValueIds().stream().map(attrValueId -> attrValueMap.get(attrValueId).getAttrKeyId()).collect(Collectors.toSet());
-            if (attrIds.size() != productSkuCreateOrUpdateBO.getAttrValueIds().size()) {
+        // 1. 先校验，一个 Sku 下，没有重复的规格。校验方式是，遍历每个 Sku ，看看是否有重复的规格 attrId
+        for (ProductSkuCreateOrUpdateBO sku : skuBOs) {
+            Set<Integer> attrIds = sku.getAttrValueIds().stream().map(attrValueId -> attrValueMap.get(attrValueId).getAttrValueId()).collect(Collectors.toSet());
+            if (attrIds.size() != sku.getAttrValueIds().size()) {
                 throw ServiceExceptionUtil.exception(PRODUCT_SKU_ATTR_CANT_NOT_DUPLICATE);
             }
-        });
+        }
         return attrKeyValueBOS;
 
     }
