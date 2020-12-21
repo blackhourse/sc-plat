@@ -1,5 +1,6 @@
 package cn.boot.st.product.dataobject.bo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,6 +16,10 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 public class ProductSkuCreateOrUpdateBO {
+
+    @ApiModelProperty(value = "sku id", required = true)
+    private Integer id;
+
     /**
      * 规格值数组
      */

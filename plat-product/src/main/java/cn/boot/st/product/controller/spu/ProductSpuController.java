@@ -2,6 +2,7 @@ package cn.boot.st.product.controller.spu;
 
 import cn.boot.common.framework.vo.CommonResult;
 import cn.boot.st.product.controller.spu.dto.ProductSpuCreateDTO;
+import cn.boot.st.product.controller.spu.dto.ProductSpuUpdateDTO;
 import cn.boot.st.product.manager.ProductSpuManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,13 @@ public class ProductSpuController {
     @ApiOperation("创建商品 SPU")
     public CommonResult<Integer> createProductSpu(@RequestBody @Valid ProductSpuCreateDTO productSpuCreateDTO) {
         return success(productSpuManager.createProductSpu(productSpuCreateDTO));
+    }
+
+    @PostMapping("/update")
+    @ApiOperation("修改商品 SPU")
+    public CommonResult<Boolean> updateProductSpu(@RequestBody @Valid ProductSpuUpdateDTO productSpuUpdateDTO) {
+        productSpuManager.updateProductSpu(productSpuUpdateDTO);
+        return success(true);
     }
 
 

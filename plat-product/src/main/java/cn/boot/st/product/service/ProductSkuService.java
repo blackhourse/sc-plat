@@ -12,4 +12,6 @@ import java.util.List;
 public interface ProductSkuService {
 
     void createProductSkus(Integer spuId, List<ProductSkuCreateOrUpdateBO> createSkuBos);
+
+    void updateProductSkus(Integer spuId, List<ProductSkuCreateOrUpdateBO> createSkuBos);
 }

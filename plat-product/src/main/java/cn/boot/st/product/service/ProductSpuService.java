@@ -10,11 +10,17 @@ import cn.boot.st.product.dataobject.domain.ProductSpu;
 public interface ProductSpuService {
 
     /**
-     * 创建上皮内-添加spu
+     * 创建商品-添加spu
      *
      * @param productSpu
      * @return
      */
     Integer createProductSpu(ProductSpu productSpu);
+
+    /**
+     * 修改商品sku
+     * @param productSpu
+     */
+    void updateProductSpu(ProductSpu productSpu);
 
 }

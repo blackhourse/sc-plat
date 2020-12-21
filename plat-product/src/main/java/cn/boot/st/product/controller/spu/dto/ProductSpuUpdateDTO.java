@@ -17,7 +17,13 @@ import java.util.List;
  **/
 @Data
 @ApiModel("商品spu 创建 dto")
-public class ProductSpuCreateDTO {
+public class ProductSpuUpdateDTO {
+
+    /**
+     * Spu 编号
+     */
+    @NotNull(message = "SPU 编号不能为空")
+    private Integer id;
 
     @NotNull(message = "SPU名字不能为空")
     @ApiModelProperty(value = "SPU 名字", required = true)
@@ -57,9 +63,6 @@ public class ProductSpuCreateDTO {
     @Data
     @Accessors(chain = true)
     public static class Sku {
-
-        @ApiModelProperty(value = "sku id", required = true)
-        private Integer id;
 
         /**
          * 规格值数组

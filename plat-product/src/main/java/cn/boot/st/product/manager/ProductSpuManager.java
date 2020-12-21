@@ -3,6 +3,7 @@ package cn.boot.st.product.manager;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.st.product.controller.category.vo.ProductCategoryRespVO;
 import cn.boot.st.product.controller.spu.dto.ProductSpuCreateDTO;
+import cn.boot.st.product.controller.spu.dto.ProductSpuUpdateDTO;
 import cn.boot.st.product.convert.ProductSpuConvert;
 import cn.boot.st.product.dataobject.bo.ProductAttrKeyValueBO;
 import cn.boot.st.product.dataobject.bo.ProductSkuCreateOrUpdateBO;
@@ -47,11 +48,11 @@ public class ProductSpuManager {
 
 
     public Integer createProductSpu(ProductSpuCreateDTO productSpuCreateDTO) {
-        return self().createProductSpu1(productSpuCreateDTO);
+        return self().createProductSpuOne(productSpuCreateDTO);
     }
 
     @Transactional
-    public Integer createProductSpu1(ProductSpuCreateDTO productSpuCreateDTO) {
+    public Integer createProductSpuOne(ProductSpuCreateDTO productSpuCreateDTO) {
         // 校验商品分类是否合法
         this.checkProductCategory(productSpuCreateDTO.getCid());
         List<ProductSkuCreateOrUpdateBO> productSkuCreateOrUpdateBos = ProductSpuConvert.INSTANCE.convert(productSpuCreateDTO.getSkus());
@@ -77,14 +78,12 @@ public class ProductSpuManager {
     }
 
     private List<ProductAttrKeyValueBO> checkProductAttr(List<ProductSkuCreateOrUpdateBO> skuBOs) {
-
         // 第一步，校验 SKU 使用到的规格是否存在
         HashSet<Integer> attrValueIds = new HashSet<>();
         skuBOs.forEach(skuCreateOrUpdateBO -> attrValueIds.addAll(skuCreateOrUpdateBO.getAttrValueIds()));
         List<ProductAttrKeyValueBO> attrKeyValueBOS = productAttrService.validProductAttr(attrValueIds, true);
         // 第二步，校验 SKU 设置的规格是否合法，例如说数量是否一致，是否重复等等
         // 创建 ProductAttrDetailBO 的映射。其中，KEY 为 ProductAttrDetailBO.attrValueId ，即规格值的编号
-
         Map<Integer, ProductAttrKeyValueBO> attrValueMap = attrKeyValueBOS.stream().collect(Collectors.toMap(ProductAttrKeyValueBO::getAttrValueId, a -> a));
         // 校验，一个 Sku 下，没有重复的规格。校验方式是，遍历每个 Sku ，看看是否有重复的规格 attrId
 
@@ -96,7 +95,26 @@ public class ProductSpuManager {
             }
         }
         return attrKeyValueBOS;
+    }
 
+    public void updateProductSpu(ProductSpuUpdateDTO productSpuUpdateDTO) {
+        self().updateProductSpu0(productSpuUpdateDTO);
+    }
+
+    private void updateProductSpu0(ProductSpuUpdateDTO productSpuUpdateDTO) {
+        // 校验商品分类是否合法
+        this.checkProductCategory(productSpuUpdateDTO.getCid());
+        // 创建商品 SKU 对象，并进行校验
+        List<ProductSkuCreateOrUpdateBO> skuBOs = ProductSpuConvert.INSTANCE.convert2(productSpuUpdateDTO.getSkus());
+        // 校验规格
+        checkProductAttr(skuBOs);
+        ProductSpu spu = ProductSpuConvert.INSTANCE.convert(productSpuUpdateDTO);
+        spu.setPrice(skuBOs.stream().min(Comparator.comparing(ProductSkuCreateOrUpdateBO::getPrice)).get().getPrice());
+        spu.setQuantity(skuBOs.stream().mapToInt(ProductSkuCreateOrUpdateBO::getQuantity).sum());
+        //更新spu
+        productSpuService.updateProductSpu(spu);
+        // 更新sku
+        productSkuService.updateProductSkus(productSpuUpdateDTO.getId(), skuBOs);
     }
 
 }

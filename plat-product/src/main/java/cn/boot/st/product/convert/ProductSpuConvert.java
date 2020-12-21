@@ -1,6 +1,7 @@
 package cn.boot.st.product.convert;
 
 import cn.boot.st.product.controller.spu.dto.ProductSpuCreateDTO;
+import cn.boot.st.product.controller.spu.dto.ProductSpuUpdateDTO;
 import cn.boot.st.product.dataobject.bo.ProductSkuCreateOrUpdateBO;
 import cn.boot.st.product.dataobject.domain.ProductSpu;
 import org.apache.commons.lang3.StringUtils;
@@ -26,10 +27,16 @@ public interface ProductSpuConvert {
     @Mapping(source = "picUrls", target = "picUrls", qualifiedByName = "translatePicUrlsFromStringList")
     ProductSpu convert(ProductSpuCreateDTO bean);
 
+    List<ProductSkuCreateOrUpdateBO> convert2(List<ProductSpuUpdateDTO.Sku> sku);
+
+    @Mapping(source = "picUrls", target = "picUrls", qualifiedByName = "translatePicUrlsFromStringList")
+    ProductSpu convert(ProductSpuUpdateDTO productSkuCreateOrUpdateBO);
 
     @Named("translatePicUrlsFromStringList")
     default String translatePicUrlsFromList(List<String> picUrls) {
         return StringUtils.join(picUrls, ",");
     }
+
+
 
 }
