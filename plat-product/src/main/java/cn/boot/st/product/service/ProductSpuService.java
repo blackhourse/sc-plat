@@ -1,6 +1,11 @@
 package cn.boot.st.product.service;
 
+import cn.boot.common.framework.vo.PageResult;
+import cn.boot.st.product.controller.spu.dto.ProductSpuPageReqDTO;
+import cn.boot.st.product.controller.spu.vo.ProductSpuRespVO;
 import cn.boot.st.product.dataobject.domain.ProductSpu;
+
+import java.util.List;
 
 /**
  * @program: sc-plat
@@ -19,8 +24,28 @@ public interface ProductSpuService {
 
     /**
      * 修改商品sku
+     *
      * @param productSpu
      */
     void updateProductSpu(ProductSpu productSpu);
+
+    /**
+     * 获取spu
+     *
+     * @param productSpuId
+     * @return
+     */
+    ProductSpuRespVO getProductSpu(Integer productSpuId);
+
+    /**
+     * 获取spu列表
+     *
+     * @param productSpuIds
+     * @return
+     */
+    List<ProductSpuRespVO> listProductSpus(List<Integer> productSpuIds);
+
+
+    PageResult<ProductSpuRespVO> pageProductSpu(ProductSpuPageReqDTO pageReqDTO);
 
 }

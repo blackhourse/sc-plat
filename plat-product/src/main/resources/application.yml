@@ -51,5 +51,7 @@ feign:
 
 # Actuator 监控配置项
 management:
-  server.port: 38087 # 独立端口，避免被暴露出去
+#  server.port: 38087 # 独立端口，避免被暴露出去
+  server:
+    port: 10004
   endpoints.web.exposure.include: '*' # 暴露所有监控端点
