@@ -5,6 +5,7 @@ import cn.boot.st.managementweb.controller.admin.dto.AdminCreateDTO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateInfoDTO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateStatusDTO;
 import cn.boot.st.managementweb.service.admin.AdminService;
+import cn.boot.st.security.annotations.RequiresPermissions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -27,12 +28,14 @@ public class AdminController {
 
     @ApiOperation(value = "创建管理员")
     @PostMapping("/create")
+    @RequiresPermissions("system:admin:create")
     public CommonResult<Integer> createAdmin(@RequestBody AdminCreateDTO createDTO, HttpServletRequest request) {
         return success(adminService.createAdmin(createDTO));
     }
 
     @PostMapping("/update")
     @ApiOperation(value = "更新管理员")
+    @RequiresPermissions("system:admin:update")
     public CommonResult<Boolean> updateAdmin(AdminUpdateInfoDTO updateInfoDTO) {
         adminService.updateAdmin(updateInfoDTO);
         return success(true);
@@ -40,6 +43,7 @@ public class AdminController {
 
     @PostMapping("/update-status")
     @ApiOperation(value = "更新管理员状态")
+    @RequiresPermissions("system:admin:update-status")
     public CommonResult<Boolean> updateAdminStatus(@Valid AdminUpdateStatusDTO updateStatusDTO) {
         adminService.updateAdminStatus(updateStatusDTO);
         return success(true);
