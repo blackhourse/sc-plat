@@ -1,12 +1,10 @@
-package cn.boot.st.managementweb.compoment;
+package cn.boot.st.product.compoment;
 
 import cn.boot.common.framework.dataobject.entity.PermissionEntityVO;
 import cn.boot.common.framework.util.URLConvertUtil;
 import cn.boot.st.security.annotations.RequiresPermissions;
 import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;

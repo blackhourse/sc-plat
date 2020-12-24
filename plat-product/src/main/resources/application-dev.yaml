@@ -19,4 +19,12 @@ spring:
     baseline-on-migrate: true
     # 验证错误时 是否自动清除数据库 高危操作!
     clean-on-validation-error: false
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+    lettuce:
+      pool:
+        max-idle: 200
+        min-idle: 10
 

@@ -23,7 +23,6 @@ import java.time.Duration;
  **/
 
 @Configuration
-@EnableCaching
 public class RedisTemplateConfig {
 
     private static final StringRedisSerializer STRING_SERIALIZER = new StringRedisSerializer();
@@ -33,10 +32,10 @@ public class RedisTemplateConfig {
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         //设置缓存过期时间
         RedisCacheConfiguration redisCacheCfg = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofHours(1))
+//                .entryTtl(Duration.ofMinutes(1))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(STRING_SERIALIZER))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(JACKSON__SERIALIZER));
-        return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+        return RedisCacheManager.builder(RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory))
                 .cacheDefaults(redisCacheCfg)
                 .build();
     }

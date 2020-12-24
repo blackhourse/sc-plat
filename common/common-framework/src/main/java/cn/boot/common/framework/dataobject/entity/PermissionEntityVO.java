@@ -18,7 +18,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class PermissionEntityVO implements Serializable {
 
-    private String name;
+    //    private String name;
     private String permission;
     private String url;
     private String serviceId;

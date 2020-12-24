@@ -1,4 +1,4 @@
-package cn.boot.st.product.controller.brand;
+package cn.boot.st.product.service.impl;
 
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.vo.PageResult;

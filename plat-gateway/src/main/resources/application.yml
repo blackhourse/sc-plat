@@ -39,8 +39,8 @@ secure:
       - "/swagger-resources/**"
       - "/swagger/**"
       - "/**/v2/api-docs"
-      - "/management-web/**"
-      - "/auth/crateToken"
+#      - "/management-web/**"
+#      - "/auth/crateToken"
 logging:
   level:
     org.springframework:cloud.gateway: debug
