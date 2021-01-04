@@ -1,8 +1,8 @@
 package cn.boot.st.managementweb.mapper.role;
 
 
-import cn.boot.st.managementweb.dataobject.domain.RoleDO;
 import cn.boot.st.managementweb.controller.role.dto.RolePageDTO;
+import cn.boot.st.managementweb.dataobject.domain.RoleDO;
 import cn.boot.st.mybatis.core.query.QueryWrapperX;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -26,5 +26,6 @@ public interface RoleMapper extends BaseMapper<RoleDO> {
     default RoleDO selectByCode(String code) {
         return selectOne(new LambdaQueryWrapper<RoleDO>().eq(RoleDO::getCode, code));
     }
+
 
 }

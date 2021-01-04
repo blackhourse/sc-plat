@@ -49,6 +49,14 @@ feign:
   hystrix:
     enabled: true
 
+# 自定义redis key
+redis:
+  database: plat
+  backend-web:
+    token: 'ums:token'
+    access-token-expire-time-millis: 21600
+    refresh-token-expire-time-millis: 43200 #
+
 # Actuator 监控配置项
 management:
   server.port: 38087 # 独立端口，避免被暴露出去

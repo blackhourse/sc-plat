@@ -32,7 +32,10 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
         <!-- Web 相关 -->
         <dependency>
             <groupId>cn.boot.st</groupId>
@@ -64,6 +67,10 @@
             <groupId>cn.boot.st</groupId>
             <artifactId>plat-spring-boot-starter-mybatis</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.boot.st</groupId>
+            <artifactId>flyway-core-starter</artifactId>
         </dependency>
         <!-- 监控相关 -->
         <dependency>
@@ -99,13 +106,6 @@
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-httpclient</artifactId>
         </dependency>
-        <!-- 数据库版本管理 依赖 -->
-        <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-
         <!--redis相关-->
         <dependency>
             <groupId>cn.boot.st</groupId>

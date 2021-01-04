@@ -20,6 +20,8 @@
         <module>plat-security-server</module>
         <module>plat-gateway</module>
         <module>plat-product</module>
+        <module>springboot-demo</module>
+        <module>Sentinel-demo</module>
     </modules>
 
 

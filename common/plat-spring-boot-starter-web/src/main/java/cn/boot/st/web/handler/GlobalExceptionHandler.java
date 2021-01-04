@@ -4,6 +4,7 @@ import cn.boot.common.framework.exception.util.GlobalException;
 import cn.boot.common.framework.exception.util.ServiceException;
 import cn.boot.common.framework.vo.CommonResult;
 import cn.hutool.core.exceptions.ExceptionUtil;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -97,6 +98,15 @@ public class GlobalExceptionHandler {
         // 返回 ERROR CommonResult
         return CommonResult.error(ex);
     }
+
+    @ExceptionHandler(value = HystrixRuntimeException.class)
+    public CommonResult hystrixRuntimeException(HttpServletRequest req, HystrixRuntimeException ex) {
+        // 系统异常时，才打印异常日志
+        logger.error(ex.getMessage(), ex);
+        // 返回 ERROR CommonResult
+        return CommonResult.error(INTERNAL_SERVER_ERROR.getCode(), "系统异常，请稍后再试");
+    }
+
 
     /**
      * 处理系统异常，兜底处理所有的一切

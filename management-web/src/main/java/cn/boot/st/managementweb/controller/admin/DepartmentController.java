@@ -36,21 +36,18 @@ public class DepartmentController {
 
     @PostMapping("/create")
     @ApiOperation("创建部门")
-    @RequiresPermissions("system:dept:create")
     public CommonResult<Integer> createDepartment(@Valid DepartmentCreateDTO createDTO) {
         return success(departmentService.createDepartment(createDTO));
     }
 
     @PostMapping("/update")
     @ApiOperation("更新部门")
-    @RequiresPermissions("system:dept:update")
     public CommonResult<Boolean> updateDepartment(@Valid DepartmentUpdateDTO updateDTO) {
         return success(departmentService.updateDepartment(updateDTO));
     }
 
     @PostMapping("/delete")
     @ApiOperation("删除部门")
-    @RequiresPermissions("system:dept:delete")
     @ApiImplicitParam(name = "departmentId", value = "部门编号", required = true)
     public CommonResult<Boolean> deleteDepartment(@RequestParam("departmentId") Integer departmentId) {
         departmentService.deleteDepartment(departmentId);
@@ -60,7 +57,6 @@ public class DepartmentController {
     @GetMapping("/get")
     @ApiOperation("获得部门")
     @ApiImplicitParam(name = "departmentId", value = "部门编号", required = true)
-    @RequiresPermissions("system:dept:get")
     public CommonResult<DepartmentVO> getDepartment(@RequestParam("departmentId") Integer departmentId) {
         return success(departmentService.getDepartment(departmentId));
     }
@@ -68,7 +64,6 @@ public class DepartmentController {
     @GetMapping("/list")
     @ApiOperation("获得部门列表")
     @ApiImplicitParam(name = "departmentIds", value = "部门编号列表", required = true)
-    @RequiresPermissions("system:dept:list")
     public CommonResult<List<DepartmentVO>> listDepartments(@RequestParam("departmentIds") List<Integer> departmentIds) {
         return success(departmentService.listDepartments(departmentIds));
     }
@@ -76,7 +71,6 @@ public class DepartmentController {
 
     @GetMapping("/tree")
     @ApiOperation("获得部门树")
-    @RequiresPermissions("system:dept:tree")
     public CommonResult<List<DepartmentTreeNodeVO>> treeDepartment() {
         return success(departmentService.treeDepartment());
     }

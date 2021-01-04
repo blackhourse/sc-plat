@@ -18,6 +18,7 @@
         <module>plat-spring-boot-starter-web</module>
         <module>plat-spring-boot-starter-security</module>
         <module>plat-spring-boot-starter-redis</module>
+        <module>flyway-core-starter</module>
     </modules>
     <dependencyManagement>
         <dependencies>

@@ -33,7 +33,7 @@ public class AdminTokenController {
 
     @PostMapping("/crateToken")
     @ApiOperation("获取Token")
-    public CommonResult<OAuth2AccessTokenRespDTO> createAccessToken(OAuth2CreateAccessTokenReqDTO auth2CreateAccessTokenReqDTO, HttpServletRequest request) {
+    public CommonResult<OAuth2AccessTokenRespDTO> createAccessToken(@RequestBody OAuth2CreateAccessTokenReqDTO auth2CreateAccessTokenReqDTO, HttpServletRequest request) {
         String ip = HttpUtil.getIp(request);
         auth2CreateAccessTokenReqDTO.setCreateIp(ip);
         return success(oAuthService.createAccessToken(auth2CreateAccessTokenReqDTO));

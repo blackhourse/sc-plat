@@ -38,13 +38,21 @@ public class SwaggerAuthConfiguration {
         return new SwaggerProperties();
     }
 
+
+    private List<Parameter> getGlobalOperationParameters() {
+        List<Parameter> pars = new ArrayList<>();
+        ParameterBuilder parameterBuilder = new ParameterBuilder();
+        // header query cookie
+        parameterBuilder.name("Authorization").description("token").modelRef(new ModelRef("string")).parameterType("header").required(false);
+        pars.add(parameterBuilder.build());
+        parameterBuilder.name("clientType").description("用户类型").modelRef(new ModelRef("string")).parameterType("header").required(false);
+        pars.add(parameterBuilder.build());
+        return pars;
+    }
+
     @Bean
     public Docket createRestApi() {
 
-        ParameterBuilder tokenPar = new ParameterBuilder();
-        List<Parameter> pars = new ArrayList<>();
-        tokenPar.name("Authorization").description("令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
-        pars.add(tokenPar.build());
 
         SwaggerProperties properties = swaggerProperties();
         // 创建 Docket 对象
@@ -54,7 +62,7 @@ public class SwaggerAuthConfiguration {
                 .apis(RequestHandlerSelectors.basePackage(properties.getBasePackage()))
                 .paths(PathSelectors.any())
                 .build()
-                .globalOperationParameters(pars);
+                .globalOperationParameters(getGlobalOperationParameters());
     }
 
     private ApiInfo apiInfo(SwaggerProperties properties) {

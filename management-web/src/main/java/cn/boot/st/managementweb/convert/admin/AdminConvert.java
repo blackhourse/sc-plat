@@ -1,10 +1,11 @@
 package cn.boot.st.managementweb.convert.admin;
 
-import cn.boot.st.managementweb.dataobject.domain.AdminDO;
+import cn.boot.common.framework.dataobject.vo.AdminUserTokenInfo;
 import cn.boot.st.managementweb.controller.admin.dto.AdminCreateDTO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateInfoDTO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateStatusDTO;
 import cn.boot.st.managementweb.controller.login.vo.PassportAdminVO;
+import cn.boot.st.managementweb.dataobject.domain.AdminDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -23,5 +24,6 @@ public interface AdminConvert {
 
     PassportAdminVO convert(AdminDO bean);
 
+    AdminUserTokenInfo convertTokenInfo(AdminDO adminDO);
 
 }

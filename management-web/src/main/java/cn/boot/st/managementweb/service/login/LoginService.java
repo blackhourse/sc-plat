@@ -4,6 +4,8 @@ import cn.boot.st.managementweb.controller.login.dto.PassportLoginDTO;
 import cn.boot.common.framework.dataobject.vo.PassportAccessTokenVO;
 import cn.boot.st.managementweb.controller.login.vo.PassportAdminVO;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Classname LoginService
  * @Description
@@ -15,10 +17,10 @@ public interface LoginService {
      * 账号密码登录
      *
      * @param loginDTO
-     * @param ip
+     * @param request
      * @return
      */
-    PassportAccessTokenVO login(PassportLoginDTO loginDTO, String ip);
+    PassportAccessTokenVO login(PassportLoginDTO loginDTO, HttpServletRequest request);
 
     /**
      * 获取当前管理员信息

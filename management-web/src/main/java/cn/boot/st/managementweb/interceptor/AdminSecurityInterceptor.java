@@ -7,6 +7,7 @@ import cn.boot.common.framework.exception.util.GlobalException;
 import cn.boot.common.framework.exception.util.ServiceException;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.util.HttpUtil;
+import cn.boot.common.framework.vo.CommonResult;
 import cn.boot.st.managementweb.dataobject.bo.PermissionCheckBO;
 import cn.boot.st.managementweb.controller.permission.vo.RoleResourceVo;
 import cn.boot.st.managementweb.remote.AuthFeignService;
@@ -113,7 +114,9 @@ public class AdminSecurityInterceptor extends HandlerInterceptorAdapter {
     private OAuth2AccessTokenRespDTO getOAuth2AccessToken(String accessToken) {
         // todo 优先从 Redis 中获取
         // 获取不到，从security-server 中获取
-        OAuth2AccessTokenRespDTO auth2AccessTokenRespDTO = authFeignService.getInfoById(accessToken);
+        CommonResult<OAuth2AccessTokenRespDTO> commonResult = authFeignService.getInfoById(accessToken);
+        commonResult.checkError();
+        OAuth2AccessTokenRespDTO auth2AccessTokenRespDTO = commonResult.getData();
         // 如果在 MySQL 存在，则往 Redis 中写入
         if (auth2AccessTokenRespDTO != null) {
             // todo 写入redis

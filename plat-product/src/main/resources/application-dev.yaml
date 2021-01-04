@@ -11,7 +11,14 @@ spring:
       # Spring Cloud Nacos Discovery 配置项
       discovery:
         server-addr: 127.0.0.1:8848 # Nacos 服务器地址
-#        namespace: dev # Nacos 命名空间
+  #        namespace: dev # Nacos 命名空间
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+    sentinel:
+      transport:
+        port: 10004
+        dashboard: localhost:8080
   flyway:
     # 如果启动的时候需要flyway管理sql脚本的话，将enabled设置为true
     enabled: true
@@ -19,6 +26,7 @@ spring:
     baseline-on-migrate: true
     # 验证错误时 是否自动清除数据库 高危操作!
     clean-on-validation-error: false
+    locations: classpath:/db/ #可以配置多个值
   redis:
     host: 127.0.0.1
     port: 6379

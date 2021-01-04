@@ -44,4 +44,8 @@ public class ServiceErrorCodeRange {
 
     // promotion 错误码区间 [1-006-000-000 ~ 1-007-000-000)
 
+    // gateway 错误码区间 [1-007-000-000 ~ 1-008-000-000)
+
+
+
 }

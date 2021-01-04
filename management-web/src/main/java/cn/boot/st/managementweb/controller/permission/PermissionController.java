@@ -12,7 +12,6 @@ import cn.boot.st.managementweb.controller.permission.dto.PermissionAssignAdminR
 import cn.boot.st.managementweb.controller.permission.dto.PermissionAssignRoleResourceDTO;
 import cn.boot.st.managementweb.controller.permission.vo.RoleResourceVo;
 import cn.boot.st.managementweb.service.permission.PermissionService;
-import cn.boot.st.security.annotations.RequiresPermissions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +43,6 @@ public class PermissionController {
     @GetMapping("/list-role-resources")
     @ApiOperation("获得角色拥有的资源编号")
     @ApiImplicitParam(name = "roleId", value = "角色编号", required = true)
-    @RequiresPermissions("system:permission:list-role-resources")
     public CommonResult<Set<Integer>> listRoleResources(Integer roleId) {
         logger.info("[echo][被调用啦 roleId({})]", roleId);
         return success(permissionService.listRoleResources(roleId));
@@ -53,7 +51,6 @@ public class PermissionController {
 
     @PostMapping("/assign-role-resource")
     @ApiOperation("赋予角色资源")
-    @RequiresPermissions("system:permission:assign-role-resource")
     public CommonResult<Boolean> assignRoleResource(PermissionAssignRoleResourceDTO assignRoleResourceDTO) {
         permissionService.assignRoleResource(assignRoleResourceDTO);
         return success(true);
@@ -62,7 +59,6 @@ public class PermissionController {
     @GetMapping("/list-admin-roles")
     @ApiOperation("获得管理员拥有的角色编号列表")
     @ApiImplicitParam(name = "adminId", value = "管理员编号", required = true)
-    @RequiresPermissions("system:permission:list-admin-roles")
     public CommonResult<Set<Integer>> listAdminRoles(Integer adminId) {
         logger.info("[echo][被调用啦 adminId({})]", adminId);
         return success(permissionService.listAdminRoles(adminId));
@@ -70,7 +66,6 @@ public class PermissionController {
 
     @PostMapping("/assign-admin-role")
     @ApiOperation("赋予用户角色")
-    @RequiresPermissions("system:permission:assign-admin-role")
     public CommonResult<Boolean> assignAdminRole(PermissionAssignAdminRoleDTO assignAdminRoleDTO) {
         permissionService.assignAdminRole(assignAdminRoleDTO);
         return success(true);
@@ -79,7 +74,6 @@ public class PermissionController {
     @GetMapping("/list-permissions")
     @ApiOperation("查询权限对应资源")
     @ApiImplicitParam(name = "permissions", value = "资源编号列表", required = true)
-    @RequiresPermissions("system:permission:list-permissions")
     public Set<Integer> selectListByPermissions(@RequestParam("permissions") List<String> permissions) {
         return permissionService.selectListByPermissions(permissions);
     }
@@ -87,7 +81,6 @@ public class PermissionController {
     @GetMapping("/list-resources")
     @ApiOperation("根据资源id获取角色资源信息")
     @ApiImplicitParam(name = "permissions", value = "资源编号列表", required = true)
-    @RequiresPermissions("system:permission:list-resources")
     public List<RoleResourceVo> selectListByResourceIds(@RequestParam("permissions") List<Integer> permissions) {
         return permissionService.selectListByResourceIds(permissions);
     }

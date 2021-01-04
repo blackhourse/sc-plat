@@ -5,6 +5,10 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848 # Nacos 服务器地址
 #        namespace: dev # Nacos 命名空间
+    sentinel:
+      transport:
+        port: 10003
+        dashboard: localhost:8080
   redis:
     host: 127.0.0.1
     port: 6379

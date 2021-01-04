@@ -1,0 +1,27 @@
+server:
+  port: 10004
+spring:
+  # Application 的配置项
+  application:
+    name: plat-product
+  # Profile 的配置项
+  profiles:
+    active: dev
+  # SpringMVC 配置项
+#  mvc:
+#    throw-exception-if-no-handler-found: true # 匹配不到路径时，抛出 NoHandlerFoundException 异常
+#    static-path-pattern: /doc.html # 静态资源的路径
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+# 自定义redis key
+redis:
+  database: plat
+  backend-web:
+    token: 'ums:token'
+    access-token-expire-time-millis: 21600
+    refresh-token-expire-time-millis: 43200 #
+
+

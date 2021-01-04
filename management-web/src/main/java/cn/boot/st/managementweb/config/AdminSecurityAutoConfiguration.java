@@ -39,7 +39,7 @@ public class AdminSecurityAutoConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // AdminSecurityInterceptor 拦截器
-        registry.addInterceptor(this.adminSecurityInterceptor());
+//        registry.addInterceptor(this.adminSecurityInterceptor());
         logger.info("[addInterceptors][加载 AdminSecurityInterceptor 拦截器完成]");
 
     }

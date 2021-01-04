@@ -1,31 +1,23 @@
 package cn.boot.st.managementweb.compoment;
 
+import cn.boot.common.framework.dataobject.dto.PermissionVo;
 import cn.boot.common.framework.dataobject.entity.PermissionEntityVO;
-import cn.boot.common.framework.util.URLConvertUtil;
-import cn.boot.st.security.annotations.RequiresPermissions;
-import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Lists;
+import cn.boot.common.framework.util.StringUtils;
+import cn.boot.st.managementweb.dataobject.domain.ResourceDO;
+import cn.boot.st.managementweb.dataobject.domain.RoleResourceDO;
+import cn.boot.st.managementweb.mapper.role.ResourceMapper;
+import cn.boot.st.managementweb.mapper.role.RoleResourceMapper;
+import cn.boot.st.redis.RedisService;
+import com.google.common.collect.Maps;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @program: sc-plat
@@ -37,45 +29,57 @@ import java.util.Optional;
 @Component
 public class ResourcePermissionConfig implements CommandLineRunner {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     @Autowired
-    private WebApplicationContext applicationContext;
+    private RedisService redisService;
 
-    @Value("${spring.application.name}")
-    private String applicationName;
-
+    private static final String PERSISTENCE_NAME = "PERSISTENCE_NAME";
 
     @Getter
     @Setter
-    private List<PermissionEntityVO> permissionEntities = Lists.newArrayList();
+    private Map<String, PermissionEntityVO> permissionEntities = Maps.newConcurrentMap();
+
+    @Autowired
+    private ResourceMapper resourceMapper;
+    @Autowired
+    private RoleResourceMapper roleResourceMapper;
 
     @Override
     public void run(String... args) {
-        log.info("===============ResourcePermissionConfig==============");
-        RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
-        Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
-        map.keySet().forEach(mappingInfo -> {
-            HandlerMethod handlerMethod = map.get(mappingInfo);
-            RequiresPermissions method = AnnotationUtils.findAnnotation(handlerMethod.getMethod(), RequiresPermissions.class);
-            Optional.ofNullable(method)
-                    .ifPresent(resourcePermission -> mappingInfo
-                            .getPatternsCondition()
-                            .getPatterns()
-                            .forEach(url -> {
-                                String permission = URLConvertUtil.convert(url);
-                                permissionEntities.add(PermissionEntityVO
-                                        .builder()
-                                        .permission(Arrays.toString(method.value()))
-                                        .serviceId(applicationName)
-                                        .url(url)
-                                        .build());
-                            }));
-        });
-        if (CollUtil.isNotEmpty(permissionEntities)) {
-            redisTemplate.opsForValue().set(applicationName, permissionEntities);
+
+        List<RoleResourceDO> roleResourceDOS = roleResourceMapper.selectList(null);
+        if (roleResourceDOS.size() <= 0) {
+            log.info("为找到角色资源");
         }
+
+        Set<Integer> roleResourceDosSet = roleResourceDOS.stream().map(RoleResourceDO::getResourceId).collect(Collectors.toSet());
+        List<ResourceDO> resourceDOS = resourceMapper.selectBatchIds(roleResourceDosSet);
+        Map<Integer, ResourceDO> collect = new HashMap<>();
+        for (ResourceDO resourceDO : resourceDOS) {
+            if (StringUtils.hasText(resourceDO.getPermission())) {
+                collect.put(resourceDO.getId(), resourceDO);
+            }
+        }
+        Map<Integer, List<Integer>> roleResourceMap = roleResourceDOS.stream()
+                .collect(Collectors.groupingBy(RoleResourceDO::getRoleId,
+                        Collectors.mapping(RoleResourceDO::getResourceId, Collectors.toList())));
+
+        Map<String, List<PermissionVo>> map = new HashMap<>();
+        Iterator<Map.Entry<Integer, List<Integer>>> iterator = roleResourceMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, List<Integer>> next = iterator.next();
+            Integer key = next.getKey();
+            List<Integer> value = next.getValue();
+            List<PermissionVo> permissionUrls = value.stream().filter(s -> collect.containsKey(s)).map(s -> {
+                PermissionVo permissionVo = new PermissionVo();
+                ResourceDO resourceDO = collect.get(s);
+                return permissionVo.setName(resourceDO.getName()).setUrl(resourceDO.getPermission());
+            }).collect(Collectors.toList());
+            map.put(String.valueOf(key), permissionUrls);
+        }
+        redisService.del(PERSISTENCE_NAME);
+        redisService.hmset(PERSISTENCE_NAME, map);
+
     }
 
 

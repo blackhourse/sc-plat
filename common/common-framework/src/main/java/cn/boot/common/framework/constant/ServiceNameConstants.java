@@ -12,11 +12,11 @@ public interface ServiceNameConstants {
      */
     String MANAGEMENT_WEB_SERVICE = "management-web";
     /**
-     * 搜索中心服务
+     * 认证中心
      */
     String SECURITY_SERVER_SERVICE = "security-server";
     /**
-     * 商品中西你服务
+     * 商品中心
      */
     String PRODUCT_SERVER_SERVICE = "plat-product";
 }

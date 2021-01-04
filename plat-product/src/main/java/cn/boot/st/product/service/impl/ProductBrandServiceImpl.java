@@ -25,6 +25,7 @@ import static cn.boot.st.product.constant.ProductErrorCodeConstants.*;
  * @author: maht
  * @create: 2020-12-14
  **/
+//@Service("productBrandService")
 @Service
 public class ProductBrandServiceImpl implements ProductBrandService {
     @Autowired
