@@ -27,8 +27,8 @@ mybatis-plus:
 
 # Swagger 配置项
 swagger:
-  title: 管理后台
-  description: 提供管理员管理的所有功能
+  title: 商品服务
+  description: 商品服务中心
   version: 1.0.0
   base-package: cn.boot.st.product.controller
 

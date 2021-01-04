@@ -21,7 +21,7 @@
         <module>plat-gateway</module>
         <module>plat-product</module>
         <module>springboot-demo</module>
-        <module>Sentinel-demo</module>
+        <module>sentinel-demo</module>
     </modules>
 
 
