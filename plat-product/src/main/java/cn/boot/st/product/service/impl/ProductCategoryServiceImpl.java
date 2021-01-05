@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static cn.boot.st.product.constant.ProductErrorCodeConstants.*;
+import static cn.boot.st.product.constants.ProductErrorCodeConstants.*;
 
 /**
  * @program: sc-plat

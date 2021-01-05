@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static cn.boot.st.product.constant.ProductErrorCodeConstants.PRODUCT_SPU_NOT_EXISTS;
+import static cn.boot.st.product.constants.ProductErrorCodeConstants.PRODUCT_SPU_NOT_EXISTS;
 
 /**
  * @program: sc-plat

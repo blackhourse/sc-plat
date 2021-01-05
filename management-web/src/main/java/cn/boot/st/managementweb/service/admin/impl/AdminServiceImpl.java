@@ -23,7 +23,8 @@ import org.springframework.util.StringUtils;
 import java.util.Collection;
 import java.util.List;
 
-import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
+import static cn.boot.st.managementweb.constants.ManageWebCodeConstants.*;
+
 
 @Service
 public class AdminServiceImpl implements AdminService {

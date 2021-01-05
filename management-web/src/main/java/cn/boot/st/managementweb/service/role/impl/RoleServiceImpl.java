@@ -1,14 +1,14 @@
 package cn.boot.st.managementweb.service.role.impl;
 
+import cn.boot.common.framework.enums.role.RoleTypeEnum;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.vo.PageResult;
-import cn.boot.st.managementweb.convert.role.RoleConvert;
-import cn.boot.st.managementweb.dataobject.domain.RoleDO;
 import cn.boot.st.managementweb.controller.role.dto.RoleCreateDTO;
 import cn.boot.st.managementweb.controller.role.dto.RolePageDTO;
 import cn.boot.st.managementweb.controller.role.dto.RoleUpdateDTO;
 import cn.boot.st.managementweb.controller.role.vo.RoleVO;
-import cn.boot.common.framework.enums.role.RoleTypeEnum;
+import cn.boot.st.managementweb.convert.role.RoleConvert;
+import cn.boot.st.managementweb.dataobject.domain.RoleDO;
 import cn.boot.st.managementweb.mapper.role.AdminRoleMapper;
 import cn.boot.st.managementweb.mapper.role.RoleMapper;
 import cn.boot.st.managementweb.mapper.role.RoleResourceMapper;
@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
 import javax.validation.Valid;
 import java.util.List;
 
-import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
+import static cn.boot.st.managementweb.constants.ManageWebCodeConstants.*;
 
 /**
  * @Classname RoleServiceImpl

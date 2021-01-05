@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static cn.boot.st.product.constant.ProductErrorCodeConstants.PRODUCT_SKU_ATTR_CANT_NOT_DUPLICATE;
-import static cn.boot.st.product.constant.ProductErrorCodeConstants.PRODUCT_SPU_CATEGORY_MUST_BE_LEVEL2;
+import static cn.boot.st.product.constants.ProductErrorCodeConstants.PRODUCT_SKU_ATTR_CANT_NOT_DUPLICATE;
+import static cn.boot.st.product.constants.ProductErrorCodeConstants.PRODUCT_SPU_CATEGORY_MUST_BE_LEVEL2;
 
 /**
  * @program: sc-plat

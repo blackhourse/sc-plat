@@ -46,7 +46,7 @@ feign:
         logger-level: FULL
   httpclient:
     enabled: true
-  hystrix:
+  sentinel:
     enabled: true
 
 # 自定义redis key

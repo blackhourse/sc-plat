@@ -1,4 +1,4 @@
-package cn.boot.st.product.constant;
+package cn.boot.st.product.constants;
 
 import cn.boot.common.framework.exception.util.ErrorCode;
 

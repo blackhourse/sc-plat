@@ -1,15 +1,14 @@
 package cn.boot.st.managementweb.service.resource.impl;
 
-import cn.boot.common.framework.constant.SystemErrorCodeConstants;
 import cn.boot.common.framework.enums.role.ResourceIdEnum;
 import cn.boot.common.framework.enums.role.ResourceTypeEnum;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
-import cn.boot.st.managementweb.convert.resource.ResourceConvert;
-import cn.boot.st.managementweb.dataobject.domain.ResourceDO;
 import cn.boot.st.managementweb.controller.resource.dto.ResourceCreateDTO;
 import cn.boot.st.managementweb.controller.resource.dto.ResourceUpdateDTO;
 import cn.boot.st.managementweb.controller.resource.vo.ResourceTreeNodeVO;
 import cn.boot.st.managementweb.controller.resource.vo.ResourceVO;
+import cn.boot.st.managementweb.convert.resource.ResourceConvert;
+import cn.boot.st.managementweb.dataobject.domain.ResourceDO;
 import cn.boot.st.managementweb.mapper.role.ResourceMapper;
 import cn.boot.st.managementweb.mapper.role.RoleResourceMapper;
 import cn.boot.st.managementweb.service.resource.ResourceService;
@@ -20,7 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
+import static cn.boot.st.managementweb.constants.ManageWebCodeConstants.*;
+
 
 /**
  * @Classname ResourceServiceImpl
@@ -73,11 +73,11 @@ public class ResourceServiceImpl implements ResourceService {
     public void deleteResource(Integer resourceId) {
         // 校验更新的资源是否存在
         if (resourceMapper.selectById(resourceId) == null) {
-            throw ServiceExceptionUtil.exception(SystemErrorCodeConstants.RESOURCE_NOT_EXISTS);
+            throw ServiceExceptionUtil.exception(RESOURCE_NOT_EXISTS);
         }
         // 校验是否还有子资源
         if (resourceMapper.selectCountByPid(resourceId) > 0) {
-            throw ServiceExceptionUtil.exception(SystemErrorCodeConstants.RESOURCE_EXISTS_CHILDREN);
+            throw ServiceExceptionUtil.exception(RESOURCE_EXISTS_CHILDREN);
         }
         // 标记删除
         resourceMapper.deleteById(resourceId);
@@ -104,8 +104,6 @@ public class ResourceServiceImpl implements ResourceService {
         List<ResourceVO> resourceVOs = ResourceConvert.INSTANCE.convertList(resourceDOs);
         return buildResourceTree(resourceVOs);
     }
-
-
 
 
     /**

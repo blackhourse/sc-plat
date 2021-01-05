@@ -24,8 +24,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import static cn.boot.common.framework.constant.SystemErrorCodeConstants.*;
 import static cn.boot.common.framework.enums.UserTypeEnum.ADMIN;
+import static cn.boot.st.managementweb.constants.ManageWebCodeConstants.*;
 
 /**
  * @Classname LoginServiceImpl

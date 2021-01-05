@@ -54,6 +54,7 @@
             <groupId>cn.boot.st</groupId>
             <artifactId>common-framework</artifactId>
         </dependency>
+
         <!--feign 相关-->
         <!-- 使用Apache HttpClient替换Feign原生httpURLConnection -->
         <dependency>
