@@ -12,6 +12,6 @@ public interface AuthConstants {
      */
     String Authorization = "Authorization";
     String Bearer = "Bearer ";
-    String clientType = "clientType ";
+    String clientType = "clientType";
 
 }

@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 04/01/2021 20:37:15
+ Date: 06/01/2021 17:53:31
 */
 
 SET NAMES utf8mb4;
@@ -41,8 +41,8 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1, '马红涛', NULL, 1, 1, '15088661964', '$2a$10$x48u8a91Y/QxgToAw8q/cuyJOFRiuKl.mebP0q/CfSgov8zcFZiVq', '$2a$10$x48u8a91Y/QxgToAw8q/cu', 0, NULL, '2020-12-29 15:50:51', '2020-12-29 15:51:40');
-INSERT INTO `admin` VALUES (6, '马红涛', NULL, 1, 1, '15136212594', '$2a$10$3uoJgEflYma7UgmL2xSrFe6.tRER2VtkoV/YmKcGrOA0/XSP6at3q', '$2a$10$3uoJgEflYma7UgmL2xSrFe', NULL, NULL, '2020-12-29 22:12:28', '2020-12-29 22:12:28');
+INSERT INTO `admin` VALUES (1, '**', NULL, 1, 1, '****', '$2a$10$x48u8a91Y/QxgToAw8q/cuyJOFRiuKl.mebP0q/CfSgov8zcFZiVq', '$2a$10$x48u8a91Y/QxgToAw8q/cu', 0, NULL, '2020-12-29 15:50:51', '2020-12-29 15:51:40');
+INSERT INTO `admin` VALUES (6, '**', NULL, 1, 1, '****', '$2a$10$3uoJgEflYma7UgmL2xSrFe6.tRER2VtkoV/YmKcGrOA0/XSP6at3q', '$2a$10$3uoJgEflYma7UgmL2xSrFe', NULL, NULL, '2020-12-29 22:12:28', '2020-12-29 22:12:28');
 
 -- ----------------------------
 -- Table structure for admin_department
@@ -70,6 +70,26 @@ INSERT INTO `admin_department` VALUES (5, '测试小组3', 3, 1, '2020-07-14 13:
 INSERT INTO `admin_department` VALUES (6, '技术部1', 2, 1, '2020-12-05 19:32:40', '2020-12-05 19:32:40', b'0');
 INSERT INTO `admin_department` VALUES (7, '技术部2', 2, 1, '2020-12-05 19:32:51', '2020-12-05 19:32:51', b'0');
 INSERT INTO `admin_department` VALUES (8, '技术部3', 2, 1, '2020-12-05 19:32:54', '2020-12-05 19:32:54', b'0');
+
+-- ----------------------------
+-- Table structure for cart_item
+-- ----------------------------
+DROP TABLE IF EXISTS `cart_item`;
+CREATE TABLE `cart_item`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '编号，唯一自增。',
+  `status` tinyint(0) NOT NULL DEFAULT -1 COMMENT '状态\n     *\n     * 1-正常\n     * 2-主动删除\n     * 3-下单删除',
+  `delete_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '商品在购物车中的删除时间',
+  `selected` bit(1) NOT NULL COMMENT '是否选中',
+  `user_id` int(0) NOT NULL COMMENT '用户编号',
+  `spu_id` int(0) NOT NULL COMMENT '商品 SPU 编号',
+  `sku_id` int(0) NOT NULL COMMENT '商品 SKU 编号',
+  `quantity` int(0) NOT NULL COMMENT '商品购买数量',
+  `order_id` int(0) NULL DEFAULT NULL COMMENT '订单编号',
+  `order_create_time` timestamp(0) NULL DEFAULT NULL COMMENT '订单创建时间',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'cart_item' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for flyway_schema_history
@@ -140,11 +160,19 @@ CREATE TABLE `oauth2_access_token`  (
 -- ----------------------------
 INSERT INTO `oauth2_access_token` VALUES ('06252591ffa24606924a69e599af63e4', 6, 2, 'b7bd9c1e944943bf86829fa789d8d0a9', '2020-12-30 04:09:17', '172.16.16.128', '2020-12-30 11:21:16', '2020-12-30 11:21:16', b'0');
 INSERT INTO `oauth2_access_token` VALUES ('09094950e47a4c6e8c6836cca7c5e7cc', 1, 2, 'd0a08adbb2a0485cbb65c0ac1aa81dc1', '2020-12-30 04:36:38', '172.16.16.128', '2020-12-30 11:48:38', '2020-12-30 11:48:38', b'0');
+INSERT INTO `oauth2_access_token` VALUES ('2095d292ff2a42b3ab761efad35c5b9e', 1, 2, '96d9c0debaa645c7bf582849f840aa2f', '2021-01-06 02:42:56', '172.16.16.128', '2021-01-06 09:54:56', '2021-01-06 09:54:56', b'0');
+INSERT INTO `oauth2_access_token` VALUES ('317f3f5ffe1940a19d4e639e609047b3', 1, 2, '1432f0e8b0844a28a7436d0463bcd614', '2021-01-06 02:51:29', '172.16.16.128', '2021-01-06 10:03:28', '2021-01-06 10:03:28', b'0');
 INSERT INTO `oauth2_access_token` VALUES ('52e6098e54ed4f6ea6bce3daaef979f5', 1, 2, '46ec65ca0bcf4fcd97f718372199f4b9', '2021-01-04 07:55:07', '172.16.16.128', '2021-01-04 15:07:07', '2021-01-04 15:07:07', b'0');
+INSERT INTO `oauth2_access_token` VALUES ('5959c55f607c4a7789bfb32f51e07c0a', 1, 2, '3e5d4ea7d778428897fd6c3f9dde919b', '2021-01-06 02:51:27', '172.16.16.128', '2021-01-06 10:03:27', '2021-01-06 10:03:27', b'0');
+INSERT INTO `oauth2_access_token` VALUES ('5cc35144fd7444cabb77ac3c35081ed4', 6, 2, '454cc45bb02340a49986b6adf0b77ba7', '2021-01-06 02:25:57', '172.16.16.128', '2021-01-06 09:37:57', '2021-01-06 09:37:57', b'0');
+INSERT INTO `oauth2_access_token` VALUES ('64b8243352aa4890b606d550f697a71d', 1, 2, '9206bda64e9f4f979f50edcacb780f53', '2021-01-06 02:42:53', '172.16.16.128', '2021-01-06 09:54:52', '2021-01-06 09:54:52', b'0');
+INSERT INTO `oauth2_access_token` VALUES ('6c8fdb2cc4be4860ba6ae4d4033e70bf', 6, 2, '1d3ddf8462914a8e95a06e05dd15034b', '2021-01-06 02:25:57', '172.16.16.128', '2021-01-06 09:37:56', '2021-01-06 09:37:56', b'0');
 INSERT INTO `oauth2_access_token` VALUES ('7a900d41aee64860b670c84d89f8af21', 1, 2, 'aa8df5652d804d62b0b0b349c4da388b', '2020-12-30 04:07:47', '172.16.16.128', '2020-12-30 11:19:47', '2020-12-30 11:19:47', b'0');
 INSERT INTO `oauth2_access_token` VALUES ('7ab6b84677cc4010a0b223fb2eb82fad', 6, 2, 'ac25d25f8b3e4972936805cc1e2365d7', '2021-01-04 07:26:28', '172.16.16.128', '2021-01-04 14:38:28', '2021-01-04 14:38:28', b'0');
+INSERT INTO `oauth2_access_token` VALUES ('85a366fc5c31462d9861f912259c1dea', 1, 2, '121398355c7140ebabaa0b4f0d8b1e5e', '2021-01-06 02:51:02', '172.16.16.128', '2021-01-06 10:03:01', '2021-01-06 10:03:01', b'0');
 INSERT INTO `oauth2_access_token` VALUES ('926fdd6010d04dbabf2568facc500761', 1, 2, '15f913a08d934b6fbc0ccbf8ea01d4a6', '2021-01-04 08:10:37', '172.16.16.128', '2021-01-04 15:22:36', '2021-01-04 15:22:36', b'0');
 INSERT INTO `oauth2_access_token` VALUES ('ac77a3ea47ff433aa47311826466a6d0', 1, 2, '317c5b9cf5d948cba77655811da3fb7f', '2020-12-30 04:36:12', '172.16.16.128', '2020-12-30 11:48:12', '2020-12-30 11:48:12', b'0');
+INSERT INTO `oauth2_access_token` VALUES ('f5050ccb35114e5eb3f4c489f7a5436c', 6, 2, '9b87746c8f644aa6a370c60a9488ada0', '2021-01-06 02:25:54', '172.16.16.128', '2021-01-06 09:37:53', '2021-01-06 09:37:53', b'0');
 
 -- ----------------------------
 -- Table structure for oauth2_refresh_token
@@ -167,13 +195,18 @@ CREATE TABLE `oauth2_refresh_token`  (
 -- Records of oauth2_refresh_token
 -- ----------------------------
 INSERT INTO `oauth2_refresh_token` VALUES ('036a2971ca4040269cb48e6f55033655', 6, 2, '2020-12-30 02:24:50', '192.168.1.4', '2020-12-29 22:24:49', '2020-12-29 22:24:49', b'0');
+INSERT INTO `oauth2_refresh_token` VALUES ('121398355c7140ebabaa0b4f0d8b1e5e', 1, 2, '2021-01-06 14:03:02', '172.16.16.128', '2021-01-06 10:03:01', '2021-01-06 10:03:01', b'0');
+INSERT INTO `oauth2_refresh_token` VALUES ('1432f0e8b0844a28a7436d0463bcd614', 1, 2, '2021-01-06 14:03:29', '172.16.16.128', '2021-01-06 10:03:28', '2021-01-06 10:03:28', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('151b82a762c24cbe9b3b36c0ad03bc0f', 1, 2, '2020-12-10 20:41:22', '127.0.0.1', '2020-12-10 16:41:21', '2020-12-10 16:41:21', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('15f913a08d934b6fbc0ccbf8ea01d4a6', 1, 2, '2021-01-04 19:22:36', '172.16.16.128', '2021-01-04 15:22:36', '2021-01-04 15:22:36', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('1658512541e94ec49f4761e53015320d', 1, 2, '2020-12-10 22:14:31', '127.0.0.1', '2020-12-10 18:14:30', '2020-12-10 18:14:30', b'0');
+INSERT INTO `oauth2_refresh_token` VALUES ('1d3ddf8462914a8e95a06e05dd15034b', 6, 2, '2021-01-06 13:37:57', '172.16.16.128', '2021-01-06 09:37:56', '2021-01-06 09:37:56', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('2dbde81421c64371aeb7827a35b83fb0', 6, 2, '2020-12-30 02:28:39', '192.168.1.4', '2020-12-29 22:28:38', '2020-12-29 22:28:38', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('303284cfd8ec4cd8883d8d4fd380df2a', 1, 2, '2020-12-11 14:00:00', '0:0:0:0:0:0:0:1', '2020-12-11 10:00:00', '2020-12-11 10:00:00', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('317c5b9cf5d948cba77655811da3fb7f', 1, 2, '2020-12-30 15:48:12', '172.16.16.128', '2020-12-30 11:48:12', '2020-12-30 11:48:12', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('348928484d324843a45e5eb724ed37dc', 1, 2, '2020-12-29 21:36:38', '172.16.16.128', '2020-12-29 17:36:38', '2020-12-29 17:36:38', b'0');
+INSERT INTO `oauth2_refresh_token` VALUES ('3e5d4ea7d778428897fd6c3f9dde919b', 1, 2, '2021-01-06 14:03:27', '172.16.16.128', '2021-01-06 10:03:27', '2021-01-06 10:03:27', b'0');
+INSERT INTO `oauth2_refresh_token` VALUES ('454cc45bb02340a49986b6adf0b77ba7', 6, 2, '2021-01-06 13:37:57', '172.16.16.128', '2021-01-06 09:37:57', '2021-01-06 09:37:57', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('46317b0557094c3ba98819a77a477b64', 1, 2, '2020-12-29 21:37:01', '172.16.16.128', '2020-12-29 17:37:01', '2020-12-29 17:37:01', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('46ec65ca0bcf4fcd97f718372199f4b9', 1, 2, '2021-01-04 19:07:07', '172.16.16.128', '2021-01-04 15:07:07', '2021-01-04 15:07:07', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('489a264d9af249c1acb5f779ad34bb75', 6, 2, '2020-12-30 02:23:51', '192.168.1.4', '2020-12-29 22:23:50', '2020-12-29 22:23:50', b'0');
@@ -183,6 +216,9 @@ INSERT INTO `oauth2_refresh_token` VALUES ('6f24695323654a59b1192975cb2e19c9', 1
 INSERT INTO `oauth2_refresh_token` VALUES ('70f0e685bb404b3e81de52f57cfc7ba4', 1, 2, '2020-12-11 14:08:28', '0:0:0:0:0:0:0:1', '2020-12-11 10:08:28', '2020-12-11 10:08:28', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('7c29ded05bb84c8588805a51e23a9f37', 6, 2, '2020-12-30 02:47:43', '192.168.1.4', '2020-12-29 22:47:42', '2020-12-29 22:47:42', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('905d6a5f9d10496bb2dcaee0e1ecd6ba', 1, 2, '2020-12-11 18:34:24', '0:0:0:0:0:0:0:1', '2020-12-11 14:34:24', '2020-12-11 14:34:24', b'0');
+INSERT INTO `oauth2_refresh_token` VALUES ('9206bda64e9f4f979f50edcacb780f53', 1, 2, '2021-01-06 13:54:53', '172.16.16.128', '2021-01-06 09:54:52', '2021-01-06 09:54:52', b'0');
+INSERT INTO `oauth2_refresh_token` VALUES ('96d9c0debaa645c7bf582849f840aa2f', 1, 2, '2021-01-06 13:54:56', '172.16.16.128', '2021-01-06 09:54:56', '2021-01-06 09:54:56', b'0');
+INSERT INTO `oauth2_refresh_token` VALUES ('9b87746c8f644aa6a370c60a9488ada0', 6, 2, '2021-01-06 13:37:53', '172.16.16.128', '2021-01-06 09:37:53', '2021-01-06 09:37:53', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('9dc1f411c0f74006a3075c5e00545e5f', 1, 2, '2020-12-11 14:01:24', '0:0:0:0:0:0:0:1', '2020-12-11 10:01:24', '2020-12-11 10:01:24', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('a1e3c331f3404b48941f0283d4c9a6e3', 1, 2, '2020-12-30 02:28:28', '192.168.1.4', '2020-12-29 22:28:28', '2020-12-29 22:28:28', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('aa054d749d7c42c29037a01cf01c4ff1', 1, 2, '2020-12-30 02:22:11', '192.168.1.4', '2020-12-29 22:22:11', '2020-12-29 22:22:11', b'0');
@@ -199,6 +235,153 @@ INSERT INTO `oauth2_refresh_token` VALUES ('d8e8a37bbe7f4cc09679ce65a8e84026', 1
 INSERT INTO `oauth2_refresh_token` VALUES ('e8d5ab304ea4438e9ea2166b382f2f4e', 1, 2, '2020-12-11 14:09:18', '0:0:0:0:0:0:0:1', '2020-12-11 10:09:18', '2020-12-11 10:09:18', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('ecf7f00daa3c42fd913cd5fdb97b37ee', 2, 2, '2020-12-09 21:37:33', '127.0.0.1', '2020-12-09 17:37:33', '2020-12-09 17:37:33', b'0');
 INSERT INTO `oauth2_refresh_token` VALUES ('f52916ca7fde4f5d88eb5ead67e04c04', 1, 2, '2020-12-30 02:07:31', '192.168.1.4', '2020-12-29 22:07:31', '2020-12-29 22:07:31', b'0');
+
+-- ----------------------------
+-- Table structure for order_cancel
+-- ----------------------------
+DROP TABLE IF EXISTS `order_cancel`;
+CREATE TABLE `order_cancel`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `order_id` int(0) NOT NULL COMMENT '订单id',
+  `order_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单编号',
+  `reason` int(0) NOT NULL,
+  `other_reason` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '其他原因',
+  `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for order_exchange
+-- ----------------------------
+DROP TABLE IF EXISTS `order_exchange`;
+CREATE TABLE `order_exchange`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `order_id` int(0) NOT NULL,
+  `order_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `sku_id` int(0) NOT NULL,
+  `exchange_sku_id` int(0) NOT NULL COMMENT '换货商品id',
+  `exchange_order_logistics_id` int(0) NOT NULL COMMENT '换货物流id',
+  `receiver_order_logistics_id` int(0) NOT NULL COMMENT '收件地址',
+  `order_reason_id` int(0) NULL DEFAULT NULL COMMENT '换货原因',
+  `reason` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '换货原因 (其他的时候)',
+  `payment_time` datetime(0) NULL DEFAULT NULL COMMENT '付款时间',
+  `delivery_time` datetime(0) NULL DEFAULT NULL COMMENT '发货时间',
+  `receiver_time` datetime(0) NULL DEFAULT NULL COMMENT '收货时间',
+  `closing_time` datetime(0) NULL DEFAULT NULL COMMENT '成交时间',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `delete` smallint(0) NULL DEFAULT NULL COMMENT '删除状态',
+  `order_type` int(0) NULL DEFAULT NULL COMMENT '订单类型 0、为 Order 订单 1、为 OrderItem 订单',
+  `status` int(0) NULL DEFAULT NULL COMMENT '状态 申请换货、申请成功、申请失败、换货中、换货成功',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for order_item
+-- ----------------------------
+DROP TABLE IF EXISTS `order_item`;
+CREATE TABLE `order_item`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id自增长',
+  `order_id` int(0) NOT NULL COMMENT '订单编号',
+  `order_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单号',
+  `order_logistics_id` int(0) NULL DEFAULT NULL COMMENT '物流id',
+  `sku_id` int(0) NOT NULL COMMENT '商品id',
+  `sku_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品名字',
+  `sku_image` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图片名字',
+  `quantity` int(0) NOT NULL COMMENT '商品数量',
+  `origin_price` int(0) NOT NULL COMMENT '原始单价，单位：分',
+  `buy_price` int(0) NOT NULL COMMENT '购买单价，单位：分',
+  `present_price` int(0) NOT NULL COMMENT '最终价格，单位：分',
+  `buy_total` int(0) NOT NULL COMMENT '购买总金额，单位：分',
+  `discount_total` int(0) NOT NULL COMMENT '优惠总金额，单位：分',
+  `present_total` int(0) NOT NULL COMMENT '最终总金额，单位：分',
+  `payment_time` datetime(0) NULL DEFAULT NULL COMMENT '付款时间',
+  `delivery_time` datetime(0) NULL DEFAULT NULL COMMENT '发货时间',
+  `receiver_time` datetime(0) NULL DEFAULT NULL COMMENT '收货时间',
+  `closing_time` datetime(0) NULL DEFAULT NULL,
+  `has_return_exchange` int(0) NULL DEFAULT NULL COMMENT '是否退换货',
+  `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `delivery_type` int(0) NOT NULL COMMENT '发送方式',
+  `status` smallint(0) NOT NULL COMMENT '状态：0、代发货 1、已发货 2、已收货 20、换货中 21、换货成功 40、退货中 41、已退货',
+  `deleted` smallint(0) NOT NULL COMMENT '删除状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 171 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for order_logistics
+-- ----------------------------
+DROP TABLE IF EXISTS `order_logistics`;
+CREATE TABLE `order_logistics`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id自增长',
+  `area_no` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '地区编号',
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
+  `mobile` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '手机号',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '详细地址',
+  `logistics` int(0) NOT NULL COMMENT '物流商家',
+  `logistics_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '物流单号',
+  `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for order_logistics_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `order_logistics_detail`;
+CREATE TABLE `order_logistics_detail`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id自增长',
+  `order_logistics_id` int(0) NOT NULL COMMENT '物流编号',
+  `logistics_time` datetime(0) NOT NULL COMMENT '物流时间',
+  `logistics_information` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '物流信息',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for order_recipient
+-- ----------------------------
+DROP TABLE IF EXISTS `order_recipient`;
+CREATE TABLE `order_recipient`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `order_id` int(0) NOT NULL COMMENT '订单id',
+  `area_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '区域编号',
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '收件人名称',
+  `mobile` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '手机号',
+  `type` int(0) NOT NULL COMMENT '快递方式',
+  `address` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '地址详细',
+  `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 189 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for order_return
+-- ----------------------------
+DROP TABLE IF EXISTS `order_return`;
+CREATE TABLE `order_return`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id自增长',
+  `service_number` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '服务号',
+  `order_id` int(0) NOT NULL COMMENT '订单编号',
+  `order_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单号',
+  `order_logistics_id` int(0) NULL DEFAULT NULL COMMENT '物流 id',
+  `refund_price` int(0) NOT NULL COMMENT '退回金额',
+  `reason` int(0) NOT NULL COMMENT '退货原因',
+  `describe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '换货原因 (其他的时候)',
+  `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+  `approval_time` datetime(0) NULL DEFAULT NULL COMMENT '同意时间',
+  `refuse_time` datetime(0) NULL DEFAULT NULL COMMENT '拒绝时间',
+  `logistics_time` datetime(0) NULL DEFAULT NULL COMMENT '物流时间（填写物流单号时间）',
+  `receiver_time` datetime(0) NULL DEFAULT NULL COMMENT '收货时间',
+  `closing_time` datetime(0) NULL DEFAULT NULL COMMENT '成交时间',
+  `service_type` int(0) NULL DEFAULT NULL COMMENT ' 1、退货 2、退款',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `status` int(0) NOT NULL COMMENT '状态 申请换货、申请成功、申请失败、退货中、退货成功',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for permission_admin_role
@@ -453,7 +636,7 @@ CREATE TABLE `product_attr`  (
   `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   `deleted` bit(1) NULL DEFAULT b'0' COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'product_attr' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'product_attr' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of product_attr
@@ -481,7 +664,7 @@ CREATE TABLE `product_attr_value`  (
   `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   `deleted` bit(1) NULL DEFAULT b'0' COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'product_attr' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'product_attr' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of product_attr_value
@@ -544,7 +727,7 @@ CREATE TABLE `product_brand`  (
   `update_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   `deleted` bit(1) NULL DEFAULT b'0' COMMENT '是否删除 0正常1删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of product_brand
@@ -569,7 +752,7 @@ CREATE TABLE `product_category`  (
   `status` tinyint(0) NULL DEFAULT NULL COMMENT '状态',
   `deleted` bit(1) NULL DEFAULT b'1' COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 797 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 798 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of product_category
@@ -611,7 +794,7 @@ CREATE TABLE `product_sku`  (
   `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 75 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'product_sku' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 76 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'product_sku' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of product_sku
@@ -777,7 +960,7 @@ CREATE TABLE `system_access_log`  (
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 87141 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for system_data_dict
@@ -794,7 +977,7 @@ CREATE TABLE `system_data_dict`  (
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '数据字典' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 74 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '数据字典' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of system_data_dict
@@ -888,7 +1071,7 @@ CREATE TABLE `system_error_code`  (
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '错误码' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 350 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '错误码' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for system_exception_log
@@ -917,6 +1100,6 @@ CREATE TABLE `system_exception_log`  (
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统异常日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1012 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统异常日志' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

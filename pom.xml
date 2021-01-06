@@ -21,6 +21,7 @@
         <module>plat-gateway</module>
         <module>plat-product</module>
         <module>springboot-demo</module>
+        <module>plat-trade</module>
     </modules>
 
 

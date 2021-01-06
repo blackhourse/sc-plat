@@ -19,6 +19,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -75,8 +76,8 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
                 return chain.filter(exchange);
             }
         }
-        // 判断用户类型
-        String clientType = request.getHeaders().getFirst(AuthConstants.clientType);
+        HttpHeaders headers = request.getHeaders();
+        String clientType = headers.getFirst(AuthConstants.clientType);
         SystemClientType instance = SystemClientType.getInstance(clientType);
         if (instance == null) {
             return setResponseInfo(exchange.getResponse(), BAD_REQUEST.getCode(), BAD_REQUEST.getMessage());
@@ -131,7 +132,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
      * @return
      */
     private String getToken(ServerHttpRequest request) {
-        String authorization = request.getHeaders().getFirst(AuthConstants.Authorization);
+        String authorization = request.getHeaders().get(AuthConstants.Authorization).get(0);
         if (!StringUtils.hasText(authorization)) {
             return null;
         }
