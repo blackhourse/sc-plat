@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.boot.st.tradeserver.mapper.CartItemMapper">
+  <resultMap id="BaseResultMap" type="cn.boot.st.tradeserver.dataobject.CartItem">
+    <!--@mbg.generated-->
+    <!--@Table cart_item-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime" />
+    <result column="selected" jdbcType="BIT" property="selected" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="spu_id" jdbcType="INTEGER" property="spuId" />
+    <result column="sku_id" jdbcType="INTEGER" property="skuId" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="order_create_time" jdbcType="TIMESTAMP" property="orderCreateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `status`, delete_time, selected, user_id, spu_id, sku_id, quantity, order_id, 
+    order_create_time, create_time, update_time
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update cart_item
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.status,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="delete_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.deleteTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="selected = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.selected,jdbcType=BIT}
+        </foreach>
+      </trim>
+      <trim prefix="user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.userId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="spu_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.spuId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="sku_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.skuId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="quantity = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.quantity,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="order_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.orderId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="order_create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.orderCreateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update cart_item
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.status != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.status,jdbcType=TINYINT}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="delete_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.deleteTime != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.deleteTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="selected = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.selected != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.selected,jdbcType=BIT}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.userId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.userId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="spu_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.spuId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.spuId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="sku_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.skuId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.skuId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="quantity = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.quantity != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.quantity,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="order_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.orderId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.orderId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="order_create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.orderCreateTime != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.orderCreateTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.updateTime != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into cart_item
+    (`status`, delete_time, selected, user_id, spu_id, sku_id, quantity, order_id, order_create_time, 
+      create_time, update_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.status,jdbcType=TINYINT}, #{item.deleteTime,jdbcType=TIMESTAMP}, #{item.selected,jdbcType=BIT}, 
+        #{item.userId,jdbcType=INTEGER}, #{item.spuId,jdbcType=INTEGER}, #{item.skuId,jdbcType=INTEGER}, 
+        #{item.quantity,jdbcType=INTEGER}, #{item.orderId,jdbcType=INTEGER}, #{item.orderCreateTime,jdbcType=TIMESTAMP}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.tradeserver.dataobject.CartItem" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into cart_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      `status`,
+      delete_time,
+      selected,
+      user_id,
+      spu_id,
+      sku_id,
+      quantity,
+      order_id,
+      order_create_time,
+      create_time,
+      update_time,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{status,jdbcType=TINYINT},
+      #{deleteTime,jdbcType=TIMESTAMP},
+      #{selected,jdbcType=BIT},
+      #{userId,jdbcType=INTEGER},
+      #{spuId,jdbcType=INTEGER},
+      #{skuId,jdbcType=INTEGER},
+      #{quantity,jdbcType=INTEGER},
+      #{orderId,jdbcType=INTEGER},
+      #{orderCreateTime,jdbcType=TIMESTAMP},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      `status` = #{status,jdbcType=TINYINT},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      selected = #{selected,jdbcType=BIT},
+      user_id = #{userId,jdbcType=INTEGER},
+      spu_id = #{spuId,jdbcType=INTEGER},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.tradeserver.dataobject.CartItem" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into cart_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="deleteTime != null">
+        delete_time,
+      </if>
+      <if test="selected != null">
+        selected,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="spuId != null">
+        spu_id,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderCreateTime != null">
+        order_create_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="selected != null">
+        #{selected,jdbcType=BIT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="spuId != null">
+        #{spuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderCreateTime != null">
+        #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="deleteTime != null">
+        delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="selected != null">
+        selected = #{selected,jdbcType=BIT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="spuId != null">
+        spu_id = #{spuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderCreateTime != null">
+        order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

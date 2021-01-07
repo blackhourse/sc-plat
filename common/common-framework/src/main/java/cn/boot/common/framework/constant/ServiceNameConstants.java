@@ -18,5 +18,5 @@ public interface ServiceNameConstants {
     /**
      * 商品中心
      */
-    String PRODUCT_SERVER_SERVICE = "plat-product";
+    String PRODUCT_SERVER_SERVICE = "product-server";
 }
