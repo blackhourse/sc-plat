@@ -1,6 +1,5 @@
 package cn.boot.st.tradeservice.service.cart.dto;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -8,14 +7,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
- * @program: sc-plat
- * @author: maht
- * @create: 2021-01-07
- **/
+ * @Classname CartUpdateDto
+ * @Description
+ * @Date 2021/1/9
+ * @Created by maht
+ */
 @Data
 @Accessors(chain = true)
-@ApiModel("购物车添加 dto")
-public class CartAddDto {
+public class CartUpdateDto {
 
     /**
      * 用户编号
@@ -30,12 +29,10 @@ public class CartAddDto {
 
     @NotNull(message = "商品规格不能为空")
     private Integer attrValueId;
-
     /**
      * 数量
      */
     @NotNull(message = "数量不能为空")
     @Min(message = "数量必须大于 0", value = 1L)
     private Integer quantity;
-
 }

@@ -44,7 +44,7 @@ public class ProductSku extends DeletableDO {
      */
     private String picUrl;
     /**
-     * 规格值({@link ProductAttrDO})数组
+     * 规格值({@link ProductAttr})数组
      * <p>
      * 数组，以逗号分隔
      */

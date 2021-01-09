@@ -2,6 +2,8 @@ package cn.boot.st.tradeservice.service.cart;
 
 import cn.boot.st.tradeservice.service.cart.dto.CartAddDto;
 import cn.boot.st.tradeservice.service.cart.dto.CartQueryDto;
+import cn.boot.st.tradeservice.service.cart.dto.CartUpdateDto;
+import cn.boot.st.tradeservice.service.cart.vo.CartInfoVo;
 
 /**
  * @program: sc-plat
@@ -12,16 +14,27 @@ public interface CartService {
 
     /**
      * 添加购物车
+     *
      * @param cartAddDto
      * @return
      */
-    String addCart(CartAddDto cartAddDto);
+    Integer addCart(CartAddDto cartAddDto);
 
     /**
-     * 购车车查询
+     * 更新购物车商品数量
+     *
+     * @param cartUpdateDto
+     */
+    void updateCartItemQuantity(CartUpdateDto cartUpdateDto);
+
+    /**
+     * 获取购物车商品列表
      *
      * @param cartQueryDto
+     * @return
      */
-    String cartQuery(CartQueryDto cartQueryDto);
+    CartInfoVo getCartDetail(CartQueryDto cartQueryDto);
+
+
 
 }

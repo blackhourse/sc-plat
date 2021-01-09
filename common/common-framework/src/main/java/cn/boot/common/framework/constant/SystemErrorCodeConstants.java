@@ -25,6 +25,7 @@ public interface SystemErrorCodeConstants {
      * 服务降级 1001007000
      */
     ErrorCode SERVICE_DEGRADATION = new ErrorCode(1001007000, "服务器出错，请稍后重试");
+    ErrorCode SERVICE_TO_BUSY = new ErrorCode(1001007001, "请求太快了，请稍后再试");
 
 
     // ========== 商品模块 1-003-000-000 ==========

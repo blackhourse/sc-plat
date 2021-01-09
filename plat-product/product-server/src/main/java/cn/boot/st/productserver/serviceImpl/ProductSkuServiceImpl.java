@@ -2,11 +2,16 @@ package cn.boot.st.productserver.serviceImpl;
 
 import cn.boot.common.framework.enums.CommonStatusEnum;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
+import cn.boot.st.productserver.convert.ProductSkuConvert;
 import cn.boot.st.productserver.dataobject.ProductSku;
 import cn.boot.st.productserver.mapper.ProductSkuMapper;
+import cn.boot.st.productserver.mapper.ProductSpuMapper;
 import cn.boot.st.productservice.bo.ProductSkuCreateOrUpdateBO;
 import cn.boot.st.productservice.service.ProductSkuService;
+import cn.boot.st.productservice.vo.sku.ProductSkuRespVo;
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +33,15 @@ public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuMapper, Product
 
     @Autowired
     private ProductSkuMapper productSkuMapper;
+
+    @Autowired
+    private ProductSpuMapper productSpuMapper;
+
+    @Override
+    public ProductSkuRespVo getSkuInfo(Integer productSkuId) {
+        ProductSku productSku = productSkuMapper.selectById(productSkuId);
+        return ProductSkuConvert.INSTANCE.convert(productSku);
+    }
 
     @Override
     public void createProductSkus(Integer spuId, List<ProductSkuCreateOrUpdateBO> createSkuBos) {
@@ -76,5 +90,15 @@ public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuMapper, Product
                 .setSpuId(spuId)).collect(Collectors.toList());
         productSkuMapper.insertList(skus);
 
+    }
+
+    @Override
+    public List<ProductSkuRespVo> skuInfoList(Set<Integer> skuIds) {
+        // sku
+        List<ProductSku> productSkuList = productSkuMapper.selectBatchIds(skuIds);
+        if (CollUtil.isEmpty(productSkuList)) {
+            return Lists.newArrayList();
+        }
+        return productSkuList.stream().map((ProductSku s) -> ProductSkuConvert.INSTANCE.convert(s)).collect(Collectors.toList());
     }
 }

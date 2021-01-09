@@ -18,4 +18,7 @@ public class CartQueryDto {
     @ApiModelProperty(value = "userId")
     @NotNull
     private Integer userId;
+
+    @ApiModelProperty(value = "是否选中")
+    private Boolean selected;
 }
