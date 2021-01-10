@@ -5,13 +5,11 @@ import cn.boot.st.productservice.service.ProductSkuService;
 import cn.boot.st.productservice.vo.sku.ProductSkuRespVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 import static cn.boot.common.framework.vo.CommonResult.success;
@@ -31,21 +29,18 @@ public class ProductSkuController {
     @Autowired
     private ProductSkuService productSkuService;
 
-    @PostMapping("/info")
+    @GetMapping("/info")
     @ApiOperation(value = "获取信息")
-    public CommonResult<ProductSkuRespVo> getSkuInfo(Integer productSpuId) {
+    public CommonResult<ProductSkuRespVo> getSkuInfo(@RequestParam Integer productSpuId) {
         return success(productSkuService.getSkuInfo(productSpuId));
     }
 
 
     @PostMapping("/info-list")
     @ApiOperation(value = "获取sku list")
-    public CommonResult<ProductSkuRespVo> skuInfoList(@Length(min = 1, message = "sku id 不能为空") Set<Integer> skuIds) {
-        productSkuService.skuInfoList(skuIds);
-        return success();
+    public CommonResult<List<ProductSkuRespVo>> skuInfoList(@RequestParam Set<Integer> skuIds) {
+        return success(productSkuService.skuInfoList(skuIds));
     }
-
-
 
 
 }

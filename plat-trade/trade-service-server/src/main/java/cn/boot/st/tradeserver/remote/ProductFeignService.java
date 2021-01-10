@@ -7,6 +7,7 @@ import cn.boot.st.productservice.vo.spu.ProductSpuRespVO;
 import cn.boot.st.tradeserver.remote.fallback.ProductFeignServiceFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -23,10 +24,10 @@ public interface ProductFeignService {
     @GetMapping("/product-sku/info")
     CommonResult<ProductSkuRespVo> getProductBySkuId(@RequestParam("productSpuId") Integer productSpuId);
 
-    @GetMapping("/product-sku/info-list")
+    @PostMapping("/product-sku/info-list")
     CommonResult<List<ProductSkuRespVo>> getSkuInfoList(@RequestParam("skuIds") Set<Integer> skuIds);
 
-    @GetMapping("/product-spu/list")
+    @PostMapping("/product-spu/list")
     CommonResult<List<ProductSpuRespVO>> getSpuInfoList(@RequestParam("productSpuIds") Set<Integer> productSpuIds);
 
 

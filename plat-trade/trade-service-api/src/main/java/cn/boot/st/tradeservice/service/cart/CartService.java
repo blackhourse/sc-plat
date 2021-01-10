@@ -3,6 +3,7 @@ package cn.boot.st.tradeservice.service.cart;
 import cn.boot.st.tradeservice.service.cart.dto.CartAddDto;
 import cn.boot.st.tradeservice.service.cart.dto.CartQueryDto;
 import cn.boot.st.tradeservice.service.cart.dto.CartUpdateDto;
+import cn.boot.st.tradeservice.service.cart.dto.CartUpdateSelectDto;
 import cn.boot.st.tradeservice.service.cart.vo.CartInfoVo;
 
 /**
@@ -28,6 +29,14 @@ public interface CartService {
     void updateCartItemQuantity(CartUpdateDto cartUpdateDto);
 
     /**
+     * 获取购物车商品数量
+     *
+     * @param userId
+     * @return
+     */
+    Integer sumCartItemQuantity(Integer userId);
+
+    /**
      * 获取购物车商品列表
      *
      * @param cartQueryDto
@@ -35,6 +44,11 @@ public interface CartService {
      */
     CartInfoVo getCartDetail(CartQueryDto cartQueryDto);
 
-
+    /**
+     * 更细购物车商品 选中情况
+     *
+     * @param cartUpdateSelectDto
+     */
+    void updateCartItemSelected(CartUpdateSelectDto cartUpdateSelectDto);
 
 }

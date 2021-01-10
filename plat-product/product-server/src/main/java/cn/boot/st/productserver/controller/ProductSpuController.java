@@ -58,7 +58,7 @@ public class ProductSpuController {
     }
 
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ApiOperation("获得商品 SPU 列表")
     @ApiImplicitParam(name = "productSpuIds", value = "商品 SPU 编号列表", required = true)
     public CommonResult<List<ProductSpuRespVO>> listProductSpus(@RequestParam("productSpuIds") List<Integer> productSpuIds) {

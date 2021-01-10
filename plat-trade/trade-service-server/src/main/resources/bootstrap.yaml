@@ -11,7 +11,7 @@ spring:
       # Spring Cloud Nacos Discovery 配置项
       discovery:
         server-addr: 127.0.0.1:8848 # Nacos 服务器地址
-#        namespace: dev # Nacos 命名空间
+        namespace: fd1c783d-1d40-45ee-ac6a-c2e4778d50eb
       config:
         server-addr: 127.0.0.1:8848 # Nacos 服务器地址
         namespace: fd1c783d-1d40-45ee-ac6a-c2e4778d50eb # 使用的 Nacos 的命名空间，默认为 null

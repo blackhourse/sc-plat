@@ -27,8 +27,8 @@ mybatis-plus:
 
 # Swagger 配置项
 swagger:
-  title: 交一服务
-  description: 交一
+  title: 交易服务
+  description: 交易
   version: 1.0.0
   base-package: cn.boot.st.tradeserver.controller
 
