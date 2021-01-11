@@ -26,6 +26,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static cn.boot.st.productserver.constants.ProductErrorCodeConstants.PRODUCT_SPU_NOT_EXISTS;
+import static cn.boot.st.productserver.constants.ProductErrorCodeConstants.PRODUCT_SkU_NOT_EXISTS;
 
 
 /**
@@ -53,7 +54,11 @@ public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuMapper, Product
     @Override
     public ProductSkuRespVo getSkuInfo(Integer productSkuId) {
         ProductSku productSku = productSkuMapper.selectById(productSkuId);
-        return ProductSkuConvert.INSTANCE.convert(productSku);
+        if (productSkuId == null) {
+            throw ServiceExceptionUtil.exception(PRODUCT_SkU_NOT_EXISTS);
+        }
+        List<ProductSkuRespVo> skuRespVos = this.sku(Arrays.asList(productSku), Arrays.asList(ProductSkuDetailFieldEnum.SPU.getField(), ProductSkuDetailFieldEnum.ATTR.getField()));
+        return skuRespVos.get(0);
     }
 
     @Override
@@ -110,24 +115,27 @@ public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuMapper, Product
         if (CollUtil.isEmpty(productSkuList)) {
             return Lists.newArrayList();
         }
+        return sku(productSkuList, reqDto.getFields());
+    }
+
+    private List<ProductSkuRespVo> sku(List<ProductSku> skuList, Collection<String> fields) {
         // 获得商品 SPU 列表
         List<ProductSpuRespVO> spuBOs = Collections.emptyList();
-        if (reqDto.getFields().contains(ProductSkuDetailFieldEnum.SPU.getField())) {
+        if (fields.contains(ProductSkuDetailFieldEnum.SPU.getField())) {
             spuBOs = productSpuService.listProductSpus(
-                    productSkuList.stream().map(ProductSku::getSpuId).collect(Collectors.toList()));
+                    skuList.stream().map(ProductSku::getSpuId).collect(Collectors.toList()));
         }
         // 获取商品 SKU 的规格数组
         List<ProductAttrKeyValueBO> attrBOs = Collections.emptyList();
-        if (reqDto.getFields().contains(ProductSkuDetailFieldEnum.ATTR.getField())) {
+        if (fields.contains(ProductSkuDetailFieldEnum.ATTR.getField())) {
             Set<Integer> attrValueIds = new HashSet<>();
-            productSkuList.forEach(sku -> {
+            skuList.forEach(sku -> {
                 attrValueIds.addAll(Arrays.stream(sku.getAttrs().split(",")).map(s -> Integer.valueOf(s)).collect(Collectors.toList()));
             });
             // 读取规格时，不考虑规格是否被禁用
             attrBOs = productAttrService.validProductAttr(attrValueIds, false);
         }
-        // 封装sku spu attr
-        return convertList(productSkuList, spuBOs, attrBOs);
+        return this.convertList(skuList, spuBOs, attrBOs);
     }
 
     private List<ProductSkuRespVo> convertList(List<ProductSku> productSkuList, List<ProductSpuRespVO> spuBOs, List<ProductAttrKeyValueBO> attrKeyValueBOS) {

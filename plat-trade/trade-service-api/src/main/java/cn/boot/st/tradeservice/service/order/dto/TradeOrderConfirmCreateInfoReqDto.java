@@ -19,6 +19,4 @@ public class TradeOrderConfirmCreateInfoReqDto {
     private Integer skuId;
     @NotNull
     private Integer quantity;
-    @NotNull
-    private Integer attrValueId;
 }

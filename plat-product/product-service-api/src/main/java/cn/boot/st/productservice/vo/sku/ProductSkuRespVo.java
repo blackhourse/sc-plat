@@ -62,7 +62,6 @@ public class ProductSkuRespVo {
      *
      * 需要设置 {@link ProductSkuDetailFieldEnum#SPU} 才返回
      *
-     * // TODO 芋艿，后续考虑怎么优化下，目前是内嵌了别的 dto
      */
     private ProductSpuRespVO spu;
 

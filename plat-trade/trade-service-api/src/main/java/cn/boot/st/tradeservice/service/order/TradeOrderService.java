@@ -1,6 +1,7 @@
 package cn.boot.st.tradeservice.service.order;
 
 import cn.boot.st.tradeservice.service.order.dto.TradeOrderConfirmCreateInfoReqDto;
+import cn.boot.st.tradeservice.service.order.vo.OrderConfirmCreateRespVo;
 
 /**
  * @program: sc-plat
@@ -9,6 +10,6 @@ import cn.boot.st.tradeservice.service.order.dto.TradeOrderConfirmCreateInfoReqD
  **/
 public interface TradeOrderService {
 
-    void getOrderConfirmCreateInfo(TradeOrderConfirmCreateInfoReqDto tradeOrderConfirmCreateInfoReqDto);
+    OrderConfirmCreateRespVo getOrderConfirmCreateInfo(TradeOrderConfirmCreateInfoReqDto tradeOrderConfirmCreateInfoReqDto);
 
 }

@@ -43,6 +43,8 @@ public interface ProductErrorCodeConstants {
     ErrorCode PRODUCT_SKU_ATTR_CANT_NOT_DUPLICATE = new ErrorCode(1003003005, "一个 SKU 下，不能有重复的规格");
     ErrorCode PRODUCT_SPU_CATEGORY_MUST_BE_LEVEL2 = new ErrorCode(1003003006, "SKU只能添加在二级分类下");
     ErrorCode PRODUCT_SPU_NOT_EXISTS = new ErrorCode(1003003007, "SPU 不存在");
+    ErrorCode PRODUCT_SkU_NOT_EXISTS = new ErrorCode(1003003008, "商品不存在");
+
 
 
 }
