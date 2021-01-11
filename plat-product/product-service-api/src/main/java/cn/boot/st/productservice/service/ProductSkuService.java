@@ -2,6 +2,7 @@ package cn.boot.st.productservice.service;
 
 
 import cn.boot.st.productservice.bo.ProductSkuCreateOrUpdateBO;
+import cn.boot.st.productservice.dto.sku.ProductSkuListQueryReqDto;
 import cn.boot.st.productservice.vo.sku.ProductSkuRespVo;
 
 import java.util.List;
@@ -27,9 +28,9 @@ public interface ProductSkuService {
 
     /**
      * 获取sku info
-     * @param skuIds
-     * @return
+     *
+     * @param reqDto@return
      */
-    List<ProductSkuRespVo> skuInfoList(Set<Integer> skuIds);
+    List<ProductSkuRespVo>  skuInfoList(ProductSkuListQueryReqDto reqDto);
 
 }

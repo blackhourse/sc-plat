@@ -6,9 +6,15 @@ import cn.boot.st.productserver.convert.ProductSkuConvert;
 import cn.boot.st.productserver.dataobject.ProductSku;
 import cn.boot.st.productserver.mapper.ProductSkuMapper;
 import cn.boot.st.productserver.mapper.ProductSpuMapper;
+import cn.boot.st.productservice.bo.ProductAttrKeyValueBO;
 import cn.boot.st.productservice.bo.ProductSkuCreateOrUpdateBO;
+import cn.boot.st.productservice.dto.sku.ProductSkuListQueryReqDto;
+import cn.boot.st.productservice.enums.ProductSkuDetailFieldEnum;
+import cn.boot.st.productservice.service.ProductAttrService;
 import cn.boot.st.productservice.service.ProductSkuService;
+import cn.boot.st.productservice.service.ProductSpuService;
 import cn.boot.st.productservice.vo.sku.ProductSkuRespVo;
+import cn.boot.st.productservice.vo.spu.ProductSpuRespVO;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
@@ -16,8 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static cn.boot.st.productserver.constants.ProductErrorCodeConstants.PRODUCT_SPU_NOT_EXISTS;
@@ -36,6 +41,14 @@ public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuMapper, Product
 
     @Autowired
     private ProductSpuMapper productSpuMapper;
+
+    @Autowired
+    private ProductSpuService productSpuService;
+
+
+    @Autowired
+    private ProductAttrService productAttrService;
+
 
     @Override
     public ProductSkuRespVo getSkuInfo(Integer productSkuId) {
@@ -78,8 +91,6 @@ public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuMapper, Product
                 .setStatus(CommonStatusEnum.ENABLE.getValue())
                 .setSpuId(spuId)).collect(Collectors.toList());
         this.saveOrUpdateBatch(existSkuList);
-
-
         // 3.保存新的
         List<ProductSkuCreateOrUpdateBO> tempList = createSkuBos;
         tempList.removeAll(updateBOS);
@@ -93,12 +104,48 @@ public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuMapper, Product
     }
 
     @Override
-    public List<ProductSkuRespVo> skuInfoList(Set<Integer> skuIds) {
+    public List<ProductSkuRespVo> skuInfoList(ProductSkuListQueryReqDto reqDto) {
         // sku
-        List<ProductSku> productSkuList = productSkuMapper.selectBatchIds(skuIds);
+        List<ProductSku> productSkuList = productSkuMapper.selectBatchIds(reqDto.getProductSkuIds());
         if (CollUtil.isEmpty(productSkuList)) {
             return Lists.newArrayList();
         }
-        return productSkuList.stream().map((ProductSku s) -> ProductSkuConvert.INSTANCE.convert(s)).collect(Collectors.toList());
+        // 获得商品 SPU 列表
+        List<ProductSpuRespVO> spuBOs = Collections.emptyList();
+        if (reqDto.getFields().contains(ProductSkuDetailFieldEnum.SPU.getField())) {
+            spuBOs = productSpuService.listProductSpus(
+                    productSkuList.stream().map(ProductSku::getSpuId).collect(Collectors.toList()));
+        }
+        // 获取商品 SKU 的规格数组
+        List<ProductAttrKeyValueBO> attrBOs = Collections.emptyList();
+        if (reqDto.getFields().contains(ProductSkuDetailFieldEnum.ATTR.getField())) {
+            Set<Integer> attrValueIds = new HashSet<>();
+            productSkuList.forEach(sku -> {
+                attrValueIds.addAll(Arrays.stream(sku.getAttrs().split(",")).map(s -> Integer.valueOf(s)).collect(Collectors.toList()));
+            });
+            // 读取规格时，不考虑规格是否被禁用
+            attrBOs = productAttrService.validProductAttr(attrValueIds, false);
+        }
+        // 封装sku spu attr
+        return convertList(productSkuList, spuBOs, attrBOs);
     }
+
+    private List<ProductSkuRespVo> convertList(List<ProductSku> productSkuList, List<ProductSpuRespVO> spuBOs, List<ProductAttrKeyValueBO> attrKeyValueBOS) {
+        // sku <spuId, spu>
+        Map<Integer, ProductSpuRespVO> spuMap = spuBOs.stream().collect(Collectors.toMap(ProductSpuRespVO::getId, spu -> spu));
+        // attr <attrValueId, attr>
+        Map<Integer, ProductAttrKeyValueBO> attrMap = attrKeyValueBOS.stream().collect(Collectors.toMap(ProductAttrKeyValueBO::getAttrValueId, attr -> attr));
+
+        ArrayList<ProductSkuRespVo> productSkuRespVos = new ArrayList<>(productSkuList.size());
+        productSkuList.forEach(s -> {
+            ProductSkuRespVo sku = ProductSkuConvert.INSTANCE.convert(s);
+            sku.setSpu(spuMap.get(sku.getSpuId()));
+            List<Integer> attrValueIds = sku.getAttrValueIds();
+            sku.setAttrs(new ArrayList<>());
+            attrValueIds.forEach(attr -> sku.getAttrs().add(attrMap.get(attr)));
+            productSkuRespVos.add(sku);
+        });
+        return productSkuRespVos;
+    }
+
 }

@@ -7,6 +7,7 @@ import cn.boot.st.productservice.vo.sku.ProductSkuRespVo;
 import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
@@ -25,7 +26,10 @@ public interface ProductSkuConvert {
 
     List<ProductSku> convertList(List<ProductSkuCreateOrUpdateBO> productSkuCreateOrUpdateBOList);
 
-    @Mapping(source = "attrs", target = "attrValueIds", qualifiedByName = "translateAttrValueIdsFromString")
+    @Mappings({
+            @Mapping(source = "attrs", target = "attrValueIds", qualifiedByName = "translateAttrValueIdsFromString"),
+            @Mapping(target = "attrs", ignore = true),
+    })
     ProductSkuRespVo convert(ProductSku productSku);
 
     @Named("translateAttrValueIdsFromString")

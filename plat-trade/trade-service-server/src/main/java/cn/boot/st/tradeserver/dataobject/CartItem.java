@@ -96,13 +96,6 @@ public class CartItem implements Serializable {
     @ApiModelProperty(value = "订单编号")
     private Integer orderId;
 
-    /**
-     * 规格value 编号
-     */
-    @TableField(value = "attr_value_id")
-    @ApiModelProperty(value = "订单编号")
-    private Integer attrValueId;
-
 
     /**
      * 订单创建时间
@@ -144,8 +137,6 @@ public class CartItem implements Serializable {
     public static final String COL_QUANTITY = "quantity";
 
     public static final String COL_ORDER_ID = "order_id";
-
-    public static final String COL_ATTR_VALUE_ID = "attr_value_id";
 
 
     public static final String COL_ORDER_CREATE_TIME = "order_create_time";

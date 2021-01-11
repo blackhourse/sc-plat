@@ -1,6 +1,7 @@
 package cn.boot.st.productserver.controller;
 
 import cn.boot.common.framework.vo.CommonResult;
+import cn.boot.st.productservice.dto.sku.ProductSkuListQueryReqDto;
 import cn.boot.st.productservice.service.ProductSkuService;
 import cn.boot.st.productservice.vo.sku.ProductSkuRespVo;
 import io.swagger.annotations.Api;
@@ -9,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 import static cn.boot.common.framework.vo.CommonResult.success;
 
@@ -38,8 +39,8 @@ public class ProductSkuController {
 
     @PostMapping("/info-list")
     @ApiOperation(value = "获取sku list")
-    public CommonResult<List<ProductSkuRespVo>> skuInfoList(@RequestParam Set<Integer> skuIds) {
-        return success(productSkuService.skuInfoList(skuIds));
+    public CommonResult<List<ProductSkuRespVo>> skuInfoList(@RequestBody @Valid ProductSkuListQueryReqDto reqDto) {
+        return success(productSkuService.skuInfoList(reqDto));
     }
 
 

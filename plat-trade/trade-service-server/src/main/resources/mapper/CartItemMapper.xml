@@ -13,7 +13,6 @@
     <result column="sku_id" jdbcType="INTEGER" property="skuId" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="order_id" jdbcType="INTEGER" property="orderId" />
-    <result column="attr_value_id" jdbcType="INTEGER" property="attrValueId" />
     <result column="order_create_time" jdbcType="TIMESTAMP" property="orderCreateTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -21,7 +20,7 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, `status`, delete_time, selected, user_id, spu_id, sku_id, quantity, order_id, 
-    attr_value_id, order_create_time, create_time, update_time
+     order_create_time, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -39,12 +38,12 @@
     <!--@mbg.generated-->
     insert into cart_item (`status`, delete_time, selected, 
       user_id, spu_id, sku_id, 
-      quantity, order_id, attr_value_id, 
+      quantity, order_id,
       order_create_time, create_time, update_time
       )
     values (#{status,jdbcType=TINYINT}, #{deleteTime,jdbcType=TIMESTAMP}, #{selected,jdbcType=BIT}, 
       #{userId,jdbcType=INTEGER}, #{spuId,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, 
-      #{quantity,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{attrValueId,jdbcType=INTEGER}, 
+      #{quantity,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER},
       #{orderCreateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -75,9 +74,6 @@
       </if>
       <if test="orderId != null">
         order_id,
-      </if>
-      <if test="attrValueId != null">
-        attr_value_id,
       </if>
       <if test="orderCreateTime != null">
         order_create_time,
@@ -113,9 +109,6 @@
       </if>
       <if test="orderId != null">
         #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="attrValueId != null">
-        #{attrValueId,jdbcType=INTEGER},
       </if>
       <if test="orderCreateTime != null">
         #{orderCreateTime,jdbcType=TIMESTAMP},
@@ -156,9 +149,6 @@
       <if test="orderId != null">
         order_id = #{orderId,jdbcType=INTEGER},
       </if>
-      <if test="attrValueId != null">
-        attr_value_id = #{attrValueId,jdbcType=INTEGER},
-      </if>
       <if test="orderCreateTime != null">
         order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
       </if>
@@ -182,7 +172,6 @@
       sku_id = #{skuId,jdbcType=INTEGER},
       quantity = #{quantity,jdbcType=INTEGER},
       order_id = #{orderId,jdbcType=INTEGER},
-      attr_value_id = #{attrValueId,jdbcType=INTEGER},
       order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

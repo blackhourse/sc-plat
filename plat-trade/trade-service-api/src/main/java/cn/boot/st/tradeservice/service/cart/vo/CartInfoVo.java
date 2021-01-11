@@ -103,13 +103,21 @@ public class CartInfoVo {
     @Accessors(chain = true)
     public static class AttrValueInfo {
         /**
-         * 属性valueId id
+         * 规格 Key 编号
+         */
+        private Integer attrKeyId;
+        /**
+         * 规格 Key 名字
+         */
+        private String attrKeyName;
+        /**
+         * 规格 Value 编号
          */
         private Integer attrValueId;
         /**
-         * 是否选中
+         * 规格 Value 名字
          */
-        private Boolean isSelect;
+        private String attrValueName;
     }
 
     /**

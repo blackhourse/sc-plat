@@ -1,5 +1,8 @@
 package cn.boot.st.productservice.vo.sku;
 
+import cn.boot.st.productservice.bo.ProductAttrKeyValueBO;
+import cn.boot.st.productservice.enums.ProductSkuDetailFieldEnum;
+import cn.boot.st.productservice.vo.spu.ProductSpuRespVO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -26,9 +29,6 @@ public class ProductSkuRespVo {
     private Integer spuId;
     /**
      * 状态
-     * <p>
-     * 1-正常
-     * 2-禁用
      */
     private Integer status;
     /**
@@ -52,12 +52,18 @@ public class ProductSkuRespVo {
      */
     private Date createTime;
     /**
-     * 最后更新时间
+     * 规格值数组
+     *
+     * 需要设置 {@link ProductSkuDetailFieldEnum#ATTR} 才返回
      */
-    private Date updateTime;
+    private List<ProductAttrKeyValueBO> attrs;
     /**
-     * 是否删除
+     * 商品 SPU 信息
+     *
+     * 需要设置 {@link ProductSkuDetailFieldEnum#SPU} 才返回
+     *
+     * // TODO 芋艿，后续考虑怎么优化下，目前是内嵌了别的 dto
      */
-    private Integer deleted;
+    private ProductSpuRespVO spu;
 
 }

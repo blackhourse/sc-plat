@@ -1,4 +1,4 @@
-package cn.boot.st.product.config;
+package cn.boot.st.productserver.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;

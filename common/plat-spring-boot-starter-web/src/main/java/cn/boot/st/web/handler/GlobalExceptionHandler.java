@@ -120,10 +120,16 @@ public class GlobalExceptionHandler {
         return CommonResult.error(INTERNAL_SERVER_ERROR.getCode(), "系统异常，请稍后再试");
     }
 
-    @ExceptionHandler(value = BlockException.class) // 因为这里是示例，所以暂时使用 JSONObject，实际项目最终定义一个 CommonResult。
+    /**
+     * 服务限流降级异常捕获
+     *
+     * @param blockException
+     * @return
+     */
+    @ExceptionHandler(value = BlockException.class)
     public CommonResult blockExceptionHandler(BlockException blockException) {
         logger.error("[blockExceptionHandler]", blockException);
-        return CommonResult.error(INTERNAL_SERVER_ERROR.getCode(), "请求被拦截，拦截类型为")
+        return CommonResult.error(INTERNAL_SERVER_ERROR.getCode(), "请求太频繁，请稍后再试")
                 .setDetailMessage(ExceptionUtil.getRootCauseMessage(blockException));
     }
 

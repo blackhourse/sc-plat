@@ -2,7 +2,6 @@ package cn.boot.st.tradeserver.mapper;
 
 import cn.boot.st.tradeserver.dataobject.CartItem;
 import cn.boot.st.tradeserver.enums.CartItemStatusEnum;
-import cn.boot.st.tradeservice.service.cart.dto.CartQueryDto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -68,18 +67,17 @@ public interface CartItemMapper extends BaseMapper<CartItem> {
     int updateByPrimaryKey(CartItem record);
 
 
-    default CartItem selectOneBySkuIdAndUserId(Integer userId, Integer skuId, Integer attrValueId) {
+    default CartItem selectOneBySkuIdAndUserId(Integer userId, Integer skuId) {
         return selectOne(
                 new LambdaQueryWrapper<CartItem>().eq(CartItem::getUserId, userId)
                         .eq(CartItem::getSkuId, skuId)
-                        .eq(CartItem::getAttrValueId, attrValueId)
         );
     }
 
-    default List<CartItem> selectList(CartQueryDto cartQueryDto) {
+    default List<CartItem> selectList(Integer userId, Boolean selected) {
         return selectList(new LambdaQueryWrapper<CartItem>()
-                .eq(CartItem::getUserId, cartQueryDto.getUserId())
-                .eq(cartQueryDto.getSelected() != null, CartItem::getSelected, cartQueryDto.getSelected())
+                .eq(CartItem::getUserId, userId)
+                .eq(selected != null, CartItem::getSelected, selected)
         );
     }
 

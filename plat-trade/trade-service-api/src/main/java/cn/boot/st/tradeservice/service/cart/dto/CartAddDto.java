@@ -28,9 +28,6 @@ public class CartAddDto {
     @NotNull(message = "商品 SKU 编号不能为空")
     private Integer skuId;
 
-    @NotNull(message = "商品规格不能为空")
-    private Integer attrValueId;
-
     /**
      * 数量
      */

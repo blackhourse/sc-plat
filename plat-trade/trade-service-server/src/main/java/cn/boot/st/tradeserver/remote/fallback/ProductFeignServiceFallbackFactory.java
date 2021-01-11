@@ -2,6 +2,7 @@ package cn.boot.st.tradeserver.remote.fallback;
 
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.vo.CommonResult;
+import cn.boot.st.productservice.dto.sku.ProductSkuListQueryReqDto;
 import cn.boot.st.productservice.vo.sku.ProductSkuRespVo;
 import cn.boot.st.productservice.vo.spu.ProductSpuRespVO;
 import cn.boot.st.tradeserver.remote.ProductFeignService;
@@ -33,7 +34,7 @@ public class ProductFeignServiceFallbackFactory implements FallbackFactory<Produ
             }
 
             @Override
-            public CommonResult<List<ProductSkuRespVo>> getSkuInfoList(Set<Integer> skuIds) {
+            public CommonResult<List<ProductSkuRespVo>> getSkuInfoList(ProductSkuListQueryReqDto requestDto) {
                 log.error("获取sku list失败，异常信息如下:{}", throwable);
                 throw ServiceExceptionUtil.exception(GET_PRODUCT_SKU_FAIL);
             }
