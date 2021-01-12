@@ -1,4 +1,4 @@
-package cn.boot.st.tradeservice.service.cart.vo;
+package cn.boot.st.tradeservice.service.vo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * @program: sc-plat
  * @author: maht
- * @create: 2021-01-07
+ * @create: 2021-01-11
  **/
 @Data
 @Accessors(chain = true)
-public class CartInfoVo {
+public class OrderConfirmCreateRespVo {
 
 
     private Fee fee;
@@ -56,6 +56,11 @@ public class CartInfoVo {
          * 库存数量
          */
         private Integer quantity;
+
+        /**
+         * 购买数量
+         */
+        private Integer buyQuantity;
 
         /**
          * 是否选中
@@ -149,4 +154,6 @@ public class CartInfoVo {
         private Integer presentTotal;
 
     }
+
+
 }

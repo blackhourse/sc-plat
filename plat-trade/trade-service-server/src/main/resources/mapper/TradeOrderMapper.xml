@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.boot.st.tradeserver.mapper.TradeOrderMapper">
+  <resultMap id="BaseResultMap" type="cn.boot.st.tradeserver.dataobject.TradeOrder">
+    <!--@mbg.generated-->
+    <!--@Table trade_order-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="order_status" jdbcType="TINYINT" property="orderStatus" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="order_end_time" jdbcType="TIMESTAMP" property="orderEndTime" />
+    <result column="buy_price" jdbcType="INTEGER" property="buyPrice" />
+    <result column="discount_price" jdbcType="INTEGER" property="discountPrice" />
+    <result column="logistics_price" jdbcType="INTEGER" property="logisticsPrice" />
+    <result column="present_price" jdbcType="INTEGER" property="presentPrice" />
+    <result column="pay_price" jdbcType="INTEGER" property="payPrice" />
+    <result column="refund_price" jdbcType="INTEGER" property="refundPrice" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="pay_transaction_id" jdbcType="INTEGER" property="payTransactionId" />
+    <result column="pay_channel" jdbcType="TINYINT" property="payChannel" />
+    <result column="delivery_type" jdbcType="TINYINT" property="deliveryType" />
+    <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="receive_time" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiver_mobile" jdbcType="VARCHAR" property="receiverMobile" />
+    <result column="receiver_area_code" jdbcType="INTEGER" property="receiverAreaCode" />
+    <result column="receiver_detail_address" jdbcType="VARCHAR" property="receiverDetailAddress" />
+    <result column="after_sale_status" jdbcType="TINYINT" property="afterSaleStatus" />
+    <result column="coupon_card_id" jdbcType="INTEGER" property="couponCardId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, user_id, order_no, order_status, remark, order_end_time, buy_price, discount_price, 
+    logistics_price, present_price, pay_price, refund_price, pay_time, pay_transaction_id, 
+    pay_channel, delivery_type, delivery_time, receive_time, receiver_name, receiver_mobile, 
+    receiver_area_code, receiver_detail_address, after_sale_status, coupon_card_id
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update trade_order
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.userId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="order_no = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.orderNo,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="order_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.orderStatus,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="remark = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.remark,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="order_end_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.orderEndTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="buy_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.buyPrice,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="discount_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.discountPrice,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="logistics_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.logisticsPrice,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="present_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.presentPrice,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="pay_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.payPrice,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="refund_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.refundPrice,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="pay_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.payTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="pay_transaction_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.payTransactionId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="pay_channel = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.payChannel,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="delivery_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.deliveryType,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="delivery_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.deliveryTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="receive_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.receiveTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="receiver_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.receiverName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="receiver_mobile = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.receiverMobile,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="receiver_area_code = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.receiverAreaCode,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="receiver_detail_address = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.receiverDetailAddress,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="after_sale_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.afterSaleStatus,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="coupon_card_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.couponCardId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update trade_order
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.userId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.userId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="order_no = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.orderNo != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.orderNo,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="order_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.orderStatus != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.orderStatus,jdbcType=TINYINT}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="remark = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.remark != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.remark,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="order_end_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.orderEndTime != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.orderEndTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="buy_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.buyPrice != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.buyPrice,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="discount_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.discountPrice != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.discountPrice,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="logistics_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.logisticsPrice != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.logisticsPrice,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="present_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.presentPrice != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.presentPrice,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pay_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.payPrice != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.payPrice,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="refund_price = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.refundPrice != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.refundPrice,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pay_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.payTime != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.payTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pay_transaction_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.payTransactionId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.payTransactionId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pay_channel = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.payChannel != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.payChannel,jdbcType=TINYINT}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="delivery_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.deliveryType != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.deliveryType,jdbcType=TINYINT}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="delivery_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.deliveryTime != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.deliveryTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="receive_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.receiveTime != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.receiveTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="receiver_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.receiverName != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.receiverName,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="receiver_mobile = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.receiverMobile != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.receiverMobile,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="receiver_area_code = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.receiverAreaCode != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.receiverAreaCode,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="receiver_detail_address = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.receiverDetailAddress != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.receiverDetailAddress,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="after_sale_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.afterSaleStatus != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.afterSaleStatus,jdbcType=TINYINT}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="coupon_card_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.couponCardId != null">
+            when id = #{item.id,jdbcType=INTEGER} then #{item.couponCardId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into trade_order
+    (id, user_id, order_no, order_status, remark, order_end_time, buy_price, discount_price, 
+      logistics_price, present_price, pay_price, refund_price, pay_time, pay_transaction_id, 
+      pay_channel, delivery_type, delivery_time, receive_time, receiver_name, receiver_mobile, 
+      receiver_area_code, receiver_detail_address, after_sale_status, coupon_card_id)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.userId,jdbcType=INTEGER}, #{item.orderNo,jdbcType=VARCHAR}, 
+        #{item.orderStatus,jdbcType=TINYINT}, #{item.remark,jdbcType=VARCHAR}, #{item.orderEndTime,jdbcType=TIMESTAMP}, 
+        #{item.buyPrice,jdbcType=INTEGER}, #{item.discountPrice,jdbcType=INTEGER}, #{item.logisticsPrice,jdbcType=INTEGER}, 
+        #{item.presentPrice,jdbcType=INTEGER}, #{item.payPrice,jdbcType=INTEGER}, #{item.refundPrice,jdbcType=INTEGER}, 
+        #{item.payTime,jdbcType=TIMESTAMP}, #{item.payTransactionId,jdbcType=INTEGER}, 
+        #{item.payChannel,jdbcType=TINYINT}, #{item.deliveryType,jdbcType=TINYINT}, #{item.deliveryTime,jdbcType=TIMESTAMP}, 
+        #{item.receiveTime,jdbcType=TIMESTAMP}, #{item.receiverName,jdbcType=VARCHAR}, 
+        #{item.receiverMobile,jdbcType=VARCHAR}, #{item.receiverAreaCode,jdbcType=INTEGER}, 
+        #{item.receiverDetailAddress,jdbcType=VARCHAR}, #{item.afterSaleStatus,jdbcType=TINYINT}, 
+        #{item.couponCardId,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="cn.boot.st.tradeserver.dataobject.TradeOrder">
+    <!--@mbg.generated-->
+    insert into trade_order
+    (id, user_id, order_no, order_status, remark, order_end_time, buy_price, discount_price, 
+      logistics_price, present_price, pay_price, refund_price, pay_time, pay_transaction_id, 
+      pay_channel, delivery_type, delivery_time, receive_time, receiver_name, receiver_mobile, 
+      receiver_area_code, receiver_detail_address, after_sale_status, coupon_card_id)
+    values
+    (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, #{orderEndTime,jdbcType=TIMESTAMP}, 
+      #{buyPrice,jdbcType=INTEGER}, #{discountPrice,jdbcType=INTEGER}, #{logisticsPrice,jdbcType=INTEGER}, 
+      #{presentPrice,jdbcType=INTEGER}, #{payPrice,jdbcType=INTEGER}, #{refundPrice,jdbcType=INTEGER}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{payTransactionId,jdbcType=INTEGER}, #{payChannel,jdbcType=TINYINT}, 
+      #{deliveryType,jdbcType=TINYINT}, #{deliveryTime,jdbcType=TIMESTAMP}, #{receiveTime,jdbcType=TIMESTAMP}, 
+      #{receiverName,jdbcType=VARCHAR}, #{receiverMobile,jdbcType=VARCHAR}, #{receiverAreaCode,jdbcType=INTEGER}, 
+      #{receiverDetailAddress,jdbcType=VARCHAR}, #{afterSaleStatus,jdbcType=TINYINT}, 
+      #{couponCardId,jdbcType=INTEGER})
+    on duplicate key update 
+    id = #{id,jdbcType=INTEGER}, 
+    user_id = #{userId,jdbcType=INTEGER}, 
+    order_no = #{orderNo,jdbcType=VARCHAR}, 
+    order_status = #{orderStatus,jdbcType=TINYINT}, 
+    remark = #{remark,jdbcType=VARCHAR}, 
+    order_end_time = #{orderEndTime,jdbcType=TIMESTAMP}, 
+    buy_price = #{buyPrice,jdbcType=INTEGER}, 
+    discount_price = #{discountPrice,jdbcType=INTEGER}, 
+    logistics_price = #{logisticsPrice,jdbcType=INTEGER}, 
+    present_price = #{presentPrice,jdbcType=INTEGER}, 
+    pay_price = #{payPrice,jdbcType=INTEGER}, 
+    refund_price = #{refundPrice,jdbcType=INTEGER}, 
+    pay_time = #{payTime,jdbcType=TIMESTAMP}, 
+    pay_transaction_id = #{payTransactionId,jdbcType=INTEGER}, 
+    pay_channel = #{payChannel,jdbcType=TINYINT}, 
+    delivery_type = #{deliveryType,jdbcType=TINYINT}, 
+    delivery_time = #{deliveryTime,jdbcType=TIMESTAMP}, 
+    receive_time = #{receiveTime,jdbcType=TIMESTAMP}, 
+    receiver_name = #{receiverName,jdbcType=VARCHAR}, 
+    receiver_mobile = #{receiverMobile,jdbcType=VARCHAR}, 
+    receiver_area_code = #{receiverAreaCode,jdbcType=INTEGER}, 
+    receiver_detail_address = #{receiverDetailAddress,jdbcType=VARCHAR}, 
+    after_sale_status = #{afterSaleStatus,jdbcType=TINYINT}, 
+    coupon_card_id = #{couponCardId,jdbcType=INTEGER}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="cn.boot.st.tradeserver.dataobject.TradeOrder">
+    <!--@mbg.generated-->
+    insert into trade_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="orderEndTime != null">
+        order_end_time,
+      </if>
+      <if test="buyPrice != null">
+        buy_price,
+      </if>
+      <if test="discountPrice != null">
+        discount_price,
+      </if>
+      <if test="logisticsPrice != null">
+        logistics_price,
+      </if>
+      <if test="presentPrice != null">
+        present_price,
+      </if>
+      <if test="payPrice != null">
+        pay_price,
+      </if>
+      <if test="refundPrice != null">
+        refund_price,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="payTransactionId != null">
+        pay_transaction_id,
+      </if>
+      <if test="payChannel != null">
+        pay_channel,
+      </if>
+      <if test="deliveryType != null">
+        delivery_type,
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time,
+      </if>
+      <if test="receiveTime != null">
+        receive_time,
+      </if>
+      <if test="receiverName != null">
+        receiver_name,
+      </if>
+      <if test="receiverMobile != null">
+        receiver_mobile,
+      </if>
+      <if test="receiverAreaCode != null">
+        receiver_area_code,
+      </if>
+      <if test="receiverDetailAddress != null">
+        receiver_detail_address,
+      </if>
+      <if test="afterSaleStatus != null">
+        after_sale_status,
+      </if>
+      <if test="couponCardId != null">
+        coupon_card_id,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndTime != null">
+        #{orderEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyPrice != null">
+        #{buyPrice,jdbcType=INTEGER},
+      </if>
+      <if test="discountPrice != null">
+        #{discountPrice,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsPrice != null">
+        #{logisticsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="presentPrice != null">
+        #{presentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="payPrice != null">
+        #{payPrice,jdbcType=INTEGER},
+      </if>
+      <if test="refundPrice != null">
+        #{refundPrice,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTransactionId != null">
+        #{payTransactionId,jdbcType=INTEGER},
+      </if>
+      <if test="payChannel != null">
+        #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="deliveryType != null">
+        #{deliveryType,jdbcType=TINYINT},
+      </if>
+      <if test="deliveryTime != null">
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveTime != null">
+        #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverMobile != null">
+        #{receiverMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAreaCode != null">
+        #{receiverAreaCode,jdbcType=INTEGER},
+      </if>
+      <if test="receiverDetailAddress != null">
+        #{receiverDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="afterSaleStatus != null">
+        #{afterSaleStatus,jdbcType=TINYINT},
+      </if>
+      <if test="couponCardId != null">
+        #{couponCardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndTime != null">
+        order_end_time = #{orderEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyPrice != null">
+        buy_price = #{buyPrice,jdbcType=INTEGER},
+      </if>
+      <if test="discountPrice != null">
+        discount_price = #{discountPrice,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsPrice != null">
+        logistics_price = #{logisticsPrice,jdbcType=INTEGER},
+      </if>
+      <if test="presentPrice != null">
+        present_price = #{presentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="payPrice != null">
+        pay_price = #{payPrice,jdbcType=INTEGER},
+      </if>
+      <if test="refundPrice != null">
+        refund_price = #{refundPrice,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTransactionId != null">
+        pay_transaction_id = #{payTransactionId,jdbcType=INTEGER},
+      </if>
+      <if test="payChannel != null">
+        pay_channel = #{payChannel,jdbcType=TINYINT},
+      </if>
+      <if test="deliveryType != null">
+        delivery_type = #{deliveryType,jdbcType=TINYINT},
+      </if>
+      <if test="deliveryTime != null">
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveTime != null">
+        receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiverName != null">
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverMobile != null">
+        receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAreaCode != null">
+        receiver_area_code = #{receiverAreaCode,jdbcType=INTEGER},
+      </if>
+      <if test="receiverDetailAddress != null">
+        receiver_detail_address = #{receiverDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="afterSaleStatus != null">
+        after_sale_status = #{afterSaleStatus,jdbcType=TINYINT},
+      </if>
+      <if test="couponCardId != null">
+        coupon_card_id = #{couponCardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

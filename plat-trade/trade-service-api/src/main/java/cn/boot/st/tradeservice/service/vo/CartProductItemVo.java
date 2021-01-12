@@ -1,4 +1,4 @@
-package cn.boot.st.tradeservice.service.cart.bo;
+package cn.boot.st.tradeservice.service.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @Accessors(chain = true)
-public class CartProductItemBo {
+public class CartProductItemVo {
     /**
      * SKU 编号
      */

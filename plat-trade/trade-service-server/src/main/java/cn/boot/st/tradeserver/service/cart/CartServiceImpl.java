@@ -12,12 +12,12 @@ import cn.boot.st.tradeserver.enums.CartItemStatusEnum;
 import cn.boot.st.tradeserver.mapper.CartItemMapper;
 import cn.boot.st.tradeserver.remote.ProductFeignService;
 import cn.boot.st.tradeservice.service.cart.CartService;
-import cn.boot.st.tradeservice.service.cart.bo.CartProductItemBo;
-import cn.boot.st.tradeservice.service.cart.dto.CartAddDto;
-import cn.boot.st.tradeservice.service.cart.dto.CartQueryDto;
-import cn.boot.st.tradeservice.service.cart.dto.CartUpdateDto;
-import cn.boot.st.tradeservice.service.cart.dto.CartUpdateSelectDto;
-import cn.boot.st.tradeservice.service.cart.vo.CartInfoVo;
+import cn.boot.st.tradeservice.service.dto.CartAddDto;
+import cn.boot.st.tradeservice.service.dto.CartQueryDto;
+import cn.boot.st.tradeservice.service.dto.CartUpdateDto;
+import cn.boot.st.tradeservice.service.dto.CartUpdateSelectDto;
+import cn.boot.st.tradeservice.service.vo.CartInfoVo;
+import cn.boot.st.tradeservice.service.vo.CartProductItemVo;
 import cn.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,8 +96,9 @@ public class CartServiceImpl implements CartService {
             return null;
         }
         // 获取sku 信息
-        List<CartProductItemBo> productItemBos = CartConvert.INSTANCE.convert(cartItems);
-        Set<Integer> skuIds = productItemBos.stream().map(CartProductItemBo::getSkuId).collect(Collectors.toSet());
+        List<CartProductItemVo> productItemBos = CartConvert.INSTANCE.convert(cartItems);
+        Map<Integer, CartProductItemVo> itemVoMap = productItemBos.stream().collect(Collectors.toMap(CartProductItemVo::getSkuId, item -> item));
+        Set<Integer> skuIds = itemVoMap.keySet();
         CommonResult<List<ProductSkuRespVo>> skuInfoList = productFeignService.getSkuInfoList(
                 new ProductSkuListQueryReqDto().setProductSkuIds(skuIds)
                         .setFields(Arrays.asList(ProductSkuDetailFieldEnum.ATTR.getField(), ProductSkuDetailFieldEnum.SPU.getField()))
@@ -119,6 +120,8 @@ public class CartServiceImpl implements CartService {
             List<CartInfoVo.AttrValueInfo> attrValueInfos = CartConvert.INSTANCE.convertAttrList(productSkuRespVo.getAttrs());
             // sku信息
             CartInfoVo.Sku sku = CartConvert.INSTANCE.convert(productSkuRespVo);
+            CartProductItemVo cartItemVo = itemVoMap.get(sku.getId());
+            sku.setBuyQuantity(cartItemVo.getQuantity()).setSelected(cartItemVo.getSelected());
             CartInfoVo.Spu spu = CartConvert.INSTANCE.convert(productSkuRespVo.getSpu());
             return sku.setSpu(spu).setAttrValueIds(attrValueInfos);
         }).collect(Collectors.toList());

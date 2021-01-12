@@ -1,4 +1,4 @@
-package cn.boot.st.tradeservice.service.order.vo;
+package cn.boot.st.tradeservice.service.vo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

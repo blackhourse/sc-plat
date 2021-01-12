@@ -1,4 +1,4 @@
-package cn.boot.st.tradeservice.service.cart.dto;
+package cn.boot.st.tradeservice.service.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

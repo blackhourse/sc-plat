@@ -1,4 +1,4 @@
-package cn.boot.st.tradeservice.service.order.vo;
+package cn.boot.st.tradeservice.service.vo;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -8,14 +8,14 @@ import java.util.List;
 /**
  * @program: sc-plat
  * @author: maht
- * @create: 2021-01-11
+ * @create: 2021-01-07
  **/
 @Data
 @Accessors(chain = true)
-public class OrderConfirmCreateRespVo {
+public class CartInfoVo {
 
 
-    private ConfirmCreateFee fee;
+    private Fee fee;
 
     private List<Sku> skuList;
 
@@ -56,6 +56,11 @@ public class OrderConfirmCreateRespVo {
          * 库存数量
          */
         private Integer quantity;
+
+        /**
+         * 购买数量
+         */
+        private Integer buyQuantity;
 
         /**
          * 是否选中
@@ -149,5 +154,4 @@ public class OrderConfirmCreateRespVo {
         private Integer presentTotal;
 
     }
-
 }

@@ -4,9 +4,9 @@ import cn.boot.st.productservice.bo.ProductAttrKeyValueBO;
 import cn.boot.st.productservice.vo.sku.ProductSkuRespVo;
 import cn.boot.st.productservice.vo.spu.ProductSpuRespVO;
 import cn.boot.st.tradeserver.dataobject.CartItem;
-import cn.boot.st.tradeservice.service.cart.bo.CartProductItemBo;
-import cn.boot.st.tradeservice.service.cart.dto.CartAddDto;
-import cn.boot.st.tradeservice.service.cart.vo.CartInfoVo;
+import cn.boot.st.tradeservice.service.vo.CartProductItemVo;
+import cn.boot.st.tradeservice.service.dto.CartAddDto;
+import cn.boot.st.tradeservice.service.vo.CartInfoVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -25,7 +25,7 @@ public interface CartConvert {
 
     CartItem convert(CartAddDto bean);
 
-    List<CartProductItemBo> convert(List<CartItem> cartItems);
+    List<CartProductItemVo> convert(List<CartItem> cartItems);
 
     @Mapping(target = "attrValueIds", ignore = true)
     CartInfoVo.Sku convert(ProductSkuRespVo productSkuRespVo);

@@ -20,4 +20,7 @@ public interface TradeErrorCodeConstants {
     ErrorCode ORDER_PRODUCT_SKU_QUANTITY_NOT_ENOUGH = new ErrorCode(1005002001, "商品 SKU 库存不足！");
 
 
+    ErrorCode ORDER_GET_GOODS_INFO_INCORRECT = new ErrorCode(1005003001, "获取额商品信息不正确!");
+
+
 }

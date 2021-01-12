@@ -3,7 +3,7 @@ package cn.boot.st.tradeserver.convert;
 import cn.boot.st.productservice.bo.ProductAttrKeyValueBO;
 import cn.boot.st.productservice.vo.sku.ProductSkuRespVo;
 import cn.boot.st.productservice.vo.spu.ProductSpuRespVO;
-import cn.boot.st.tradeservice.service.order.vo.OrderConfirmCreateRespVo;
+import cn.boot.st.tradeservice.service.vo.OrderConfirmCreateRespVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

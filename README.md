@@ -19,7 +19,7 @@ sc-plat
        |----------- product-server 商品微服务
 |------plat-trade
        |----------- product-trade-api 交易api
-       |----------- product-server-server 交一微服务
+       |----------- product-server-server 交易微服务
 |------plat-security-server 认证中心
 ```
 

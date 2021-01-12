@@ -1,4 +1,4 @@
-package cn.boot.st.tradeservice.service.order.dto;
+package cn.boot.st.tradeservice.service.dto;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @ApiModel("基于商品创建订单确认信息 dto")
 public class TradeOrderConfirmCreateInfoReqDto {
+    @NotNull
+    private Integer userId;
     @NotNull
     private Integer skuId;
     @NotNull
