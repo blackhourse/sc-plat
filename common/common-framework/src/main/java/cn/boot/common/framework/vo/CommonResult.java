@@ -9,6 +9,8 @@ import org.springframework.util.Assert;
 
 import java.io.Serializable;
 
+import static cn.boot.common.framework.exception.enums.GlobalErrorCodeConstants.INTERNAL_SERVER_ERROR;
+
 /**
  * 通用返回
  *
@@ -53,6 +55,11 @@ public final class CommonResult<T> implements Serializable {
     public static <T> CommonResult<T> error(Integer code, String message) {
         return error(code, message, null);
     }
+
+    public static <T> CommonResult<T> error( String message) {
+        return error(INTERNAL_SERVER_ERROR.getCode(), message, null);
+    }
+
 
     public static <T> CommonResult<T> error(Integer code, String message, String detailMessage) {
         Assert.isTrue(!GlobalErrorCodeConstants.SUCCESS.getCode().equals(code), "code 必须是错误的！");

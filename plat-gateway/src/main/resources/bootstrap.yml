@@ -5,6 +5,12 @@ spring:
   # Application 的配置项
   application:
     name: gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # 获取JWT验签公钥请求路径
+          jwk-set-uri: 'http://localhost:10002/oauth/public_key'
   cloud:
     gateway:
       discovery:
@@ -20,7 +26,7 @@ spring:
         - id: security-server
           uri: lb://security-server
           predicates:
-            - Path=/auth/**
+            - Path=/security-server/**
           filters:
             - StripPrefix=1
         - id: plat-product
@@ -31,18 +37,10 @@ spring:
             - StripPrefix=1
   # Profile 的配置项
   profiles:
-    active: local
+    active: dev
   main:
     allow-bean-definition-overriding: true
-secure:
-  ignore:
-    urls: #配置白名单路径
-      - "/doc.html"
-      - "/swagger-resources/**"
-      - "/swagger/**"
-      - "/**/v2/api-docs"
-      - "/management-web/login/login"
-#      - "/auth/crateToken"
+
 logging:
   level:
     org.springframework:cloud.gateway: debug
@@ -61,8 +59,8 @@ feign:
         logger-level: FULL
   httpclient:
     enabled: true
-#  hystrix:
-#    enabled: true
+  #  hystrix:
+  #    enabled: true
   sentinel:
     enabled: true
 
@@ -79,3 +77,16 @@ redis:
     token: 'ums:token'
     access-token-expire-time-millis: 21600
     refresh-token-expire-time-millis: 43200 #
+
+# 配置白名单路径
+whitelist:
+  urls:
+    - "/security-server/oauth/token"
+    - "/security-server/oauth/public_key"
+    - "/v2/api-docs"
+    - "/swagger-resources/**"
+    - "/swagger/**"
+    - "/**/v2/api-docs"
+    - "/webjars/**"
+    - "/swagger-ui.html"
+    - "/doc.html"

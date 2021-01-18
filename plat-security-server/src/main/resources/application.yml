@@ -37,6 +37,7 @@ logging:
   level:
     cn.boot.st.securityserver.feign: DEBUG
 
+
 #启用 httpclient
 feign:
   # Feign 客户端配置，对应 FeignClientProperties 配置属性类
