@@ -6,14 +6,17 @@ import cn.boot.common.framework.enums.admin.AdminUsernameEnum;
 import cn.boot.common.framework.enums.role.RoleCodeEnum;
 import cn.boot.common.framework.exception.util.ServiceExceptionUtil;
 import cn.boot.common.framework.util.DigestUtils;
+import cn.boot.st.managementweb.controller.admin.vo.UserVo;
 import cn.boot.st.managementweb.convert.admin.AdminConvert;
 import cn.boot.st.managementweb.dataobject.domain.AdminDO;
+import cn.boot.st.managementweb.dataobject.domain.AdminRoleDO;
 import cn.boot.st.managementweb.dataobject.domain.RoleDO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminCreateDTO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateInfoDTO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateStatusDTO;
 import cn.boot.st.managementweb.mapper.admin.AdminMapper;
 import cn.boot.st.managementweb.mapper.admin.DepartmentMapper;
+import cn.boot.st.managementweb.mapper.role.AdminRoleMapper;
 import cn.boot.st.managementweb.mapper.role.RoleMapper;
 import cn.boot.st.managementweb.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.boot.st.managementweb.constants.ManageWebCodeConstants.*;
 
@@ -35,6 +39,9 @@ public class AdminServiceImpl implements AdminService {
     private DepartmentMapper departmentMapper;
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private AdminRoleMapper adminRoleMapper;
 
     @Override
     public AdminDO getById(Integer id) {
@@ -118,6 +125,23 @@ public class AdminServiceImpl implements AdminService {
             }
         }
         return Boolean.FALSE;
+    }
+
+    @Override
+    public UserVo getUserInfoByUserName(String userName) {
+        AdminDO adminDO = adminMapper.selectByUsername(userName);
+        if (adminDO == null) {
+            throw ServiceExceptionUtil.exception(ADMIN_USERNAME_NOT_EXISTS);
+        }
+        List<AdminRoleDO> adminRoleDOS = adminRoleMapper.selectListByAdminId(adminDO.getId());
+        UserVo userVo = new UserVo();
+        userVo.setId(Long.valueOf(adminDO.getId()));
+        userVo.setUsername(adminDO.getUsername());
+        userVo.setPassword(adminDO.getPassword());
+        userVo.setStatus(1);
+        List<Integer> roleIdList = adminRoleDOS.stream().map(AdminRoleDO::getRoleId).collect(Collectors.toList());
+        userVo.setRoles(roleIdList);
+        return userVo;
     }
 
     private String genPasswordSalt() {

@@ -1,32 +1,21 @@
 package cn.boot.st.managementweb.compoment;
 
+import cn.boot.common.framework.constant.AuthConstants;
 import cn.boot.common.framework.dataobject.dto.PermissionVo;
 import cn.boot.common.framework.dataobject.entity.PermissionEntityVO;
 import cn.boot.common.framework.util.StringUtils;
-import cn.boot.common.framework.util.URLConvertUtil;
 import cn.boot.st.managementweb.dataobject.domain.ResourceDO;
 import cn.boot.st.managementweb.dataobject.domain.RoleResourceDO;
 import cn.boot.st.managementweb.mapper.role.ResourceMapper;
 import cn.boot.st.managementweb.mapper.role.RoleResourceMapper;
 import cn.boot.st.redis.RedisService;
-import cn.boot.st.security.annotations.RequiresPermissions;
-import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -59,6 +48,8 @@ public class ResourcePermissionConfig implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
+        log.info("InitResourceRolesCacheRunner run");
+
         List<RoleResourceDO> roleResourceDOS = roleResourceMapper.selectList(null);
         if (roleResourceDOS.size() <= 0) {
             log.info("为找到角色资源");
@@ -81,13 +72,14 @@ public class ResourcePermissionConfig implements CommandLineRunner {
         while (iterator.hasNext()) {
             Map.Entry<Integer, List<Integer>> next = iterator.next();
             Integer key = next.getKey();
+            String prefix = AuthConstants.AUTHORITY_PREFIX + key;
             List<Integer> value = next.getValue();
             List<PermissionVo> permissionUrls = value.stream().filter(s -> collect.containsKey(s)).map(s -> {
                 PermissionVo permissionVo = new PermissionVo();
                 ResourceDO resourceDO = collect.get(s);
                 return permissionVo.setName(resourceDO.getName()).setUrl(resourceDO.getPermission());
             }).collect(Collectors.toList());
-            map.put(String.valueOf(key), permissionUrls);
+            map.put(prefix, permissionUrls);
         }
         redisService.del(PERSISTENCE_NAME);
         redisService.hmset(PERSISTENCE_NAME, map);

@@ -2,6 +2,7 @@ package cn.boot.st.gateway.filter;
 
 import cn.boot.common.framework.constant.AuthConstants;
 import cn.boot.common.framework.vo.CommonResult;
+import cn.boot.st.redis.RedisService;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -14,7 +15,6 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,14 +33,21 @@ import static cn.boot.st.gateway.constant.GatewayErrorCodeConstants.TOKEN_INVALI
  */
 @Component
 @Slf4j
-public class AuthFilter implements GlobalFilter, Ordered {
+public class AuthGlobalFilter implements GlobalFilter, Ordered {
+
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisService redisService;
+
+    @Override
+    public int getOrder() {
+        return 0;
+    }
 
     @SneakyThrows
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+
         String token = exchange.getRequest().getHeaders().getFirst(AuthConstants.JWT_TOKEN_HEADER);
         if (StrUtil.isBlank(token)) {
             return chain.filter(exchange);
@@ -52,9 +59,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
         // 黑名单token(登出、修改密码)校验
         JSONObject jsonObject = JSONUtil.parseObj(payload);
-        String jti = jsonObject.getStr("jti"); // JWT唯一标识
+        // JWT唯一标识
+        String jti = jsonObject.getStr("jti");
 
-        Boolean isBlack = redisTemplate.hasKey(AuthConstants.TOKEN_BLACKLIST_PREFIX + jti);
+        Boolean isBlack = redisService.hasKey(AuthConstants.TOKEN_BLACKLIST_PREFIX + jti);
         if (isBlack) {
             ServerHttpResponse response = exchange.getResponse();
             response.setStatusCode(HttpStatus.OK);
@@ -66,16 +74,14 @@ public class AuthFilter implements GlobalFilter, Ordered {
             DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(Charset.forName("UTF-8")));
             return response.writeWith(Mono.just(buffer));
         }
-
         ServerHttpRequest request = exchange.getRequest().mutate()
-                .header(AuthConstants.JWT_PAYLOAD_KEY, payload)
+                .headers(httpHeaders -> {
+                            httpHeaders.add(AuthConstants.JWT_PAYLOAD_KEY, payload);
+                            httpHeaders.add(AuthConstants.JWT_USER_ID_KEY, jsonObject.getStr(AuthConstants.JWT_USER_ID_KEY));
+                        }
+                )
                 .build();
         exchange = exchange.mutate().request(request).build();
         return chain.filter(exchange);
-    }
-
-    @Override
-    public int getOrder() {
-        return 0;
     }
 }

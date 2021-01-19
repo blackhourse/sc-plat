@@ -4,6 +4,7 @@ import cn.boot.common.framework.vo.CommonResult;
 import cn.boot.st.managementweb.controller.admin.dto.AdminCreateDTO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateInfoDTO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateStatusDTO;
+import cn.boot.st.managementweb.controller.admin.vo.UserVo;
 import cn.boot.st.managementweb.service.admin.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -56,6 +57,13 @@ public class AdminController {
     @ApiImplicitParam(name = "roleIds", value = "角色编号列表", required = true)
     public CommonResult<Boolean> hasSuperAdmin(@RequestParam("roleIds") Collection<Integer> roleIds) {
         return success(adminService.hasSuperAdmin(roleIds));
+    }
+
+    @GetMapping("/info/{userName}")
+    @ApiOperation("根据userId获取用户信息")
+    @ApiImplicitParam(name = "userId", value = "用户id 编号", required = true)
+    public CommonResult<UserVo> getUserInfoByUserName(@PathVariable("userName") String userName) {
+        return success(adminService.getUserInfoByUserName(userName));
     }
 
 

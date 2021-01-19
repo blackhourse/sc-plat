@@ -2,9 +2,12 @@ package cn.boot.st.securityserver.service;
 
 
 import cn.boot.common.framework.constant.AuthConstants;
+import cn.boot.common.framework.vo.CommonResult;
+import cn.boot.st.securityserver.api.ManagementwebFeignService;
 import cn.boot.st.securityserver.domain.User;
 import cn.boot.st.securityserver.domain.UserDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
@@ -23,8 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-//    private UserFeignService userFeignService;
-//    private MemberFeignService memberFeignService;
+
+    @Autowired
+    private ManagementwebFeignService userFeignService;
 
     private HttpServletRequest request;
 
@@ -33,18 +37,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String clientId = request.getParameter(AuthConstants.JWT_CLIENT_ID_KEY);
         User user = null;
         switch (clientId) {
-            case AuthConstants.ADMIN_CLIENT_ID: // 后台用户
-//                Result<UserDTO> userRes = userFeignService.loadUserByUsername(username, 2);
-//                if (ResultCode.USER_NOT_EXIST.getCode().equals(userRes.getCode())) {
-//                    throw new UsernameNotFoundException(ResultCode.USER_NOT_EXIST.getMsg());
-//                }
+            // 后台用户
+            case AuthConstants.ADMIN_CLIENT_ID:
+                CommonResult<UserDTO> userDTOCommonResult = userFeignService.getUserInfoByUserName(username);
+                userDTOCommonResult.checkError();
+                UserDTO resultData = userDTOCommonResult.getData();
+
                 UserDTO userDTO = new UserDTO()
-                        .setId(1L)
-                        .setUsername("admin")
-                        .setPassword("$2a$10$dLq3.pXNwTNqWabsRfJX4ej8Htk/vUWuHh.LvITq5BrU8u.dYvZpC")
+                        .setId(resultData.getId())
+                        .setUsername(resultData.getUsername())
+                        .setPassword(resultData.getPassword())
                         .setStatus(1)
-                        .setClientId("test");
-                userDTO.setClientId(clientId);
+                        .setRoles(resultData.getRoles())
+                        .setClientId(clientId);
                 user = new User(userDTO);
                 break;
         }

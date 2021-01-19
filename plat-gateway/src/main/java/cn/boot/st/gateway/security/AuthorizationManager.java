@@ -1,12 +1,13 @@
 package cn.boot.st.gateway.security;
 
 import cn.boot.common.framework.constant.AuthConstants;
-import cn.boot.st.gateway.config.WhiteListConfig;
+import cn.boot.common.framework.dataobject.dto.PermissionVo;
+import cn.boot.st.redis.RedisService;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -38,16 +39,16 @@ import java.util.Map;
 @Slf4j
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
 
-    private RedisTemplate redisTemplate;
-    private WhiteListConfig whiteListConfig;
+    @Autowired
+    private RedisService redisService;
+    private static final String PERSISTENCE_NAME = "PERSISTENCE_NAME";
+
 
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
         ServerHttpRequest request = authorizationContext.getExchange().getRequest();
         String path = request.getURI().getPath();
         PathMatcher pathMatcher = new AntPathMatcher();
-
-
         if (request.getURI().getPath().contains("/v2/api-docs")) {
             //放行
             return Mono.just(new AuthorizationDecision(true));
@@ -57,17 +58,14 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         if (request.getMethod() == HttpMethod.OPTIONS) {
             return Mono.just(new AuthorizationDecision(true));
         }
-
         // 2. token为空拒绝访问
         String token = request.getHeaders().getFirst(AuthConstants.JWT_TOKEN_HEADER);
         if (StrUtil.isBlank(token)) {
             return Mono.just(new AuthorizationDecision(false));
         }
-
         // 3.缓存取资源权限角色关系列表
-        Map<Object, Object> resourceRolesMap = redisTemplate.opsForHash().entries(AuthConstants.RESOURCE_ROLES_KEY);
+        Map<Object, Object> resourceRolesMap = redisService.hmget(PERSISTENCE_NAME);
         Iterator<Object> iterator = resourceRolesMap.keySet().iterator();
-
         // 4.请求路径匹配到的资源需要的角色权限集合authorities
         List<String> authorities = new ArrayList<>();
         while (iterator.hasNext()) {
@@ -81,14 +79,34 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
                 .flatMapIterable(Authentication::getAuthorities)
                 .map(GrantedAuthority::getAuthority)
                 .any(roleId -> {
-                    // 5. roleId是请求用户的角色(格式:ROLE_{roleId})，authorities是请求资源所需要角色的集合
+                    // 5. roleId是请求用户的角色(格式:ROLE_{roleId})，是请求资源所需要角色的集合
                     log.info("访问路径：{}", path);
                     log.info("用户角色roleId：{}", roleId);
-                    log.info("资源需要权限authorities：{}", authorities);
-                    return authorities.contains(roleId);
+                    return isPermitted(roleId, path);
                 })
                 .map(AuthorizationDecision::new)
                 .defaultIfEmpty(new AuthorizationDecision(false));
         return authorizationDecisionMono;
+    }
+
+
+    private boolean isPermitted(String roleId, String path) {
+        // 验证权限
+        Map<Object, Object> permissions = redisService.hmget(PERSISTENCE_NAME);
+        boolean containsKey = permissions.containsKey(roleId);
+        if (!containsKey) {
+            return false;
+        }
+        Object obj = permissions.get(roleId);
+        if (obj instanceof ArrayList<?>) {
+            for (Object o : (List<?>) obj) {
+                String url = PermissionVo.class.cast(o).getUrl();
+                if (path.contains(url)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
     }
 }

@@ -64,6 +64,9 @@ public class ResourceController {
     @ApiOperation("获得资源列表")
     @ApiImplicitParam(name = "resourceIds", value = "资源编号列表", required = true)
     public CommonResult<List<ResourceVO>> listResources(@RequestParam("resourceIds") List<Integer> resourceIds) {
+
+        Integer adminId = AdminSecurityContextHolder.getAdminId();
+        System.out.println("adminId" + adminId);
         return success(resourceService.listResources(resourceIds));
     }
 

@@ -72,21 +72,6 @@ public class AuthController {
 
         return CommonResult.success(oauth2Token);
     }
-//
-//    @DeleteMapping("/logout")
-//    public Result logout() {
-//        JSONObject jsonObject = WebUtils.getJwtPayload();
-//        String jti = jsonObject.getStr("jti"); // JWT唯一标识
-//        long exp = jsonObject.getLong("exp"); // JWT过期时间戳
-//
-//        long currentTimeSeconds = System.currentTimeMillis() / 1000;
-//
-//        if (exp < currentTimeSeconds) { // token已过期，无需加入黑名单
-//            return Result.success();
-//        }
-//        redisTemplate.opsForValue().set(AuthConstants.TOKEN_BLACKLIST_PREFIX + jti, null, (exp - currentTimeSeconds), TimeUnit.SECONDS);
-//        return Result.success();
-//    }
 
 
     @GetMapping("/public_key")

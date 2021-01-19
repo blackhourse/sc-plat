@@ -39,4 +39,5 @@ public interface AdminRoleMapper extends BaseMapper<AdminRoleDO> {
      */
     int insertList(@Param("adminRoleDOs") List<AdminRoleDO> adminRoleDOs);
 
+
 }

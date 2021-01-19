@@ -1,5 +1,6 @@
 package cn.boot.st.managementweb.service.admin;
 
+import cn.boot.st.managementweb.controller.admin.vo.UserVo;
 import cn.boot.st.managementweb.dataobject.domain.AdminDO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminCreateDTO;
 import cn.boot.st.managementweb.controller.admin.dto.AdminUpdateInfoDTO;
@@ -33,5 +34,7 @@ public interface AdminService {
      * @return
      */
     Boolean hasSuperAdmin(Collection<Integer> roleIds);
+
+    UserVo getUserInfoByUserName(String userName);
 
 }
