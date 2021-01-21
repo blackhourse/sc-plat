@@ -1,0 +1,4 @@
+GET {{baseUrl}}/admin/info/15136212594
+Accept: application/json
+
+###
