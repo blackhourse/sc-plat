@@ -45,8 +45,6 @@ public class SwaggerAuthConfiguration {
         // header query cookie
         parameterBuilder.name("Authorization").description("token").modelRef(new ModelRef("string")).parameterType("header").required(false);
         pars.add(parameterBuilder.build());
-        parameterBuilder.name("clientType").description("用户类型").modelRef(new ModelRef("string")).parameterType("header").required(false);
-        pars.add(parameterBuilder.build());
         return pars;
     }
 

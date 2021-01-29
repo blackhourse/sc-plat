@@ -10,7 +10,7 @@ public interface ServiceNameConstants {
     /**
      * 用户权限服务
      */
-    String MANAGEMENT_WEB_SERVICE = "management-web";
+    String MANAGEMENT_WEB_SERVICE = "system";
     /**
      * 认证中心
      */

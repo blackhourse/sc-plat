@@ -3,7 +3,6 @@ package cn.boot.st.gateway.security;
 import cn.boot.common.framework.constant.AuthConstants;
 import cn.boot.common.framework.dataobject.dto.PermissionVo;
 import cn.boot.st.redis.RedisService;
-import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,6 @@ import org.springframework.util.PathMatcher;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -58,22 +56,15 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         if (request.getMethod() == HttpMethod.OPTIONS) {
             return Mono.just(new AuthorizationDecision(true));
         }
+
+
         // 2. token为空拒绝访问
         String token = request.getHeaders().getFirst(AuthConstants.JWT_TOKEN_HEADER);
         if (StrUtil.isBlank(token)) {
             return Mono.just(new AuthorizationDecision(false));
         }
         // 3.缓存取资源权限角色关系列表
-        Map<Object, Object> resourceRolesMap = redisService.hmget(PERSISTENCE_NAME);
-        Iterator<Object> iterator = resourceRolesMap.keySet().iterator();
         // 4.请求路径匹配到的资源需要的角色权限集合authorities
-        List<String> authorities = new ArrayList<>();
-        while (iterator.hasNext()) {
-            String pattern = (String) iterator.next();
-            if (pathMatcher.match(pattern, path)) {
-                authorities.addAll(Convert.toList(String.class, resourceRolesMap.get(pattern)));
-            }
-        }
         Mono<AuthorizationDecision> authorizationDecisionMono = mono
                 .filter(Authentication::isAuthenticated)
                 .flatMapIterable(Authentication::getAuthorities)

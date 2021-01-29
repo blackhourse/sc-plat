@@ -11,6 +11,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -38,6 +39,9 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     @Autowired
     private RedisService redisService;
+    @Value("${spring.application.name}")
+    private String applicationName;
+
 
     @Override
     public int getOrder() {
@@ -48,10 +52,18 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
+
+        //判断是否为swagger的请求,放行swagger请求
+        if (exchange.getRequest().getURI().getPath().contains("/v2/api-docs")) {
+            //放行
+            return chain.filter(exchange);
+        }
+
         String token = exchange.getRequest().getHeaders().getFirst(AuthConstants.JWT_TOKEN_HEADER);
         if (StrUtil.isBlank(token)) {
             return chain.filter(exchange);
         }
+
         token = token.replace(AuthConstants.JWT_TOKEN_PREFIX, Strings.EMPTY);
         JWSObject jwsObject = JWSObject.parse(token);
         String payload = jwsObject.getPayload().toString();

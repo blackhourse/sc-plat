@@ -16,13 +16,13 @@
     <modules>
         <module>common</module>
         <module>plat-dependencies</module>
-        <module>management-web</module>
         <module>plat-security-server</module>
         <module>plat-gateway</module>
         <module>plat-product</module>
         <module>springboot-demo</module>
         <module>plat-trade</module>
         <module>plat-system</module>
+        <module>sc-protal-app</module>
     </modules>
 
 
