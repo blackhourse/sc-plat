@@ -1,6 +1,9 @@
 package cn.boot.st.redis;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
@@ -341,7 +344,7 @@ public class RedisService {
      * @return
      * @Description hash递增 如果不存在,就会创建一个 并把新增后的值返回
      */
-    public double hincr(String key, String item, double by) {
+    public Long hincr(String key, String item, int by) {
         return redisTemplate.opsForHash().increment(key, item, by);
     }
 
@@ -682,8 +685,13 @@ public class RedisService {
      * @return
      * @Description 查询value对应的score   zscore
      */
-    public Double zScore(String key, String value) {
-        return redisTemplate.opsForZSet().score(key, value);
+    public Long zScore(String key, String value) {
+        Long result = null;
+        Double score = redisTemplate.opsForZSet().score(key, value);
+        if (score != null) {
+            result = redisTemplate.opsForZSet().score(key, value).longValue();
+        }
+        return result;
     }
 
 
@@ -749,6 +757,32 @@ public class RedisService {
     public Set<Object> zSortRange(String key, int min, int max) {
         return redisTemplate.opsForZSet().rangeByScore(key, min, max);
     }
+
+
+    public void setBit(String key, String ip) {
+        String[] segments = ip.split(".");
+        for (int i = 0; i < segments.length; i++) {
+            int finalI = i;
+            redisTemplate.execute(new RedisCallback<Void>() {
+                @Override
+                public Void doInRedis(RedisConnection connection) throws DataAccessException {
+                    connection.setBit((key + "_" + finalI).getBytes(), Integer.valueOf(segments[finalI]), true);
+                    return null;
+                }
+            });
+
+        }
+    }
+
+    public boolean getBit(String key, Integer val) {
+        return redisTemplate.execute(new RedisCallback<Boolean>() {
+            @Override
+            public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.getBit(key.getBytes(), val);
+            }
+        });
+    }
+
 
     /**
      * 分布式加锁是否成功
