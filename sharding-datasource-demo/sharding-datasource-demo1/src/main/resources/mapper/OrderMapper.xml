@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sharding.datasource.mapper.OrderMapper">
+
+    <sql id="FIELDS">
+        id, user_id
+    </sql>
+
+    <select id="selectById" parameterType="Integer" resultType="com.sharding.datasource.dataobject.OrderDO">
+        SELECT
+            <include refid="FIELDS" />
+        FROM orders
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectListByUserId" parameterType="Integer" resultType="com.sharding.datasource.dataobject.OrderDO">
+        SELECT
+            <include refid="FIELDS" />
+        FROM orders
+        WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insert" parameterType="com.sharding.datasource.dataobject.OrderDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO orders (
+            user_id
+        ) VALUES (
+            #{userId}
+        )
+    </insert>
+
+
+  <select id="selectUserOrderInfo" resultType="com.sharding.datasource.dataobject.UserOrderVo">
+    select user.id as useId,user.name as username,user.pwd,orders.id as orderId
+     from user
+    left join orders on orders.user_id = user.id
+
+    </select>
+
+</mapper>

@@ -23,6 +23,7 @@
         <module>plat-trade</module>
         <module>plat-system</module>
         <module>sc-protal-app</module>
+        <module>sharding-datasource-demo</module>
     </modules>
 
 
