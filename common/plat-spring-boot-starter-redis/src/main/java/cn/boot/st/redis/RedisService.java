@@ -1,9 +1,7 @@
 package cn.boot.st.redis;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.HyperLogLogOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
@@ -686,7 +684,7 @@ public class RedisService {
      * @Description 查询value对应的score   zscore
      */
     public Long zScore(String key, String value) {
-        Long result = null;
+        Long result = 0L;
         Double score = redisTemplate.opsForZSet().score(key, value);
         if (score != null) {
             result = redisTemplate.opsForZSet().score(key, value).longValue();
@@ -758,29 +756,14 @@ public class RedisService {
         return redisTemplate.opsForZSet().rangeByScore(key, min, max);
     }
 
-
-    public void setBit(String key, String ip) {
-        String[] segments = ip.split(".");
-        for (int i = 0; i < segments.length; i++) {
-            int finalI = i;
-            redisTemplate.execute(new RedisCallback<Void>() {
-                @Override
-                public Void doInRedis(RedisConnection connection) throws DataAccessException {
-                    connection.setBit((key + "_" + finalI).getBytes(), Integer.valueOf(segments[finalI]), true);
-                    return null;
-                }
-            });
-
-        }
+    public Long addHyperLogLogOperations(String key, String value) {
+        HyperLogLogOperations<String, Object> hyperLogLog = redisTemplate.opsForHyperLogLog();
+        return hyperLogLog.add(key, value);
     }
 
-    public boolean getBit(String key, Integer val) {
-        return redisTemplate.execute(new RedisCallback<Boolean>() {
-            @Override
-            public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-                return connection.getBit(key.getBytes(), val);
-            }
-        });
+    public Long getHyperLogLogOperationsSize(String Key) {
+        HyperLogLogOperations<String, Object> hyperLogLog = redisTemplate.opsForHyperLogLog();
+        return hyperLogLog.size(Key);
     }
 
 

@@ -25,4 +25,6 @@ public class VisitReqDTO {
      * 访问的URI
      */
     private String uri;
+
+    private Integer userId;
 }
