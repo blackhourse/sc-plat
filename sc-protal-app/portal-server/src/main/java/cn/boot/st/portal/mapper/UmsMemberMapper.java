@@ -1,6 +1,5 @@
 package cn.boot.st.portal.mapper;
 
-import cn.boot.st.portal.dataobject.UmsMember;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;

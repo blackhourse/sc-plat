@@ -75,10 +75,6 @@
             <groupId>cn.boot.st</groupId>
             <artifactId>plat-spring-boot-starter-redis</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
-        </dependency>
         <!-- 短信平台 阿里云、云片 -->
         <dependency>
             <groupId>com.yunpian.sdk</groupId>
@@ -90,6 +86,13 @@
             <artifactId>aliyun-java-sdk-core</artifactId>
             <version>4.1.0</version>
         </dependency>
+        <!--quartz-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
+
     </dependencies>
     <build>
         <!-- 设置构建的 jar 包名 -->

@@ -3,7 +3,7 @@ package cn.boot.st.portal.service.impl;
 import cn.boot.common.framework.constant.PortalConstants;
 import cn.boot.common.framework.exception.util.ServiceException;
 import cn.boot.st.portal.convert.UmsMemberConvert;
-import cn.boot.st.portal.dataobject.UmsMember;
+import cn.boot.st.portal.mapper.UmsMember;
 import cn.boot.st.portal.mapper.UmsMemberMapper;
 import cn.boot.st.portal.service.LoginService;
 import cn.boot.st.portal.vo.UmsLoginCodeVo;

@@ -1,6 +1,6 @@
 package cn.boot.st.portal.convert;
 
-import cn.boot.st.portal.dataobject.UmsMember;
+import cn.boot.st.portal.mapper.UmsMember;
 import cn.boot.st.portal.vo.UmsMemberLoginVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

@@ -58,4 +58,10 @@ public class HomeController {
         return CommonResult.success(homeService.getTopNRanks(n));
     }
 
+    @GetMapping("like")
+    public CommonResult<List<RankDO>> like(Integer n) {
+        return CommonResult.success(homeService.getTopNRanks(n));
+    }
+
+
 }

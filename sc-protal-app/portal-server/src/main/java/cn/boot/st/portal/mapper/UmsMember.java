@@ -1,4 +1,4 @@
-package cn.boot.st.portal.dataobject;
+package cn.boot.st.portal.mapper;
 
 import cn.boot.st.mybatis.core.dataobject.BaseDO;
 import java.io.Serializable;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.UmsMemberMapper">
-  <resultMap id="BaseResultMap" type="cn.boot.st.portal.dataobject.UmsMember">
+  <resultMap id="BaseResultMap" type="cn.boot.st.portal.mapper.UmsMember">
     <!--@mbg.generated-->
     <!--@Table ums_member-->
     <id column="id" jdbcType="BIGINT" property="id" />
@@ -42,7 +42,7 @@
     delete from ums_member
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.portal.dataobject.UmsMember" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.portal.mapper.UmsMember" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into ums_member (member_level_id, username, `password`, 
       nickname, phone, `status`, 
@@ -57,7 +57,7 @@
       #{sourceType,jdbcType=INTEGER}, #{integration,jdbcType=INTEGER}, #{growth,jdbcType=INTEGER}, 
       #{luckeyCount,jdbcType=INTEGER}, #{historyIntegration,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.portal.dataobject.UmsMember" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.portal.mapper.UmsMember" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into ums_member
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -173,7 +173,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.boot.st.portal.dataobject.UmsMember">
+  <update id="updateByPrimaryKeySelective" parameterType="cn.boot.st.portal.mapper.UmsMember">
     <!--@mbg.generated-->
     update ums_member
     <set>
@@ -234,7 +234,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.boot.st.portal.dataobject.UmsMember">
+  <update id="updateByPrimaryKey" parameterType="cn.boot.st.portal.mapper.UmsMember">
     <!--@mbg.generated-->
     update ums_member
     set member_level_id = #{memberLevelId,jdbcType=BIGINT},
@@ -374,7 +374,7 @@
         #{item.historyIntegration,jdbcType=INTEGER})
     </foreach>
   </insert>
-  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.portal.dataobject.UmsMember" useGeneratedKeys="true">
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.portal.mapper.UmsMember" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into ums_member
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -449,7 +449,7 @@
       history_integration = #{historyIntegration,jdbcType=INTEGER},
     </trim>
   </insert>
-  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.portal.dataobject.UmsMember" useGeneratedKeys="true">
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="cn.boot.st.portal.mapper.UmsMember" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into ums_member
     <trim prefix="(" suffix=")" suffixOverrides=",">

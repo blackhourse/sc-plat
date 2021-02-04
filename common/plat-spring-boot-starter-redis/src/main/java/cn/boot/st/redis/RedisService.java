@@ -1,9 +1,7 @@
 package cn.boot.st.redis;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.HyperLogLogOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -372,6 +370,13 @@ public class RedisService {
         return redisTemplate.opsForHash().increment(key, item, -by);
     }
 
+
+
+    public Cursor<Map.Entry<Object, Object>> hscan(String key, ScanOptions options){
+       return  redisTemplate.opsForHash().scan(key, options);
+
+
+    }
 
     // ============================set=============================
 

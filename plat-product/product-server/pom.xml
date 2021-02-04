@@ -47,10 +47,10 @@
         </dependency>
 
         <!-- Web 相关 -->
-          <dependency>
-              <groupId>cn.boot.st</groupId>
-              <artifactId>plat-spring-boot-starter-swagger</artifactId>
-          </dependency>
+        <dependency>
+            <groupId>cn.boot.st</groupId>
+            <artifactId>plat-spring-boot-starter-swagger</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>cn.boot.st</groupId>
@@ -89,6 +89,14 @@
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.boot.st</groupId>
+            <artifactId>plat-spring-boot-starter-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
         </dependency>
     </dependencies>
     <build>
